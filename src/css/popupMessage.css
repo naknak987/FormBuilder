@@ -1,0 +1,79 @@
+/** USAGE
+<div class="popup">
+    <span class="popuptext" id="successPopup">
+    <br>Successfully saved your changes!<br><br>
+    </span>
+</div>
+<script>
+    document.getElementById("successPopup").classList.toggle("show");
+    document.getElementById("successPopup").scrollIntoView(true);
+    setTimeout(function(){ 
+        document.getElementById("successPopup").classList.toggle("show"); 
+    }, 8000);
+</script>
+
+
+
+/* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    /*display: inline-block;*/
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: rgb(62, 64, 82);
+    color: rgb(233, 190, 190);/*
+    font-weight: bold;*/
+    text-align: center;
+    border-radius: 6px;
+    border: 2px solid darkred;
+    padding: 8px 0;
+    position: fixed;
+    z-index: 1;
+    bottom: 50%;
+    left: 50%;
+    margin-left: -150px;
+}
+.popuptext-empst {
+    margin-left:0 !important;
+    bottom: 125%;
+    left:0 !important;
+}
+
+/* // Popup arrow 
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: darkred transparent transparent transparent;
+} */
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Form Builder</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/tempusdominus-bootstrap-4.min.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <style>
+        html,
+        body {
+            background: rgb(200,200,200);
+            height: 100%;
+        }
+        .card-header {
+            background: rgb(230,230,230);
+        }
+        .card-body {
+            background: rgb(254,254,254);
+            height: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="src/css/formbuilder.css">
+    <link rel="stylesheet" href="src/css/elementrequired.css">
+    <link rel="stylesheet" href="src/css/popupMessage.css">
+    <script src="src/js/formbuilder.js"></script>
+    <script src="src/js/formelements.js"></script>
+    <script src="src/js/elementrequired.js"></script>
+    <script>
+        window.onload = function(e) {
+            var body = document.getElementsByTagName("body")[0];
+            body.addEventListener("drop", deleteElement, event);
+            body.addEventListener("dragover", allowDrop, event);
+        }
+    </script>
+</head>
+<body>
+
+<div class="setup-element">
+    <div class="setup-area p-5" id="set-element"></div>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col">
+            <div class="popup">
+                <p class="popuptext" id="Errors"></p>
+            </div>
+            <div class="card-header">
+                Form Builder
+            </div>
+            <div class="card-body">
+                <p>
+                    Welcome to the form builder.<br>Please note that any dashed lines will not be displayed on the final form. 
+                    They're only here to help you place elements where you mean to place them.
+                </p>
+                <label for="form-name">Form Name:</label>
+                <input type="text" class="form-control" id="form-name">
+                <br>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card-header">
+                            Drag and Drop Form Elements Below
+                        </div>
+                        <div id="form-area" class="card-body form-area" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-header">
+                            Form Elements
+                        </div>
+                        <div class="card-body element-area border">
+                            <h4 id="title" draggable="true" ondragstart="drag(event)">Title</h4>
+                            <p id="text-block" draggable="true" ondragstart="drag(event)">Text Block</p>
+                            <h6 id="label" draggable="true" ondragstart="drag(event)">Label</h6>
+                            <div class="pb-1">
+                                <input type="text" name="textbox" id="text-box" class="form-control" draggable="true" ondragstart="drag(event)" placeholder="text box">
+                            </div>
+                            <!-- <div class="pb-2">
+                                <div id="blank-space" style="height:12pt;" draggable="true" ondragstart="drag(event)">Blank Space</div>
+                            </div> -->
+                            <div id="checkbox" draggable="true" ondragstart="drag(event)">
+                                <input type="checkbox" name="checkbox" value="A Checkbox">A Checkbox
+                            </div>
+                            <div id="radiobutton" draggable="true" ondragstart="drag(event)">
+                                <input type="radio" name="radio" value="A Radio Button">A Radio Button
+                            </div>
+                            <div id="selectbox-container" draggable="true" ondragstart="drag(event)">
+                                <div class="selector-button" id="selectbox-button" onclick="trigger('selectbox')">A Dropdown<span class="chevron bottom"></span></div>
+                                <div id="selectbox" class="selector p-0 m-0">
+                                    <div class="option" onclick="selected(this, 'selectbox-button', 'selectbox')">Option A</div>
+                                    <div class="option" onclick="selected(this, 'selectbox-button', 'selectbox')">Option B</div>
+                                </div>
+                            </div>
+                            <textarea name="textarea" id="textarea" cols="30" rows="2" class="form-control mt-2 mb-2" draggable="true" ondragstart="drag(event)">Text Area</textarea>
+                            <div id="datepickerCon" draggable="true" ondragstart="drag(event)">
+                                <input type="text" class="form-control datetimepicker-input mb-2" id="datepicker" data-toggle="datetimepicker" data-target="#datepicker" placeholder="Pick a Date"/>
+                            </div>
+                            <div id="timepickerCon" draggable="true" ondragstart="drag(event)">
+                                <input type="text" class="form-control datetimepicker-input mb-2" id="timepicker" data-toggle="datetimepicker" data-target="#timepicker" placeholder="Pick a Time"/>
+                            </div>
+                            <div class="custom-file" draggable="true" ondragstart="drag(event)">
+                                <input type="file" class="custom-file-input" id="attachment" accept="image/*,.doc,.docx,.xls,.xlsx,.pdf">
+                                <label class="custom-file-label" for="attachment">Choose file...</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2 mb-3">
+        <div class="col-2 offset-5">
+            <button type="button" class="btn btn-primary form-control" onclick="SaveForm()">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function SaveForm() 
+    {
+        var data = ExportForm();
+        if (data != false) {
+            // Upload to remote server. 
+        }
+    }
+</script>
+
+</body>
+
+</html>

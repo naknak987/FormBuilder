@@ -1,0 +1,70 @@
+.form-area {
+    border: solid thin rgb(230,230,230);
+    height: 100%;
+}
+.form-area .row {
+    border: 3px dashed lightgray;
+    border-radius: 4px;
+    padding: 1px 12px 12px 1px;
+}
+.form-area .row .col {
+    border: 3px dashed lightgray;
+    border-radius: 4px;
+    padding: 1px 12px 12px 1px;
+}
+.element-area {
+    border: sold thin rgb(230,230,230);
+    height: 100%;
+}
+/* Popup container - can be anything you want */
+.setup-element {
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* The actual popup */
+.setup-element .setup-area {
+    visibility: hidden;
+    width: 80%;
+    background-color: #555;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: fixed;
+    z-index: 1;
+    top: 100px;
+    left: 10%;
+}
+
+@media (max-width: 767px) {
+    .setup-element .setup-area {
+        padding: 4px !important;
+    }
+}
+
+/* Toggle this class - hide and show the popup */
+.setup-element .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+.close:before {
+    content: 'X';
+    color: #fff;
+    font-weight: 300;
+    font-family: Arial, sans-serif;
+}

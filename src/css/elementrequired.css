@@ -1,0 +1,64 @@
+.selector-button {
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 2px;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid lightgray;
+    box-shadow: none;
+    color: rgb(121, 121, 121);
+    padding: 5px 12px 5px 12px;
+}
+
+.selector {
+    display: none;
+    width: 100%;
+    margin: 0;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    color: rgb(121, 121, 121);
+}
+
+.selector.show {
+    display: inline-block;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+.option {
+    cursor: pointer;
+    margin-bottom: 2px;
+    width: 100%;
+    padding: 5px 0px 5px 12px;
+}
+
+.chevron::before {
+	border-style: solid;
+    border-width: 0.25em 0.25em 0 0;
+    border-radius:3px;
+	content: '';
+	display: block;
+	position: relative;
+    transform: rotate(-45deg);
+    float: right;
+    top: -4px;
+	width: 14px;
+    height: 14px;
+}
+
+.chevron.right:before {
+	left: 0;
+	transform: rotate(45deg);
+}
+
+.chevron.bottom:before {
+	top: 4px;
+	transform: rotate(135deg);
+}
+
+.chevron.left:before {
+	left: 0.25em;
+	transform: rotate(-135deg);
+}
