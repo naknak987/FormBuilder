@@ -1,2 +1,2 @@
 # FormBuilder
-A basic form building tool compatible with bootstrap 4. 
+A basic drag and drop form building tool compatible with bootstrap 4. 
