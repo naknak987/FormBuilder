@@ -1,3 +1,7 @@
+label {
+    overflow: hidden !important;
+}
+
 .selector-button {
     cursor: pointer;
     width: 100%;
