@@ -70,6 +70,7 @@ function drop(ev, el) {
 }
 
 function rowDrop(ev, el) {
+    el.style.padding = '1px 12px 12px 1px';
     ev.stopPropagation();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
@@ -85,6 +86,7 @@ function rowDrop(ev, el) {
 }
 
 function colDrop(ev, el) {
+    el.style.padding = '1px 12px 12px 1px';
     ev.stopPropagation();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
