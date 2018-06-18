@@ -254,6 +254,8 @@ function setupDatePicker(datepickerConEl) {
     script.type = 'text/javascript';
     script.text = '$(function () { $(\'#datepicker' + datepickerCNT + '\').datetimepicker({ format: \'L\' }); });';
     datepickerConEl.appendChild(script);
+
+    datepickerDef[datepickerCNT] = {'name':datepickerEl.id,'type':'date'};
 }
 
 function setupTimePicker(timepickerConEl) {
@@ -266,6 +268,8 @@ function setupTimePicker(timepickerConEl) {
     script.type = 'text/javascript';
     script.text = '$(function () { $(\'#timepicker' + timepickerCNT + '\').datetimepicker({ format: \'LT\' }); });';
     timepickerConEl.appendChild(script);
+
+    timepickerDef[timepickerCNT] = {'name':timepickerEl.id, 'type':'time'};
 }
 
 function setupAttachment(attachmentConEl) {
@@ -278,4 +282,6 @@ function setupAttachment(attachmentConEl) {
     attachmentEl.value = '';
     
     attachmentEl.onchange = function(){document.getElementById(attachmentLabel.id).innerHTML = this.value.split("\\").pop();};
+
+    attachmentDef[attachmentCNT] = {'name':'file', 'type':'data'}
 }

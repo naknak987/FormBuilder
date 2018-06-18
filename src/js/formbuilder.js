@@ -266,6 +266,9 @@ function ExportForm() {
                 'checkbox':checkboxDef,
                 'radiobutton':radiobuttonDef,
                 'selectbox':selectboxDef,
+                'dates':datepickerDef,
+                'times':timepickerDef,
+                'attachments':attachmentDef,
             }
         };
         return JSON.stringify(retVal);
