@@ -246,6 +246,7 @@ function setupTextArea(textAreaEl)
 
 function setupDatePicker(datepickerConEl) {
     datepickerEl = datepickerConEl.children[0];
+    datepickerEl.value = '';
     datepickerEl.dataset.target = datepickerEl.dataset.target + datepickerCNT;
     datepickerEl.id = datepickerEl.id + datepickerCNT;
 
@@ -257,6 +258,7 @@ function setupDatePicker(datepickerConEl) {
 
 function setupTimePicker(timepickerConEl) {
     timepickerEl = timepickerConEl.children[0];
+    timepickerEl.value = '';
     timepickerEl.dataset.target = timepickerEl.dataset.target + timepickerCNT;
     timepickerEl.id = timepickerEl.id + timepickerCNT;
 
