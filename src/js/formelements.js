@@ -245,7 +245,7 @@ function setupTextArea(textAreaEl)
 }
 
 function setupDatePicker(datepickerConEl) {
-    datepickerEl = datepickerConEl.children[0];
+    var datepickerEl = datepickerConEl.children[0];
     datepickerEl.value = '';
     datepickerEl.dataset.target = datepickerEl.dataset.target + datepickerCNT;
     datepickerEl.id = datepickerEl.id + datepickerCNT;
@@ -257,7 +257,7 @@ function setupDatePicker(datepickerConEl) {
 }
 
 function setupTimePicker(timepickerConEl) {
-    timepickerEl = timepickerConEl.children[0];
+    var timepickerEl = timepickerConEl.children[0];
     timepickerEl.value = '';
     timepickerEl.dataset.target = timepickerEl.dataset.target + timepickerCNT;
     timepickerEl.id = timepickerEl.id + timepickerCNT;
@@ -266,4 +266,16 @@ function setupTimePicker(timepickerConEl) {
     script.type = 'text/javascript';
     script.text = '$(function () { $(\'#timepicker' + timepickerCNT + '\').datetimepicker({ format: \'LT\' }); });';
     timepickerConEl.appendChild(script);
+}
+
+function setupAttachment(attachmentConEl) {
+    var attachmentEl = attachmentConEl.children[0];
+    var attachmentLabel = attachmentConEl.children[1];
+
+    attachmentEl.id = attachmentEl.id + attachmentCNT;
+    attachmentLabel.id = attachmentLabel.id + attachmentCNT;
+    attachmentLabel.htmlFor = attachmentEl.id;
+    attachmentEl.value = '';
+    
+    attachmentEl.onchange = function(){document.getElementById(attachmentLabel.id).innerHTML = this.value.split("\\").pop();};
 }

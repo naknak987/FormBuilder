@@ -16,6 +16,8 @@ var datepickerCNT = 0;
 var datepickerDef = {};
 var timepickerCNT = 0;
 var timepickerDef = {};
+var attachmentCNT = 0;
+var attachmentDef = {};
 var row = '<div class="row" style="width:100%;margin-bottom:6px;" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
 var col = '<div class="col" style="height:100%;" id="colNum" ondrop="colDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
 var rowCNT = 0;
@@ -33,6 +35,7 @@ var elements = [
     'textarea',
     'datepickerCon',
     'timepickerCon',
+    'attachmentCon',
 ];
 
 function allowDrop(ev) {
@@ -176,10 +179,15 @@ function insert(parEl, chiEl) {
             break;
         case 'timepickerCon':
             timepickerCNT += 1;
-            chiEl.id = chiEl.id + timepickerCNT
+            chiEl.id = chiEl.id + timepickerCNT;
             setupTimePicker(chiEl);
             parEl.appendChild(chiEl);
             break;
+        case 'attachmentCon':
+            attachmentCNT += 1;
+            chiEl.id = chiEl.id + attachmentCNT;
+            setupAttachment(chiEl);
+            parEl.appendChild(chiEl);
         default:
             //;
             break;
