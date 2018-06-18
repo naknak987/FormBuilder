@@ -1,0 +1,33 @@
+{
+  "name": "formbuilder",
+  "version": "1.0.0",
+  "description": "A drag and drop formbuider compatible with bootstrap 4",
+  "main": "index.html",
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1",
+    "moment": "^2.22.2",
+    "popper.js": "^1.14.3",
+    "tempusdominus-bootstrap-4": "git+https://github.com/tempusdominus/bootstrap-4.git"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naknak987/FormBuilder.git"
+  },
+  "keywords": [
+    "drag",
+    "drop",
+    "form",
+    "builder"
+  ],
+  "author": "Matthew Goheen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/naknak987/FormBuilder/issues"
+  },
+  "homepage": "https://github.com/naknak987/FormBuilder#readme"
+}
