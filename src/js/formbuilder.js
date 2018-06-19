@@ -118,6 +118,34 @@ function deleteElement(ev) {
             CurrentEl.remove();
         }
     }
+    ElType = data.replace(/\d+/g, '');
+    ElNumber = data.replace(/\D/g, '');
+    switch (ElType) {
+        case 'text-box':
+            delete textboxDef[ElNumber];
+            break;
+        case 'checkbox':
+            delete checkboxDef[ElNumber];
+            break;
+        case 'radiobutton':
+            delete radiobuttonDef[ElNumber];
+            break;
+        case 'selectbox-container':
+            delete selectboxDef[ElNumber];
+            break;
+        case 'textarea':
+            delete textareaDef[ElNumber];
+            break;
+        case 'datepickerCon':
+            delete datepickerDef[ElNumber];
+            break;
+        case 'timepickerCon':
+            delete timepickerDef[ElNumber];
+            break;
+        case 'attachmentCon':
+            delete attachmentDef[ElNumber];
+            break;
+    }
 }
 
 function insert(parEl, chiEl) {
