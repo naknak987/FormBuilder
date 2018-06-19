@@ -250,7 +250,24 @@ function ClosePopup(CurrentEl) {
 }
 
 function ExportForm() {
-    var formHTML = document.getElementById('form-area').innerHTML;
+    var formAreaEl = document.getElementById('form-area');
+    var rowEls = formAreaEl.getElementsByClassName('row');
+    for (var i = 0; i < rowEls.length; i++) {
+        rowEls[i].removeAttribute('style');
+        rowEls[i].removeAttribute('ondrop');
+        rowEls[i].removeAttribute('ondragover');
+        rowEls[i].removeAttribute('ondragenter');
+        rowEls[i].removeAttribute('ondragleave');
+    }
+    var colEls = formAreaEl.getElementsByClassName('col');
+    for (var i = 0; i < colEls.length; i++) {
+        colEls[i].removeAttribute('style');
+        colEls[i].removeAttribute('ondrop');
+        colEls[i].removeAttribute('ondragover');
+        colEls[i].removeAttribute('ondragenter');
+        colEls[i].removeAttribute('ondragleave');
+    }
+    var formHTML = formAreaEl.innerHTML;
     while (formHTML.includes(' draggable="true"'))
     {
         formHTML = formHTML.replace(' draggable="true"', '');
@@ -258,26 +275,6 @@ function ExportForm() {
     while (formHTML.includes(' ondragstart="drag(event)"'))
     {
         formHTML = formHTML.replace(' ondragstart="drag(event)"', '');
-    }
-    while (formHTML.includes(' ondrop="rowDrop(event, this)" ondragover="allowDrop(event)"'))
-    {
-        formHTML = formHTML.replace(' ondrop="rowDrop(event, this)" ondragover="allowDrop(event)"', '');
-    }
-    while (formHTML.includes(' ondrop="colDrop(event, this)" ondragover="allowDrop(event)"'))
-    {
-        formHTML = formHTML.replace(' ondrop="colDrop(event, this)" ondragover="allowDrop(event)"', '');
-    }
-    while (formHTML.includes(' ondragenter="this.style.padding=\'1px 24px 24px 1px\'"'))
-    {
-        formHTML = formHTML.replace(' ondragenter="this.style.padding=\'1px 24px 24px 1px\'"', '');
-    }
-    while (formHTML.includes(' ondragleave="this.style.padding=\'1px 12px 12px 1px\'"'))
-    {
-        formHTML = formHTML.replace(' ondragleave="this.style.padding=\'1px 12px 12px 1px\'"', '');
-    }
-    while (formHTML.includes(' style="height:100%;"'))
-    {
-        formHTML = formHTML.replace(' style="height:100%;"', '');
     }
     var formName = document.getElementById('form-name').value;
     var popup = document.getElementById('Errors');
