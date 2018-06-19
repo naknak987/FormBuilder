@@ -161,7 +161,7 @@ function setBlankSpace(blankID) {
 }
 
 function setupSelectBox(selectContainer) {
-    selectboxDef[selectboxCNT] = {'containerID':selectContainer.id,'type':'string','size':200};
+    selectboxDef[selectboxCNT] = {'name':selectContainer.id,'type':'string','size':200};
     var selectBTN = selectContainer.children[0];
     var selector = selectContainer.children[1];
     selectBTN.id = selectBTN.id + selectboxCNT;
