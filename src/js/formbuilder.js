@@ -51,22 +51,22 @@ function drop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
+    ev.target.insertAdjacentHTML('beforeend', row);
+    var newRow = document.getElementById('rowNum');
+    rowCNT += 1;
+    newRow.id = newRow.id + rowCNT;
+
+    newRow.insertAdjacentHTML('beforeend', col);
+    var newCol = document.getElementById('colNum');
+    colCNT += 1;
+    newCol.id = newCol.id + colCNT;
+
     if (elements.indexOf(data) != -1) {
-
-        ev.target.insertAdjacentHTML('beforeend', row);
-        var newRow = document.getElementById('rowNum');
-        rowCNT += 1;
-        newRow.id = newRow.id + rowCNT;
-
-        newRow.insertAdjacentHTML('beforeend', col);
-        var newCol = document.getElementById('colNum');
-        colCNT += 1;
-        newCol.id = newCol.id + colCNT;
-        
         var ClonedEl = document.getElementById(data).cloneNode(true);
-        
-        insert(newCol, ClonedEl);
+    } else {
+        var ClonedEl = document.getElementById(data);
     }
+    insert(newCol, ClonedEl);
 }
 
 function rowDrop(ev, el) {
@@ -80,8 +80,11 @@ function rowDrop(ev, el) {
     colCNT += 1;
     newCol.id = newCol.id + colCNT;
 
-    var ClonedEl = document.getElementById(data).cloneNode(true);
-    
+    if (elements.indexOf(data) != -1) {
+        var ClonedEl = document.getElementById(data).cloneNode(true);
+    } else {
+        var ClonedEl = document.getElementById(data);
+    }
     insert(newCol, ClonedEl);
 }
 
@@ -95,8 +98,11 @@ function colDrop(ev, el) {
         dataEl = dataEl.parentNode;
     }
 
-    var ClonedEl = document.getElementById(data).cloneNode(true);
-    
+    if (elements.indexOf(data) != -1) {
+        var ClonedEl = document.getElementById(data).cloneNode(true);
+    } else {
+        var ClonedEl = document.getElementById(data);
+    }
     insert(dataEl, ClonedEl);
 }
 
@@ -191,7 +197,13 @@ function insert(parEl, chiEl) {
             setupAttachment(chiEl);
             parEl.appendChild(chiEl);
         default:
-            //;
+            parentEl = chiEl.parentNode;
+            parEl.appendChild(chiEl);
+            while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
+                var CurrentEl = parentEl;
+                parentEl = parentEl.parentNode;
+                CurrentEl.remove();
+            }
             break;
     }
 }
