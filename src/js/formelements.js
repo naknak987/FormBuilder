@@ -169,7 +169,8 @@ function setupSelectBox(selectContainer) {
     while (selector.firstChild) {
         selector.removeChild(selector.firstChild);
     }
-    selectBTN.onclick = function() { trigger(selector.id); };
+    selectBTN.removeAttribute('onclick');
+    selectBTN.setAttribute('onclick', 'trigger(\'' + selector.id + '\')');
 
     var popup = document.getElementById('set-element');
     popup.innerHTML = ""
@@ -281,7 +282,7 @@ function setupAttachment(attachmentConEl) {
     attachmentLabel.htmlFor = attachmentEl.id;
     attachmentEl.value = '';
     
-    attachmentEl.onchange = function(){document.getElementById(attachmentLabel.id).innerHTML = this.value.split("\\").pop();};
+    attachmentEl.setAttribute('onchange', 'function(){document.getElementById(\'' + attachmentLabel.id + '\').innerHTML = this.value.split("\\").pop();}');
 
     attachmentDef[attachmentCNT] = {'name':'file', 'type':'data'}
 }
