@@ -254,13 +254,14 @@ function setupDatePicker(datepickerConEl) {
     datepickerEl.value = '';
     datepickerEl.dataset.target = datepickerEl.dataset.target + datepickerCNT;
     datepickerEl.id = datepickerEl.id + datepickerCNT;
+    datepickerEl.setAttribute('name', datepickerEl.id);
 
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.text = '$(function () { $(\'#datepicker' + datepickerCNT + '\').datetimepicker({ format: \'L\' }); });';
     datepickerConEl.appendChild(script);
 
-    datepickerDef[datepickerCNT] = {'name':datepickerEl.id,'type':'date'};
+    datepickerDef[datepickerCNT] = {'name':datepickerEl.name,'type':'date'};
 }
 
 function setupTimePicker(timepickerConEl) {
@@ -268,13 +269,14 @@ function setupTimePicker(timepickerConEl) {
     timepickerEl.value = '';
     timepickerEl.dataset.target = timepickerEl.dataset.target + timepickerCNT;
     timepickerEl.id = timepickerEl.id + timepickerCNT;
+    timepickerEl.setAttribute('name', timepickerEl.id);
 
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.text = '$(function () { $(\'#timepicker' + timepickerCNT + '\').datetimepicker({ format: \'LT\' }); });';
     timepickerConEl.appendChild(script);
 
-    timepickerDef[timepickerCNT] = {'name':timepickerEl.id, 'type':'time'};
+    timepickerDef[timepickerCNT] = {'name':timepickerEl.name, 'type':'time'};
 }
 
 function setupAttachment(attachmentConEl) {
@@ -282,11 +284,12 @@ function setupAttachment(attachmentConEl) {
     var attachmentLabel = attachmentConEl.children[1];
 
     attachmentEl.id = attachmentEl.id + attachmentCNT;
+    attachmentEl.setAttribute('name', attachmentEl.id);
     attachmentLabel.id = attachmentLabel.id + attachmentCNT;
     attachmentLabel.htmlFor = attachmentEl.id;
     attachmentEl.value = '';
     
     attachmentEl.setAttribute('onchange', 'document.getElementById(\'' + attachmentLabel.id + '\').innerHTML = this.value.split(\'\\\').pop();');
 
-    attachmentDef[attachmentCNT] = {'name':'file', 'type':'data'}
+    attachmentDef[attachmentCNT] = {'name':attachmentEl.name, 'type':'data'}
 }
