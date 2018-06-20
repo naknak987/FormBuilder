@@ -230,7 +230,7 @@ function setSelectOption(selectorId, addAnother = true) {
     var selector = document.getElementById(selectorId);
     var newOption = document.createElement('div');
     newOption.classList.add('option');
-    newOption.onclick = function(){ selected(this, 'selectbox-button' + selectboxCNT, 'selectbox' + selectboxCNT); };
+    newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
     newOption.innerHTML = option.value;
     selector.appendChild(newOption);
     option.value = "";
