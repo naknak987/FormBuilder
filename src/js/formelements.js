@@ -161,13 +161,13 @@ function setBlankSpace(blankID) {
 }
 
 function setupSelectBox(selectContainer) {
-    selectboxDef[selectboxCNT] = {'name':selectContainer.id,'type':'string','size':200};
     var selectBTN = selectContainer.children[0];
     var selectInput = selectContainer.children[1];
     var selector = selectContainer.children[2];
     selectBTN.id = selectBTN.id + selectboxCNT;
     selectInput.id = selectInput.id + selectboxCNT;
     selectInput.setAttribute('name', selectInput.id);
+    selectboxDef[selectboxCNT] = {'name':selectInput.name,'type':'string','size':200};
     selector.id = selector.id + selectboxCNT;
     while (selector.firstChild) {
         selector.removeChild(selector.firstChild);
@@ -245,6 +245,7 @@ function setSelectOption(selectorId, addAnother = true) {
 
 function setupTextArea(textAreaEl)
 {
+    textAreaEl.name = textAreaEl.name + textareaCNT;
     textAreaEl[textareaCNT] = {'name':textAreaEl.name,'type':'text','size':65535};
 }
 
