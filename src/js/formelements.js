@@ -163,8 +163,11 @@ function setBlankSpace(blankID) {
 function setupSelectBox(selectContainer) {
     selectboxDef[selectboxCNT] = {'name':selectContainer.id,'type':'string','size':200};
     var selectBTN = selectContainer.children[0];
-    var selector = selectContainer.children[1];
+    var selectInput = selectContainer.children[1];
+    var selector = selectContainer.children[2];
     selectBTN.id = selectBTN.id + selectboxCNT;
+    selectInput.id = selectInput.id + selectboxCNT;
+    selectInput.setAttribute('name', selectInput.id);
     selector.id = selector.id + selectboxCNT;
     while (selector.firstChild) {
         selector.removeChild(selector.firstChild);
@@ -230,7 +233,7 @@ function setSelectOption(selectorId, addAnother = true) {
     var selector = document.getElementById(selectorId);
     var newOption = document.createElement('div');
     newOption.classList.add('option');
-    newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
+    newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
     newOption.innerHTML = option.value;
     selector.appendChild(newOption);
     option.value = "";
@@ -282,7 +285,7 @@ function setupAttachment(attachmentConEl) {
     attachmentLabel.htmlFor = attachmentEl.id;
     attachmentEl.value = '';
     
-    attachmentEl.setAttribute('onchange', 'function(){document.getElementById(\'' + attachmentLabel.id + '\').innerHTML = this.value.split("\\").pop();}');
+    attachmentEl.setAttribute('onchange', 'document.getElementById(\'' + attachmentLabel.id + '\').innerHTML = this.value.split(\'\\\').pop();');
 
     attachmentDef[attachmentCNT] = {'name':'file', 'type':'data'}
 }

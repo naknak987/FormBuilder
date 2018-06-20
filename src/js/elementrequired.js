@@ -6,8 +6,9 @@ function trigger(list) {
     document.getElementById(list).classList.toggle('show');
 }
 
-function selected(selected, button, items) {
+function selected(selected, button, inputElId, items) {
     document.getElementById(button).innerHTML = selected.innerHTML + '<span class="chevron bottom"></span>';
+    document.getElementById(inputElId).value = selected.innerHTML;
     trigger(items);
 }
 
