@@ -289,7 +289,7 @@ function setupAttachment(attachmentConEl) {
     attachmentLabel.htmlFor = attachmentEl.id;
     attachmentEl.value = '';
     
-    attachmentEl.setAttribute('onchange', 'document.getElementById(\'' + attachmentLabel.id + '\').innerHTML = this.value.split(\'\\\').pop();');
+    attachmentEl.setAttribute('onchange', 'document.getElementById(\'' + attachmentLabel.id + '\').innerHTML = this.value.split(\'\\\\\').pop();');
 
     attachmentDef[attachmentCNT] = {'name':attachmentEl.name, 'type':'data'}
 }
