@@ -302,6 +302,7 @@ function ExportForm() {
                 'textbox':textboxDef,
                 'checkbox':checkboxDef,
                 'radiobutton':radiobuttonDef,
+                'textarea':textareaDef,
                 'selectbox':selectboxDef,
                 'dates':datepickerDef,
                 'times':timepickerDef,
