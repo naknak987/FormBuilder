@@ -197,8 +197,7 @@ function setupSelectBox(selectContainer) {
 
 function setSelectBoxName(selectBtnId, selectorId) {
     btnEl = document.getElementById(selectBtnId);
-    selectboxDef[selectboxCNT]['name'] = document.getElementById('selectName').value;
-    btnEl.innerHTML = selectboxDef[selectboxCNT]['name'] + '<span class="chevron bottom"></span>';
+    btnEl.innerHTML = document.getElementById('selectName').value + '<span class="chevron bottom"></span>';
     if (document.getElementById('allowdefault').checked) {
         selectboxDef[selectboxCNT]['allowdefault'] = true;
     } else {
