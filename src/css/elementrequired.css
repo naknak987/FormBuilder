@@ -66,3 +66,36 @@ label {
 	left: 0.25em;
 	transform: rotate(-135deg);
 }
+
+.fa::before {
+	border-style: solid;
+    border-width: 0.25em 0.25em 0 0;
+    border-radius:3px;
+	content: '';
+	display: block;
+	position: relative;
+    transform: rotate(-45deg);
+    float: right;
+    top: 22px;
+    left: -20px;
+	width: 14px;
+    height: 14px;
+}
+
+.fa.fa-arrow-down:before {
+	transform: rotate(135deg);
+    left: -20px;
+    top: 16px;
+}
+
+.fa.fa-chevron-left:before {
+	transform: rotate(-135deg);
+    top: -2px;
+    left: 0px;
+}
+
+.fa.fa-chevron-right:before {
+	transform: rotate(45deg);
+    top: -2px;
+    left: -4px;
+}
