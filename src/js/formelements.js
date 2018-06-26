@@ -133,7 +133,7 @@ function setupBlankSpace(blankEl) {
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
     + ' <div class="col-12">'
-    + '     <div class="close" onclick="ClosePopup(\'' + blankEL.id + '\')"></div>'
+    + '     <div class="close" onclick="ClosePopup(\'' + blankEl.id + '\')"></div>'
     + '     <h4>Setup Blank Space</h4>'
     + '     <br>'
     + '     <p>This would be the height of the blank space in points. Kinda like how fonts are measured. (ex. 12 point font)<p>'
@@ -155,7 +155,7 @@ function setupBlankSpace(blankEl) {
 
 function setBlankSpace(blankID) {
     var blankSpace = document.getElementById(blankID);
-    blankSpace.innerHTML = "";
+    blankSpace.innerHTML = '<i style="color:lightgray;">This space intentionally left blank!</i>';
     blankSpace.style.height = document.getElementById("size-BlankSpace").value;
     document.getElementById("set-element").classList.toggle("show"); 
 }
