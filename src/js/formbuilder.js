@@ -276,6 +276,10 @@ function ExportForm() {
     {
         formHTML = formHTML.replace(' ondragstart="drag(event)"', '');
     }
+    while (formHTML.includes('<i style="color:lightgray;">This space intentionally left blank!</i>'))
+    {
+        formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
+    }
     var formName = document.getElementById('form-name').value;
     var popup = document.getElementById('Errors');
     if (formName == '') {
