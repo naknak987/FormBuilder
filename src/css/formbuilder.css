@@ -6,11 +6,30 @@
     border: 3px dashed lightgray;
     border-radius: 4px;
     padding: 1px 12px 12px 1px;
+    margin-bottom:6px;
 }
 .form-area .row .col {
     border: 3px dashed lightgray;
     border-radius: 4px;
     padding: 1px 12px 12px 1px;
+    height:100%;
+}
+.emptyrow {
+    border: 3px dashed lightgray;
+    border-radius: 4px;
+    padding: 1px 12px 12px 1px;
+    height:20px;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.emptycol {
+    border: 3px dashed lightgray;
+    border-radius: 4px;
+    padding: 1px 12px 12px 1px;
+    width:20px;
 }
 .element-area {
     border: sold thin rgb(230,230,230);
