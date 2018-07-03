@@ -267,7 +267,6 @@ function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
     var rowEls = formAreaEl.getElementsByClassName('row');
     for (var i = 0; i < rowEls.length; i++) {
-        rowEls[i].removeAttribute('style');
         rowEls[i].removeAttribute('ondrop');
         rowEls[i].removeAttribute('ondragover');
         rowEls[i].removeAttribute('ondragenter');
@@ -275,7 +274,6 @@ function ExportForm() {
     }
     var colEls = formAreaEl.getElementsByClassName('col');
     for (var i = 0; i < colEls.length; i++) {
-        colEls[i].removeAttribute('style');
         colEls[i].removeAttribute('ondrop');
         colEls[i].removeAttribute('ondragover');
         colEls[i].removeAttribute('ondragenter');
