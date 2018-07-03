@@ -18,8 +18,8 @@ var timepickerCNT = 0;
 var timepickerDef = {};
 var attachmentCNT = 0;
 var attachmentDef = {};
-var row = '<div class="row" style="width:100%;margin-bottom:6px;" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
-var col = '<div class="col" style="height:100%;" id="colNum" ondrop="colDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
+var row = '<div class="row" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
+var col = '<div class="col" id="colNum" ondrop="colDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
 var rowCNT = 0;
 var colCNT = 0;
 
@@ -55,6 +55,20 @@ function drop(ev, el) {
     var newRow = document.getElementById('rowNum');
     rowCNT += 1;
     newRow.id = newRow.id + rowCNT;
+    newRow.classList.toggle('row');
+    newRow.classList.toggle('emptyrow');
+
+    ev.target.insertAdjacentHTML('beforeend', row);
+    var newRow = document.getElementById('rowNum');
+    rowCNT += 1;
+    newRow.id = newRow.id + rowCNT;
+
+    newRow.insertAdjacentHTML('beforeend', col);
+    var newCol = document.getElementById('colNum');
+    colCNT += 1;
+    newCol.id = newCol.id + colCNT;
+    newCol.classList.toggle('col');
+    newCol.classList.toggle('emptycol');
 
     newRow.insertAdjacentHTML('beforeend', col);
     var newCol = document.getElementById('colNum');
