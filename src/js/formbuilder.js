@@ -19,7 +19,9 @@ var timepickerDef = {};
 var attachmentCNT = 0;
 var attachmentDef = {};
 var row = '<div class="row" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
+var emptyrow = '<div class="emptyrow" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
 var col = '<div class="col" id="colNum" ondrop="colDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
+var emptycol = '<div class="emptycol" id="colNum" ondrop="colDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
 var rowCNT = 0;
 var colCNT = 0;
 
@@ -38,6 +40,20 @@ var elements = [
     'attachmentCon',
 ];
 
+function incrementRowNum() {
+    var newRow = document.getElementById('rowNum');
+    rowCNT += 1;
+    newRow.id = newRow.id + rowCNT;
+    return newRow;
+}
+
+function incrementColNum() {
+    var newCol = document.getElementById('colNum');
+    colCNT += 1;
+    newCol.id = newCol.id + colCNT;
+    return newCol
+}
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -51,29 +67,17 @@ function drop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    ev.target.insertAdjacentHTML('beforeend', row);
-    var newRow = document.getElementById('rowNum');
-    rowCNT += 1;
-    newRow.id = newRow.id + rowCNT;
-    newRow.classList.toggle('row');
-    newRow.classList.toggle('emptyrow');
+    ev.target.insertAdjacentHTML('beforeend', emptyrow);
+    incrementRowNum();
 
     ev.target.insertAdjacentHTML('beforeend', row);
-    var newRow = document.getElementById('rowNum');
-    rowCNT += 1;
-    newRow.id = newRow.id + rowCNT;
+    var newRow = incrementRowNum();
+
+    newRow.insertAdjacentHTML('beforeend', emptycol);
+    incrementColNum();
 
     newRow.insertAdjacentHTML('beforeend', col);
-    var newCol = document.getElementById('colNum');
-    colCNT += 1;
-    newCol.id = newCol.id + colCNT;
-    newCol.classList.toggle('col');
-    newCol.classList.toggle('emptycol');
-
-    newRow.insertAdjacentHTML('beforeend', col);
-    var newCol = document.getElementById('colNum');
-    colCNT += 1;
-    newCol.id = newCol.id + colCNT;
+    var newCol = incrementColNum();
 
     if (elements.indexOf(data) != -1) {
         var ClonedEl = document.getElementById(data).cloneNode(true);
@@ -84,15 +88,24 @@ function drop(ev, el) {
 }
 
 function rowDrop(ev, el) {
+    if (el.classList.contains('emptyrow')) {
+        el.insertAdjacentHTML('beforebegin', emptyrow);
+        incrementRowNum();
+        el.insertAdjacentHTML('afterend', emptyrow);
+        incrementRowNum();
+        el.classList.toggle('emptyrow');
+        el.classList.toggle('row');
+    }
     el.style.padding = '1px 12px 12px 1px';
     ev.stopPropagation();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
+    ev.target.insertAdjacentHTML('beforeend', emptycol);
+    incrementColNum();
+
     ev.target.insertAdjacentHTML('beforeend', col);
-    var newCol = document.getElementById('colNum');
-    colCNT += 1;
-    newCol.id = newCol.id + colCNT;
+    var newCol = incrementColNum();
 
     if (elements.indexOf(data) != -1) {
         var ClonedEl = document.getElementById(data).cloneNode(true);
@@ -103,6 +116,20 @@ function rowDrop(ev, el) {
 }
 
 function colDrop(ev, el) {
+    if (el.classList.contains('emptycol')) {
+        var elBefore = el.previousSibling;
+        if ((elBefore === null) || (elBefore.classList.contains('col'))) {
+            el.insertAdjacentHTML('beforebegin', emptycol);
+            incrementColNum();
+        }
+        var nextEl = el.nextSibling;
+        if (nextEl !== null) {
+            el.insertAdjacentHTML('afterend', emptycol);
+            incrementColNum();
+        }
+        el.classList.toggle('emptycol');
+        el.classList.toggle('col');
+    }
     el.style.padding = '1px 12px 12px 1px';
     ev.stopPropagation();
     ev.preventDefault();
@@ -129,6 +156,9 @@ function deleteElement(ev) {
         while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
             var CurrentEl = parentEl;
             parentEl = parentEl.parentNode;
+            if (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
+                CurrentEl.previousSibling.remove();
+            }
             CurrentEl.remove();
         }
     }
@@ -244,6 +274,9 @@ function insert(parEl, chiEl) {
             while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
                 var CurrentEl = parentEl;
                 parentEl = parentEl.parentNode;
+                if (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
+                    CurrentEl.previousSibling.remove();
+                }
                 CurrentEl.remove();
             }
             break;
