@@ -24,12 +24,14 @@
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
+    margin-bottom:6px;
 }
 .emptycol {
     border: 3px dashed lightgray;
     border-radius: 4px;
     padding: 1px 12px 12px 1px;
     width:20px;
+    margin-right:2px;
 }
 .element-area {
     border: sold thin rgb(230,230,230);
