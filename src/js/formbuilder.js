@@ -296,6 +296,32 @@ function ClosePopup(CurrentEl) {
     document.getElementById('set-element').classList.toggle("show");
 }
 
+function hideHelpers() {
+    var formAreaEl = document.getElementById('form-area');
+    var emptyRows = formAreaEl.getElementsByClassName('emptyrow');
+    for (var i = 0; i < emptyRows.length; i++) {
+        emptyRows[i].classList.toggle('hideempty');
+    }
+    var emptyCols = formAreaEl.getElementsByClassName('emptycol');
+    for (var i = 0; i < emptyCols.length; i++) {
+        emptyCols[i].classList.toggle('hideempty');
+    }
+    var rowEls = formAreaEl.getElementsByClassName('row');
+    for (var i = 0; i < rowEls.length; i++) {
+        rowEls[i].classList.toggle('nohelpers');
+    }
+    var colEls = formAreaEl.getElementsByClassName('col');
+    for (var i = 0; i < colEls.length; i++) {
+        colEls[i].classList.toggle('nohelpers');
+    }
+    var helperBTN = document.getElementById('helpers');
+    if (helperBTN.innerText == "Hide Helpers") {
+        helperBTN.innerText = "Show Helpers";
+    } else {
+        helperBTN.innerText = "Hide Helpers";
+    }
+}
+
 function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
     var emptyRows = formAreaEl.getElementsByClassName('emptyrow');
