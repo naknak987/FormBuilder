@@ -107,7 +107,7 @@ function setupRadioButton(radioEl) {
         + '     <br>'
         + '     <p class="justify-content-md-start">The button text/value will be beside the radio button. The name of the button will not be seen.'
         + '     As an example, if two radio buttons have the same name, you may only select one of them.<br>The button names are case sensitive.'
-        + '     "Question1" is not they same as "question1"</p>'
+        + '     "Question1" is not the same as "question1"</p>'
         + '     <br>'
         + '     <h6>Example Buttons: Both Named "Bob"</h6>'
         + '     <input type="radio" name="Bob" value="I\'m Bob">I\'m Bob<br>'
