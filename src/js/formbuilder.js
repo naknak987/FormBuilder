@@ -298,6 +298,14 @@ function ClosePopup(CurrentEl) {
 
 function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
+    var emptyRows = formAreaEl.getElementsByClassName('emptyrow');
+    for (var i = 0; i < emptyRows.length; i++) {
+        emptyRows[i].remove();
+    }
+    var emptyCols = formAreaEl.getElementsByClassName('emptycol');
+    for (var i = 0; i < emptyCols.length; i++) {
+        emptyCols[i].remove();
+    }
     var rowEls = formAreaEl.getElementsByClassName('row');
     for (var i = 0; i < rowEls.length; i++) {
         rowEls[i].removeAttribute('ondrop');
