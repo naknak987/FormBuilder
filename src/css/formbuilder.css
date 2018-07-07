@@ -67,6 +67,7 @@
     z-index: 3;
     top: 100px;
     left: 10%;
+    overflow: auto;
 }
 
 @media (max-width: 767px) {
