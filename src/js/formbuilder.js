@@ -18,6 +18,7 @@ var timepickerCNT = 0;
 var timepickerDef = {};
 var attachmentCNT = 0;
 var attachmentDef = {};
+var dispHelpers = false;
 var row = '<div class="row" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
 var emptyrow = '<div class="emptyrow" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
 var col = '<div class="col" id="colNum" ondrop="colDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
@@ -44,6 +45,13 @@ function incrementRowNum() {
     var newRow = document.getElementById('rowNum');
     rowCNT += 1;
     newRow.id = newRow.id + rowCNT;
+    if (dispHelpers === true) {
+        if (newRow.classList.contains('emptyrow')) {
+            newRow.classList.toggle('hideempty');
+        } else {
+            newRow.classList.toggle('nohelpers');
+        }
+    }
     return newRow;
 }
 
@@ -51,6 +59,13 @@ function incrementColNum() {
     var newCol = document.getElementById('colNum');
     colCNT += 1;
     newCol.id = newCol.id + colCNT;
+    if (dispHelpers === true) {
+        if (newCol.classList.contains('emptycol')) {
+            newCol.classList.toggle('hideempty');
+        } else {
+            newCol.classList.toggle('nohelpers');
+        }
+    }
     return newCol
 }
 
@@ -317,8 +332,10 @@ function hideHelpers() {
     var helperBTN = document.getElementById('helpers');
     if (helperBTN.innerText == "Hide Helpers") {
         helperBTN.innerText = "Show Helpers";
+        dispHelpers = true;
     } else {
         helperBTN.innerText = "Hide Helpers";
+        dispHelpers = false;
     }
 }
 
