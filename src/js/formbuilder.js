@@ -303,8 +303,14 @@ function ClosePopup(CurrentEl) {
     document.getElementById(CurrentEl).remove();
     if (parEl.childElementCount == 0) {
         var parParEl = parEl.parentElement;
+        if (parEl.previousSibling !== null && (parEl.previousSibling.classList.contains('emptycol') || parEl.previousSibling.classList.contains('emptyrow'))) {
+            parEl.previousSibling.remove();
+        }
         parEl.remove();
         if (parParEl.childElementCount == 0) {
+            if (parParEl.previousSibling !== null && (parParEl.previousSibling.classList.contains('emptycol') || parParEl.previousSibling.classList.contains('emptyrow'))) {
+                parParEl.previousSibling.remove();
+            }
             parParEl.remove();
         }
     }
