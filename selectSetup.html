@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Form Builder</title>
+
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/moment/min/moment-with-locales.min.js"></script>
+    <script src="node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <style>
+        html,
+        body {
+            background: rgb(200,200,200);
+            height: 100%;
+        }
+        .card-header {
+            background: rgb(230,230,230);
+        }
+        .card-body {
+            background: rgb(254,254,254);
+            height: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="src/css/formbuilder.css">
+    <link rel="stylesheet" href="src/css/elementrequired.css">
+    <link rel="stylesheet" href="src/css/popupMessage.css">
+    <script src="src/js/formbuilder.js"></script>
+    <script src="src/js/formelements.js"></script>
+    <script src="src/js/elementrequired.js"></script>
+    <script>
+        window.onload = function(e) {
+            var setEl = document.getElementById('set-element');
+            setEl.classList.toggle('show');
+        }
+    </script>
+</head>
+<body>
+
+<div class="setup-element">
+    <div class="setup-area p-5" id="set-element">
+        <div class="row">
+            <div class="col">
+                <h4>Setup Select Box</h4>
+                <label for="selectName">
+                    The first text box will be the default value for your select box. All of the other boxes will be in the options dropdown, in the order they were added.
+                    <!-- <br>If you would like it to be accepted, check the box below. -->
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 pr-4">
+                <div class="row mb-1">
+                    <div class="col p-0">
+                        <input type="text" id="selectName" class="form-control">
+                    </div>
+                </div>
+                <div id="area-1">
+                    <div class="row mb-1" id="addBtn">
+                        <div class="col-1 p-0">
+                            <button class="btn btn-primary form-control" onclick="addOption()">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 pl-4">
+                <div id="area-2">
+                    <div class="row mb-1 position-relative" id="option1">
+                        <div class="col-11 p-0">
+                            <input type="text" id="optionIn1" class="form-control">
+                        </div>
+                        <div class="col-1 p-0">
+                            <button class="btn btn-primary form-control" onclick="deleteOption('option1')">-</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: none;">
+    <div class="row mb-1 position-relative" id="option">
+        <div class="col-11 p-0">
+            <input type="text" id="optionIn" class="form-control">
+        </div>
+        <div class="col-1 p-0">
+            <button class="btn btn-primary form-control" onclick="deleteOption()">-</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var area1 = document.getElementById('area-1');
+    var area2 = document.getElementById('area-2');
+    var addBtn = document.getElementById('addBtn');
+    var optionCnt = 1;
+
+    function deleteOption(delEl) {
+        if (delEl != 'option1') {
+            document.getElementById(delEl).remove();
+            if (area1.children.length > area2.children.length && addBtn.parentElement.id != 'area-2') {
+                area2.appendChild(addBtn);
+            } else if (area1.children.length < area2.children.length && addBtn.parentElement.id != 'area-1') {
+                area1.appendChild(addBtn);
+            }
+        }
+    }
+
+    function addOption() {
+        var option = document.getElementById('option').cloneNode(true);
+
+        if (addBtn.parentElement.id == 'area-1') {
+            option.id = option.id + (optionCnt += 1);
+            option.children[0].children[0].id = option.children[0].children[0].id + optionCnt;
+            option.children[1].children[0].setAttribute('onclick', 'deleteOption(\'option' + optionCnt + '\')');
+            area1.appendChild(option);
+            if (area1.children.length > area2.children.length) {
+                area2.appendChild(addBtn);
+            } else {
+                area1.appendChild(addBtn);
+            }
+        } else {
+            option.id = option.id + (optionCnt += 1);
+            option.children[0].children[0].id = option.children[0].children[0].id + optionCnt;
+            option.children[1].children[0].setAttribute('onclick', 'deleteOption(\'option' + optionCnt + '\')');
+            area2.appendChild(option);
+            if (area1.children.length < area2.children.length) {
+                area1.appendChild(addBtn);
+            } else {
+                area2.appendChild(addBtn);
+            }
+        }
+    }
+</script>
+
+</body>
+
+</html>
