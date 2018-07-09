@@ -43,8 +43,13 @@
     margin-right:2px;
 }
 .element-area {
-    border: sold thin rgb(230,230,230);
+    border: solid thin rgb(230,230,230);
     height: 100%;
+}
+.element-area .stick {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 100px;
 }
 /* Popup container - can be anything you want */
 .setup-element {

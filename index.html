@@ -75,40 +75,42 @@
                         <div class="card-header">
                             Form Elements
                         </div>
-                        <div class="card-body element-area border">
-                            <h4 id="title" draggable="true" ondragstart="drag(event)">Title</h4>
-                            <p id="text-block" draggable="true" ondragstart="drag(event)">Text Block</p>
-                            <h6 id="label" draggable="true" ondragstart="drag(event)">Label</h6>
-                            <div class="pb-1">
-                                <input type="text" name="textbox" id="text-box" class="form-control mb-2" draggable="true" ondragstart="drag(event)" placeholder="text box">
-                            </div>
-                            <div class="pb-2">
-                                <div id="blank-space" style="height:12pt;" draggable="true" ondragstart="drag(event)">Blank Space</div>
-                            </div>
-                            <div id="checkbox" draggable="true" ondragstart="drag(event)">
-                                <input type="checkbox" name="checkbox" value="A Checkbox">A Checkbox
-                            </div>
-                            <div id="radiobutton" draggable="true" ondragstart="drag(event)">
-                                <input type="radio" name="radio" value="A Radio Button">A Radio Button
-                            </div>
-                            <div id="selectbox-container" draggable="true" ondragstart="drag(event)">
-                                <div class="selector-button mb-2" id="selectbox-button" onclick="trigger('selectbox')">A Dropdown<span class="chevron bottom"></span></div>
-                                <input type="hidden" name="selected-value" id="selected-value" />
-                                <div id="selectbox" class="selector p-0 m-0">
-                                    <div class="option" onclick="selected(this, 'selectbox-button', 'selected-value', 'selectbox')">Option A</div>
-                                    <div class="option" onclick="selected(this, 'selectbox-button', 'selected-value', 'selectbox')">Option B</div>
+                        <div class="card-body element-area">
+                            <div class="stick">
+                                <h4 id="title" draggable="true" ondragstart="drag(event)">Title</h4>
+                                <p id="text-block" draggable="true" ondragstart="drag(event)">Text Block</p>
+                                <h6 id="label" draggable="true" ondragstart="drag(event)">Label</h6>
+                                <div class="pb-1">
+                                    <input type="text" name="textbox" id="text-box" class="form-control mb-2" draggable="true" ondragstart="drag(event)" placeholder="text box">
                                 </div>
-                            </div>
-                            <textarea name="textarea" id="textarea" cols="30" rows="2" class="form-control mt-2 mb-2" draggable="true" ondragstart="drag(event)">Text Area</textarea>
-                            <div id="datepickerCon" draggable="true" ondragstart="drag(event)">
-                                <input type="text" class="form-control datetimepicker-input mb-2" id="datepicker" data-toggle="datetimepicker" data-target="#datepicker" placeholder="Pick a Date"/>
-                            </div>
-                            <div id="timepickerCon" draggable="true" ondragstart="drag(event)">
-                                <input type="text" class="form-control datetimepicker-input mb-2" id="timepicker" data-toggle="datetimepicker" data-target="#timepicker" placeholder="Pick a Time"/>
-                            </div>
-                            <div id="attachmentCon" class="custom-file" draggable="true" ondragstart="drag(event)">
-                                <input type="file" class="custom-file-input" id="attachment" accept="image/*,.doc,.docx,.xls,.xlsx,.pdf">
-                                <label class="custom-file-label mb-2" id="attachmentLabel" for="attachment">Choose file...</label>
+                                <div class="pb-2">
+                                    <div id="blank-space" style="height:12pt;" draggable="true" ondragstart="drag(event)">Blank Space</div>
+                                </div>
+                                <div id="checkbox" draggable="true" ondragstart="drag(event)">
+                                    <input type="checkbox" name="checkbox" value="A Checkbox">A Checkbox
+                                </div>
+                                <div id="radiobutton" draggable="true" ondragstart="drag(event)">
+                                    <input type="radio" name="radio" value="A Radio Button">A Radio Button
+                                </div>
+                                <div id="selectbox-container" draggable="true" ondragstart="drag(event)">
+                                    <div class="selector-button mb-2" id="selectbox-button" onclick="trigger('selectbox')">A Dropdown<span class="chevron bottom"></span></div>
+                                    <input type="hidden" name="selected-value" id="selected-value" />
+                                    <div id="selectbox" class="selector p-0 m-0">
+                                        <div class="option" onclick="selected(this, 'selectbox-button', 'selected-value', 'selectbox')">Option A</div>
+                                        <div class="option" onclick="selected(this, 'selectbox-button', 'selected-value', 'selectbox')">Option B</div>
+                                    </div>
+                                </div>
+                                <textarea name="textarea" id="textarea" cols="30" rows="2" class="form-control mt-2 mb-2" draggable="true" ondragstart="drag(event)">Text Area</textarea>
+                                <div id="datepickerCon" draggable="true" ondragstart="drag(event)">
+                                    <input type="text" class="form-control datetimepicker-input mb-2" id="datepicker" data-toggle="datetimepicker" data-target="#datepicker" placeholder="Pick a Date"/>
+                                </div>
+                                <div id="timepickerCon" draggable="true" ondragstart="drag(event)">
+                                    <input type="text" class="form-control datetimepicker-input mb-2" id="timepicker" data-toggle="datetimepicker" data-target="#timepicker" placeholder="Pick a Time"/>
+                                </div>
+                                <div id="attachmentCon" class="custom-file" draggable="true" ondragstart="drag(event)">
+                                    <input type="file" class="custom-file-input" id="attachment" accept="image/*,.doc,.docx,.xls,.xlsx,.pdf">
+                                    <label class="custom-file-label mb-2" id="attachmentLabel" for="attachment">Choose file...</label>
+                                </div>
                             </div>
                         </div>
                     </div>
