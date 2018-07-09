@@ -67,6 +67,7 @@
     z-index: 3;
     top: 100px;
     left: 10%;
+    max-height:800px;
     overflow: auto;
 }
 
