@@ -49,7 +49,7 @@
                 <h4>Setup Select Box</h4>
                 <label for="selectName">
                     The first text box will be the default value for your select box. All of the other boxes will be in the options dropdown, in the order they are added.
-                    <!-- <br>If you would like it to be accepted, check the box below. -->
+                    
                 </label>
             </div>
         </div>
@@ -62,7 +62,7 @@
                 </div>
                 <div id="area-1">
                     <div class="row mb-1" id="addBtn">
-                        <div class="col-1 p-0">
+                        <div class="col col-1-cust p-0">
                             <button class="btn btn-primary" style="width:38px;height:38px" onclick="addOption()">+</button>
                         </div>
                     </div>
@@ -70,12 +70,12 @@
             </div>
             <div class="col-6 pl-4">
                 <div id="area-2">
-                    <div class="row mb-1 position-relative" id="option1">
-                        <div class="col-11 p-0">
+                    <div class="row mb-1" id="option1">
+                        <div class="col col-11-cust p-0">
                             <input type="text" id="optionIn1" class="form-control">
                         </div>
-                        <div class="col-1 p-0">
-                            <button class="btn btn-primary" style="width:38px;height:38px" onclick="deleteOption('option1')">-</button>
+                        <div class="col col-1-cust p-0">
+                            <button class="btn btn-primary form-control" style="width:38px;height:38px" onclick="deleteOption('option1')">-</button>
                         </div>
                     </div>
                 </div>
@@ -91,12 +91,12 @@
 </div>
 
 <div style="display: none;">
-    <div class="row mb-1 position-relative" id="option">
-        <div class="col-11 p-0">
+    <div class="row mb-1" id="option">
+        <div class="col col-11-cust p-0">
             <input type="text" id="optionIn" class="form-control">
         </div>
-        <div class="col-1 p-0">
-            <button class="btn btn-primary form-control" onclick="deleteOption()">-</button>
+        <div class="col col-1-cust p-0">
+            <button class="btn btn-primary form-control" style="width:38px;height:38px" onclick="deleteOption()">-</button>
         </div>
     </div>
 </div>
