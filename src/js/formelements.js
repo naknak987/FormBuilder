@@ -2,7 +2,7 @@ function setupTitle(titleEL) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
-        + ' <div class="col-8">'
+        + ' <div class="col-md-8">'
         + '     <div class="close" onclick="ClosePopup(\'' + titleEL.id + '\')"></div>'
         + '     <h4>Your Title Text</h4>'
         + '     <br>'
@@ -23,7 +23,7 @@ function setupTextBlock(textBlockEL) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
-        + ' <div class="col-8">'
+        + ' <div class="col-md-8">'
         + '     <div class="close" onclick="ClosePopup(\'' + textBlockEL.id + '\')"></div>'
         + '     <h4>Your Text</h4>'
         + '     <br>'
@@ -44,7 +44,7 @@ function setupLabel(labelEl) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
-        + ' <div class="col-8">'
+        + ' <div class="col-md-8">'
         + '     <div class="close" onclick="ClosePopup(\'' + labelEl.id + '\')"></div>'
         + '     <h4>Enter your label text below.</h4>'
         + '     <br>'
@@ -71,7 +71,7 @@ function setupCheckbox(checkboxEl) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
-        + ' <div class="col-8">'
+        + ' <div class="col-md-8">'
         + '     <div class="close" onclick="ClosePopup(\'' + checkboxEl.id + '\')"></div>'
         + '     <h4>Set the text for your checkbox item</h4>'
         + '     <br>'
@@ -95,7 +95,7 @@ function setupRadioButton(radioEl) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
-        + ' <div class="col-12">'
+        + ' <div class="col-md-12">'
         + '     <div class="close" onclick="ClosePopup(\'' + radioEl.id + '\')"></div>'
         + '     <h4>Setup Radio Button</h4>'
         + '     <br>'
@@ -132,7 +132,7 @@ function setupBlankSpace(blankEl) {
     var popup = document.getElementById('set-element');
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
-    + ' <div class="col-12">'
+    + ' <div class="col-md-12">'
     + '     <div class="close" onclick="ClosePopup(\'' + blankEl.id + '\')"></div>'
     + '     <h4>Setup Blank Space</h4>'
     + '     <br>'
@@ -160,6 +160,11 @@ function setBlankSpace(blankID) {
     document.getElementById("set-element").classList.toggle("show"); 
 }
 
+var area1;
+var area2;
+var addBtn;
+var optionCnt = 1;
+
 function setupSelectBox(selectContainer) {
     var selectBTN = selectContainer.children[0];
     var selectInput = selectContainer.children[1];
@@ -178,68 +183,128 @@ function setupSelectBox(selectContainer) {
     var popup = document.getElementById('set-element');
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
-    + ' <div class="col-12">'
+    + ' <div class="col-md-12">'
     + '     <div class="close" onclick="ClosePopup(\'' + selectContainer.id + '\')"></div>'
-    + '     <h4>Setup Select Box and Options</h4>'
-    + '     <br>'
-    + '     <label for="selectName">Initial Text<br>This is what initially shows up in the select box, you can consider it the default value.'
-    + '     If you would like it to be accepted, check the box below.</label>'
-    + '     <br>'
-    + '     <input type="checkbox" id="allowdefault">Allow default value to be selectable.</input>'
-    + '     <br>'
-    + '     <input type="text" id="selectName" class="form-control">'
-    + '     <br>'
-    + '     <button class="btn btn-primary form-control" onclick="setSelectBoxName(\'' + selectBTN.id + '\', \'' + selector.id + '\')">Set Default Value</button>'
-    + ' </div>'
-    + '</div>';
-    popup.classList.toggle("show");
-}
-
-function setSelectBoxName(selectBtnId, selectorId) {
-    btnEl = document.getElementById(selectBtnId);
-    btnEl.innerHTML = document.getElementById('selectName').value + '<span class="chevron bottom"></span>';
-    if (document.getElementById('allowdefault').checked) {
-        selectboxDef[selectboxCNT]['allowdefault'] = true;
-    } else {
-        selectboxDef[selectboxCNT]['allowdefault'] = false;
-    }
-    var popup = document.getElementById('set-element');
-    popup.classList.toggle("show");
-    popup.innerHTML = ""
-    + '<div class="row justify-content-md-center">'
-    + ' <div class="col-12">'
-    + '     <div class="close" onclick="ClosePopup(\'' + btnEl.parentNode.id + '\')"></div>'
-    + '     <h4>Option Value</h4>'
-    + '     <br>'
-    + '     <label for="selectOption">What value would you like your option to hold.</label>'
-    + '     <input type="text" id="selectOption" class="form-control">'
-    + '     <br>'
     + '     <div class="row">'
-    + '         <div class="col-4 offset-2">'
-    + '             <button class="btn btn-primary form-control" onclick="setSelectOption(\'' + selectorId + '\')">Set Option and Add Another Option</button>'
+    + '         <div class="col">'
+    + '             <h4>Setup Select Box</h4>'
+    + '             <label for="selectName">'
+    + '                 The first text box will be the default value for your select box. All of the other boxes will be in the options dropdown, in the order they are added.'
+    + '                 '
+    + '             </label>'
     + '         </div>'
-    + '         <div class="col-4">'
-    + '             <button class="btn btn-primary form-control" onclick="setSelectOption(\'' + selectorId + '\', false)">Set Option and Finish</button>'
+    + '     </div>'
+    + '     <div class="row">'
+    + '         <div class="col-md-6 pr-4">'
+    + '             <div class="row mb-1">'
+    + '                 <div class="col p-0">'
+    + '                     <input type="text" id="selectName" class="form-control">'
+    + '                 </div>'
+    + '             </div>'
+    + '             <div id="area-1">'
+    + '                 <div class="row mb-1" id="addBtn">'
+    + '                     <div class="col-md-1 col-1-cust p-0">'
+    + '                         <button class="btn btn-primary" style="width:38px;height:38px" onclick="addOption()">+</button>'
+    + '                     </div>'
+    + '                 </div>'
+    + '             </div>'
+    + '         </div>'
+    + '         <div class="col-md-6 pl-4">'
+    + '             <div id="area-2">'
+    + '                 <div class="row mb-1" id="option1">'
+    + '                     <div class="col-md-11 col-11-cust p-0">'
+    + '                         <input type="text" id="optionIn1" class="form-control">'
+    + '                     </div>'
+    + '                     <div class="col-md-1 col-1-cust p-0">'
+    + '                         <button class="btn btn-primary form-control" style="width:38px;height:38px" onclick="deleteOption(\'option1\')">-</button>'
+    + '                     </div>'
+    + '                 </div>'
+    + '             </div>'
+    + '         </div>'
+    + '     </div>'
+    + '     <div class="row">'
+    + '         <div class="col-md-2 offset-5">'
+    + '             <button class="btn btn-primary form-control" onclick="setSelectBox(\'' + selectBTN.id + '\', \'' + selector.id + '\')">Set Select Box</button>'
     + '         </div>'
     + '     </div>'
     + ' </div>'
+    + '</div>'
+    + '<div style="display: none;">'
+    + '    <div class="row mb-1" id="option">'
+    + '        <div class="col-md-11 col-11-cust p-0">'
+    + '            <input type="text" id="optionIn" class="form-control">'
+    + '        </div>'
+    + '        <div class="col-md-11 col-1-cust p-0">'
+    + '            <button class="btn btn-primary form-control" style="width:38px;height:38px" onclick="deleteOption()">-</button>'
+    + '        </div>'
+    + '    </div>'
     + '</div>';
+    area1 = document.getElementById('area-1');
+    area2 = document.getElementById('area-2');
+    addBtn = document.getElementById('addBtn');
+    optionCnt = 1;
     popup.classList.toggle("show");
 }
 
-function setSelectOption(selectorId, addAnother = true) {
-    var option = document.getElementById('selectOption');
-    var selector = document.getElementById(selectorId);
-    var newOption = document.createElement('div');
-    newOption.classList.add('option');
-    newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
-    newOption.innerHTML = option.value;
-    selector.appendChild(newOption);
-    option.value = "";
-    if (addAnother == false) {
-        var popup = document.getElementById('set-element');
-        popup.classList.toggle("show");
+function deleteOption(delEl) {
+    if (delEl != 'option1') {
+        document.getElementById(delEl).remove();
+        if (area1.children.length > area2.children.length && addBtn.parentElement.id != 'area-2') {
+            area2.appendChild(addBtn);
+        } else if (area1.children.length < area2.children.length && addBtn.parentElement.id != 'area-1') {
+            area1.appendChild(addBtn);
+        }
     }
+}
+
+function addOption() {
+    var option = document.getElementById('option').cloneNode(true);
+
+    if (addBtn.parentElement.id == 'area-1') {
+        option.id = option.id + (optionCnt += 1);
+        option.children[0].children[0].id = option.children[0].children[0].id + optionCnt;
+        option.children[1].children[0].setAttribute('onclick', 'deleteOption(\'option' + optionCnt + '\')');
+        area1.appendChild(option);
+        if (area1.children.length > area2.children.length) {
+            area2.appendChild(addBtn);
+        } else {
+            area1.appendChild(addBtn);
+        }
+    } else {
+        option.id = option.id + (optionCnt += 1);
+        option.children[0].children[0].id = option.children[0].children[0].id + optionCnt;
+        option.children[1].children[0].setAttribute('onclick', 'deleteOption(\'option' + optionCnt + '\')');
+        area2.appendChild(option);
+        if (area1.children.length < area2.children.length) {
+            area1.appendChild(addBtn);
+        } else {
+            area2.appendChild(addBtn);
+        }
+    }
+}
+
+function setSelectBox(selectBtnId, selectorId) {
+    btnEl = document.getElementById(selectBtnId);
+    btnEl.innerHTML = document.getElementById('selectName').value + '<span class="chevron bottom"></span>';
+    /* if (document.getElementById('allowdefault').checked) {
+        selectboxDef[selectboxCNT]['allowdefault'] = true;
+    } else {
+        selectboxDef[selectboxCNT]['allowdefault'] = false;
+    } */
+    var selector = document.getElementById(selectorId);
+
+    var popup = document.getElementById('set-element');
+    var selectInputs = popup.getElementsByTagName("input");
+    for (var i = 0; i < selectInputs.length; i++) {
+        if (selectInputs[i].type.toLowerCase() == "text") {
+            var newOption = document.createElement('div');
+            newOption.classList.add('option');
+            newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
+            newOption.innerHTML = selectInputs[i].value;
+            selector.appendChild(newOption);
+        }
+    }
+    popup.classList.toggle('show');
 }
 
 function setupTextArea(textAreaEl)
