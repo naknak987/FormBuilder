@@ -62,7 +62,6 @@
 /* Popup container - can be anything you want */
 .setup-element {
     display: inline-block;
-    cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -78,7 +77,6 @@
     padding: 8px 0;
     position: fixed;
     z-index: 3;
-    top: 100px;
     left: 10%;
     max-height:800px;
     overflow: auto;
