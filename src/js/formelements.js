@@ -223,7 +223,7 @@ function setupSelectBox(selectContainer) {
     + '         </div>'
     + '     </div>'
     + '     <div class="row">'
-    + '         <div class="col-md-2 offset-5">'
+    + '         <div class="col-sm-8 offset-sm-2 col-md-4 offset-md-4">'
     + '             <button class="btn btn-primary form-control" onclick="setSelectBox(\'' + selectBTN.id + '\', \'' + selector.id + '\')">Set Select Box</button>'
     + '         </div>'
     + '     </div>'
