@@ -84,6 +84,12 @@
     overflow: auto;
 }
 
+@media (max-width: 1469px) {
+    .col-md-2.offset-5 .btn.btn-primary.form-control {
+        width:100% !important;
+    }
+}
+
 @media (max-width: 767px) {
     .setup-element .setup-area {
         padding: 4px !important;
