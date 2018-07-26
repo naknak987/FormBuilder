@@ -71,9 +71,11 @@ function setupCheckbox(checkboxEl) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
-        + ' <div class="col-md-8">'
+        + ' <div class="col-md-12">'
         + '     <div class="close" onclick="ClosePopup(\'' + checkboxEl.id + '\')"></div>'
-        + '     <h4>Set the text for your checkbox item</h4>'
+        + '     <h4>Setup Your Checkbox Item(s)</h4>'
+        + '     <br>'
+        + '     <p>If you enter a list of items sperated by semicolons, (;) we\'ll turn each list item into a checkbox.</p>'
         + '     <br>'
         + '     <input type="text" id="text-checkbox" class="form-control">'
         + '     <br>'
@@ -84,11 +86,30 @@ function setupCheckbox(checkboxEl) {
 }
 
 function setCheckbox(checkboxID) {
-    var checkBoxText = document.getElementById('text-checkbox').value;
-    document.getElementById(checkboxID).innerHTML = ""
-        + ' <input type="checkbox" name="' + checkboxID + '" value="' + checkBoxText + '">' + checkBoxText;
+    var checkBoxText = document.getElementById('text-checkbox').value.split(';');
+    var checkbox = document.getElementById(checkboxID); //.innerHTML = ' <input type="checkbox" name="' + checkboxID + '" value="' + checkBoxText + '">' + checkBoxText;
+    var elParent = checkbox.parentNode;
+    checkbox.remove();
+    for (var i = 0; i < checkBoxText.length; i++) {
+        if (checkBoxText[i] == '') {
+            continue;
+        }
+        checkboxCNT+=1;
+        var newDiv = document.createElement('div');
+        newDiv.id = "checkbox" + checkboxCNT;
+        newDiv.setAttribute('draggable', 'true');
+        newDiv.setAttribute('ondragstart', 'drag(event)');
+        checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = "checkbox" + checkboxCNT;
+        checkbox.value = checkBoxText[i].trim();
+        var checkText = document.createTextNode(" " + checkBoxText[i].trim());
+        newDiv.appendChild(checkbox);
+        newDiv.appendChild(document.createElement('label').appendChild(checkText));
+        elParent.appendChild(newDiv);
+        checkboxDef[checkboxCNT] = {'name':'checkbox' + checkboxCNT,'type':'unsignedTinyInteger','size':3};
+    }
     document.getElementById("set-element").classList.toggle("show");
-    checkboxDef[checkboxCNT] = {'name':checkboxID,'type':'unsignedTinyInteger','size':3};
 }
 
 function setupRadioButton(radioEl) {
@@ -99,6 +120,7 @@ function setupRadioButton(radioEl) {
         + '     <div class="close" onclick="ClosePopup(\'' + radioEl.id + '\')"></div>'
         + '     <h4>Setup Radio Button</h4>'
         + '     <br>'
+        + '     <p>If you enter a list of items sperated by semicolons, (;) we\'ll turn each list item into a radio button.<br>(Button Text/Value only)</p>'
         + '     <label for="text-radioButton">Button Text/Value</label>'
         + '     <input type="text" id="text-radioButton" class="form-control">'
         + '     <br>'
@@ -120,12 +142,31 @@ function setupRadioButton(radioEl) {
 }
 
 function setRadioButton(radioID) {
-    var radioButtonText = document.getElementById('text-radioButton').value;
+    var radioButtonText = document.getElementById('text-radioButton').value.split(';');
     var radioButtonName = document.getElementById('name-radioButton').value;
-    document.getElementById(radioID).innerHTML = ""
-        + ' <input type="radio" name="' + radioButtonName +'" value="' + radioButtonText + '">' + radioButtonText;
+    var radioEl = document.getElementById(radioID); //.innerHTML = ' <input type="radio" name="' + radioButtonName +'" value="' + radioButtonText + '">' + radioButtonText;
+    var radioElParent = radioEl.parentNode;
+    radioEl.remove();
+    for (var i = 0; i < radioButtonText.length; i++) {
+        if (radioButtonText[i] == '') {
+            continue;
+        }
+        radiobuttonCNT+=1;
+        var newDiv = document.createElement('div');
+        newDiv.id = "radiobutton" + radiobuttonCNT;
+        newDiv.setAttribute('draggable', 'true');
+        newDiv.setAttribute('ondragstart', 'drag(event)');
+        radioEl = document.createElement('input');
+        radioEl.type = 'radio';
+        radioEl.name = 'radiobutton' + radiobuttonCNT;
+        radioEl.value = radioButtonText[i].trim();
+        var radioText = document.createTextNode(' ' + radioButtonText[i].trim());
+        newDiv.appendChild(radioEl);
+        newDiv.appendChild(document.createElement('label').appendChild(radioText));
+        radioElParent.appendChild(newDiv);
+        radiobuttonDef[radiobuttonCNT] = {'name':radioButtonName,'type':'string','size':200};
+    }
     document.getElementById("set-element").classList.toggle("show");
-    radiobuttonDef[radiobuttonCNT] = {'name':radioButtonName,'type':'string','size':200};
 }
 
 function setupBlankSpace(blankEl) {
@@ -225,6 +266,8 @@ function setupSelectBox(selectContainer) {
     + '     <div class="row">'
     + '         <div class="col-sm-8 offset-sm-2 col-md-4 offset-md-4">'
     + '             <button class="btn btn-primary form-control" onclick="setSelectBox(\'' + selectBTN.id + '\', \'' + selector.id + '\')">Set Select Box</button>'
+    + '             <br><br>'
+    + '             <button class="btn btn-primary form-control" onclick="bulkInput(\'selectbox\', \'' + selector.id + '\')">Switch to Bulk Input</button>'
     + '         </div>'
     + '     </div>'
     + ' </div>'
@@ -356,4 +399,50 @@ function setupAttachment(attachmentConEl) {
     attachmentEl.setAttribute('onchange', 'document.getElementById(\'' + attachmentLabel.id + '\').innerHTML = this.value.split(\'\\\\\').pop();');
 
     attachmentDef[attachmentCNT] = {'name':attachmentEl.name, 'type':'data'}
+}
+
+function bulkInput(elType, elId) {
+    var popup = document.getElementById('set-element');
+    popup.innerHTML = ''
+    + '<div class="row">'
+    + ' <div class="col-md-12">'
+    + '     <div class="close" onclick="ClosePopup(\'' + elId + '\')"></div>'
+    + '     <h4>Bulk <span id="typeone"></span> Input</h4>'
+    + '     <p>Enter a list of items, sperated by semicolons. (;) We\'ll turn each list item into <span id="typetwo"></span>.</p>'
+    + '     <textarea id="bulkText" class="form-control"></textarea>'
+    + '     <br><br>'
+    + '     <button class="btn btn-primary form-control" onclick="processBulkInput(\'' + elType + '\', \'' + elId + '\')">Process Bulk Input</button>'
+    + ' </div>'
+    + '</div>';
+    var el = document.getElementById(elId);
+    switch (elType) {
+        case "selectbox": {
+            document.getElementById('typeone').innerText = "Dropdown"
+            document.getElementById('typetwo').innerText = "a selectable item in the dropdown list"
+            break;
+        }
+    }
+}
+
+function processBulkInput(elType, elId) {
+    var bulkText = document.getElementById('bulkText');
+    var bulkItems = bulkText.value.split(";")
+    var el = document.getElementById(elId);
+    switch (elType) {
+        case "selectbox": {
+            document.getElementById('selectbox-button' + selectboxCNT).innerHTML = bulkItems[0] + '<span class="chevron bottom"></span>';
+            for(var i = 0; i < bulkItems.length; i++) {
+                if (bulkItems[i] == '') {
+                    continue;
+                }
+                var newOption = document.createElement('div');
+                newOption.classList.add('option');
+                newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
+                newOption.innerHTML = bulkItems[i].trim();
+                el.appendChild(newOption);
+            }
+            break;
+        }
+    }
+    document.getElementById('set-element').classList.toggle("show");
 }
