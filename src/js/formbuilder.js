@@ -241,14 +241,12 @@ function insert(parEl, chiEl) {
             parEl.appendChild(chiEl);
             break;
         case 'checkbox':
-            checkboxCNT += 1;
             chiEl.name = chiEl.name + '-' + checkboxCNT;
             chiEl.id = chiEl.id + checkboxCNT;
             setupCheckbox(chiEl);
             parEl.appendChild(chiEl);
             break;
         case 'radiobutton':
-            radiobuttonCNT += 1;
             chiEl.name = chiEl.name + '_' + radiobuttonCNT;
             chiEl.id = chiEl.id + radiobuttonCNT;
             setupRadioButton(chiEl);
