@@ -158,7 +158,7 @@ function setRadioButton(radioID) {
         newDiv.setAttribute('ondragstart', 'drag(event)');
         radioEl = document.createElement('input');
         radioEl.type = 'radio';
-        radioEl.name = 'radiobutton' + radiobuttonCNT;
+        radioEl.name = radioButtonName;
         radioEl.value = radioButtonText[i].trim();
         var radioText = document.createTextNode(' ' + radioButtonText[i].trim());
         newDiv.appendChild(radioEl);
