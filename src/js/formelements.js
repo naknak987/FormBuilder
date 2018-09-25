@@ -101,13 +101,13 @@ function setCheckbox(checkboxID) {
         newDiv.setAttribute('ondragstart', 'drag(event)');
         checkbox = document.createElement('input');
         checkbox.type = "checkbox";
-        checkbox.name = "checkbox" + checkboxCNT;
+        checkbox.name =  checkBoxText[i].trim();
         checkbox.value = checkBoxText[i].trim();
         var checkText = document.createTextNode(" " + checkBoxText[i].trim());
         newDiv.appendChild(checkbox);
         newDiv.appendChild(document.createElement('label').appendChild(checkText));
         elParent.appendChild(newDiv);
-        checkboxDef[checkboxCNT] = {'name':'checkbox' + checkboxCNT,'type':'unsignedTinyInteger','size':3};
+        checkboxDef[checkboxCNT] = {'name':checkbox.value,'id':'checkbox' + checkboxCNT,'type':'unsignedTinyInteger','size':3};
     }
     document.getElementById("set-element").classList.toggle("show");
 }
