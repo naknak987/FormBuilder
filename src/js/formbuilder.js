@@ -2,22 +2,14 @@ var titleCNT = 0;
 var textCNT = 0;
 var headingCNT = 0;
 var textBoxCNT = 0;
-var textboxDef = {};
 var blankSpaceCNT = 0;
 var checkboxCNT = 0;
-var checkboxDef = {};
 var radiobuttonCNT = 0;
-var radiobuttonDef = {};
 var selectboxCNT = 0;
-var selectboxDef = {};
 var textareaCNT = 0;
-var textareaDef = {};
 var datepickerCNT = 0;
-var datepickerDef = {};
 var timepickerCNT = 0;
-var timepickerDef = {};
 var attachmentCNT = 0;
-var attachmentDef = {};
 var dispHelpers = false;
 var row = '<div class="row" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
 var emptyrow = '<div class="emptyrow" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
@@ -176,34 +168,6 @@ function deleteElement(ev) {
             }
             CurrentEl.remove();
         }
-    }
-    ElType = data.replace(/\d+/g, '');
-    ElNumber = data.replace(/\D/g, '');
-    switch (ElType) {
-        case 'text-box':
-            delete textboxDef[ElNumber];
-            break;
-        case 'checkbox':
-            delete checkboxDef[ElNumber];
-            break;
-        case 'radiobutton':
-            delete radiobuttonDef[ElNumber];
-            break;
-        case 'selectbox-container':
-            delete selectboxDef[ElNumber];
-            break;
-        case 'textarea':
-            delete textareaDef[ElNumber];
-            break;
-        case 'datepickerCon':
-            delete datepickerDef[ElNumber];
-            break;
-        case 'timepickerCon':
-            delete timepickerDef[ElNumber];
-            break;
-        case 'attachmentCon':
-            delete attachmentDef[ElNumber];
-            break;
     }
 }
 
@@ -399,16 +363,7 @@ function ExportForm() {
         var retVal = {
             'name':formName,
             'html':formHTML,
-            'definition':{
-                'textbox':textboxDef,
-                'checkbox':checkboxDef,
-                'radiobutton':radiobuttonDef,
-                'textarea':textareaDef,
-                'selectbox':selectboxDef,
-                'dates':datepickerDef,
-                'times':timepickerDef,
-                'attachments':attachmentDef,
-            }
+            // The definition needs to go here. 
         };
         return JSON.stringify(retVal);
     }
