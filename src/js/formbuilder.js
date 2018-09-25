@@ -1,6 +1,6 @@
 var titleCNT = 0; 
 var textCNT = 0;
-var labelCNT = 0;
+var headingCNT = 0;
 var textBoxCNT = 0;
 var textboxDef = {};
 var blankSpaceCNT = 0;
@@ -29,7 +29,7 @@ var colCNT = 0;
 var elements = [
     'title',
     'text-block',
-    'label',
+    'heading',
     'text-box',
     'blank-space',
     'checkbox',
@@ -221,10 +221,10 @@ function insert(parEl, chiEl) {
             setupTextBlock(chiEl);
             parEl.appendChild(chiEl);
             break;
-        case 'label':
-            labelCNT += 1;
-            chiEl.id = chiEl.id + labelCNT;
-            setupLabel(chiEl);
+        case 'heading':
+            headingCNT += 1;
+            chiEl.id = chiEl.id + headingCNT;
+            setupHeading(chiEl);
             parEl.appendChild(chiEl);
             break;
         case 'text-box':
