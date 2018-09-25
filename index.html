@@ -46,9 +46,9 @@
     <div class="setup-area p-5" id="set-element"></div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row mb-5">
-        <div class="col">
+        <div class="col-md-12 offset-md-0">
             <div class="popup">
                 <p class="popuptext" id="Errors"></p>
             </div>
@@ -64,14 +64,14 @@
                 <input type="text" class="form-control" id="form-name">
                 <br>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-8" id="left-window">
                         <div class="card-header">
                             Drag and Drop Form Elements Below
                             <button id="helpers" class="btn btn-primary float-right" style="position:relative;top:-6px;" onclick="hideHelpers()">Hide Helpers</button>
                         </div>
                         <div id="form-area" class="card-body form-area" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="right-window">
                         <div class="card-header">
                             Form Elements
                         </div>
