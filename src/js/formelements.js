@@ -64,7 +64,7 @@ function setHeading(headingID) {
 
 function setupTextBox(textboxEl)
 {
-    textboxDef[textBoxCNT] = {'name':textboxEl.name,'type':'string','size':200};
+    // create popup asking user to set a label for the text box.
 }
 
 function setupCheckbox(checkboxEl) {
@@ -107,7 +107,6 @@ function setCheckbox(checkboxID) {
         newDiv.appendChild(checkbox);
         newDiv.appendChild(document.createElement('label').appendChild(checkText));
         elParent.appendChild(newDiv);
-        checkboxDef[checkboxCNT] = {'name':checkbox.value,'id':'checkbox' + checkboxCNT,'type':'unsignedTinyInteger','size':3};
     }
     document.getElementById("set-element").classList.toggle("show");
 }
@@ -164,7 +163,6 @@ function setRadioButton(radioID) {
         newDiv.appendChild(radioEl);
         newDiv.appendChild(document.createElement('label').appendChild(radioText));
         radioElParent.appendChild(newDiv);
-        radiobuttonDef[radiobuttonCNT] = {'name':radioButtonName,'type':'string','size':200};
     }
     document.getElementById("set-element").classList.toggle("show");
 }
@@ -213,7 +211,6 @@ function setupSelectBox(selectContainer) {
     selectBTN.id = selectBTN.id + selectboxCNT;
     selectInput.id = selectInput.id + selectboxCNT;
     selectInput.setAttribute('name', selectInput.id);
-    selectboxDef[selectboxCNT] = {'name':selectInput.name,'type':'string','size':200};
     selector.id = selector.id + selectboxCNT;
     while (selector.firstChild) {
         selector.removeChild(selector.firstChild);
@@ -329,11 +326,6 @@ function addOption() {
 function setSelectBox(selectBtnId, selectorId) {
     btnEl = document.getElementById(selectBtnId);
     btnEl.innerHTML = document.getElementById('selectName').value + '<span class="chevron bottom"></span>';
-    /* if (document.getElementById('allowdefault').checked) {
-        selectboxDef[selectboxCNT]['allowdefault'] = true;
-    } else {
-        selectboxDef[selectboxCNT]['allowdefault'] = false;
-    } */
     var selector = document.getElementById(selectorId);
 
     var popup = document.getElementById('set-element');
@@ -367,8 +359,6 @@ function setupDatePicker(datepickerConEl) {
     script.type = 'text/javascript';
     script.text = '$(function () { $(\'#datepicker' + datepickerCNT + '\').datetimepicker({ format: \'L\' }); });';
     datepickerConEl.appendChild(script);
-
-    datepickerDef[datepickerCNT] = {'name':datepickerEl.name,'type':'date'};
 }
 
 function setupTimePicker(timepickerConEl) {
@@ -382,8 +372,6 @@ function setupTimePicker(timepickerConEl) {
     script.type = 'text/javascript';
     script.text = '$(function () { $(\'#timepicker' + timepickerCNT + '\').datetimepicker({ format: \'LT\' }); });';
     timepickerConEl.appendChild(script);
-
-    timepickerDef[timepickerCNT] = {'name':timepickerEl.name, 'type':'time'};
 }
 
 function setupAttachment(attachmentConEl) {
@@ -397,8 +385,6 @@ function setupAttachment(attachmentConEl) {
     attachmentEl.value = '';
     
     attachmentEl.setAttribute('onchange', 'document.getElementById(\'' + attachmentLabel.id + '\').innerHTML = this.value.split(\'\\\\\').pop();');
-
-    attachmentDef[attachmentCNT] = {'name':attachmentEl.name, 'type':'data'}
 }
 
 function bulkInput(elType, elId) {
