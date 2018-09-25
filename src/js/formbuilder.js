@@ -341,41 +341,7 @@ function hideHelpers() {
 
 function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
-    var emptyRows = formAreaEl.getElementsByClassName('emptyrow');
-    for (var i = 0; i < emptyRows.length; i++) {
-        emptyRows[i].remove();
-    }
-    var emptyCols = formAreaEl.getElementsByClassName('emptycol');
-    for (var i = 0; i < emptyCols.length; i++) {
-        emptyCols[i].remove();
-    }
-    var rowEls = formAreaEl.getElementsByClassName('row');
-    for (var i = 0; i < rowEls.length; i++) {
-        rowEls[i].removeAttribute('ondrop');
-        rowEls[i].removeAttribute('ondragover');
-        rowEls[i].removeAttribute('ondragenter');
-        rowEls[i].removeAttribute('ondragleave');
-    }
-    var colEls = formAreaEl.getElementsByClassName('col');
-    for (var i = 0; i < colEls.length; i++) {
-        colEls[i].removeAttribute('ondrop');
-        colEls[i].removeAttribute('ondragover');
-        colEls[i].removeAttribute('ondragenter');
-        colEls[i].removeAttribute('ondragleave');
-    }
     var formHTML = formAreaEl.innerHTML;
-    while (formHTML.includes(' draggable="true"'))
-    {
-        formHTML = formHTML.replace(' draggable="true"', '');
-    }
-    while (formHTML.includes(' ondragstart="drag(event)"'))
-    {
-        formHTML = formHTML.replace(' ondragstart="drag(event)"', '');
-    }
-    while (formHTML.includes('<i style="color:lightgray;">This space intentionally left blank!</i>'))
-    {
-        formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
-    }
     var formName = document.getElementById('form-name').value;
     var popup = document.getElementById('Errors');
     if (formName == '') {
@@ -395,6 +361,41 @@ function ExportForm() {
             popup.click();
         }, 4000); 
     } else {
+        var emptyRows = formAreaEl.getElementsByClassName('emptyrow');
+        for (var i = 0; i < emptyRows.length;) {
+            emptyRows[i].remove();
+        }
+        var emptyCols = formAreaEl.getElementsByClassName('emptycol');
+        for (var i = 0; i < emptyCols.length;) {
+            emptyCols[i].remove();
+        }
+        var rowEls = formAreaEl.getElementsByClassName('row');
+        for (var i = 0; i < rowEls.length; i++) {
+            rowEls[i].removeAttribute('ondrop');
+            rowEls[i].removeAttribute('ondragover');
+            rowEls[i].removeAttribute('ondragenter');
+            rowEls[i].removeAttribute('ondragleave');
+        }
+        var colEls = formAreaEl.getElementsByClassName('col');
+        for (var i = 0; i < colEls.length; i++) {
+            colEls[i].removeAttribute('ondrop');
+            colEls[i].removeAttribute('ondragover');
+            colEls[i].removeAttribute('ondragenter');
+            colEls[i].removeAttribute('ondragleave');
+        }
+        var formHTML = formAreaEl.innerHTML;
+        while (formHTML.includes(' draggable="true"'))
+        {
+            formHTML = formHTML.replace(' draggable="true"', '');
+        }
+        while (formHTML.includes(' ondragstart="drag(event)"'))
+        {
+            formHTML = formHTML.replace(' ondragstart="drag(event)"', '');
+        }
+        while (formHTML.includes('<i style="color:lightgray;">This space intentionally left blank!</i>'))
+        {
+            formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
+        }
         var retVal = {
             'name':formName,
             'html':formHTML,
