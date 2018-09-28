@@ -1,23 +1,15 @@
 var titleCNT = 0; 
 var textCNT = 0;
-var labelCNT = 0;
+var headingCNT = 0;
 var textBoxCNT = 0;
-var textboxDef = {};
 var blankSpaceCNT = 0;
 var checkboxCNT = 0;
-var checkboxDef = {};
 var radiobuttonCNT = 0;
-var radiobuttonDef = {};
 var selectboxCNT = 0;
-var selectboxDef = {};
 var textareaCNT = 0;
-var textareaDef = {};
 var datepickerCNT = 0;
-var datepickerDef = {};
 var timepickerCNT = 0;
-var timepickerDef = {};
 var attachmentCNT = 0;
-var attachmentDef = {};
 var dispHelpers = false;
 var row = '<div class="row" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
 var emptyrow = '<div class="emptyrow" id="rowNum" ondrop="rowDrop(event, this)" ondragover="allowDrop(event)" ondragenter="this.style.padding=\'1px 24px 24px 1px\'" ondragleave="this.style.padding=\'1px 12px 12px 1px\'"></div>';
@@ -29,7 +21,7 @@ var colCNT = 0;
 var elements = [
     'title',
     'text-block',
-    'label',
+    'heading',
     'text-box',
     'blank-space',
     'checkbox',
@@ -177,34 +169,6 @@ function deleteElement(ev) {
             CurrentEl.remove();
         }
     }
-    ElType = data.replace(/\d+/g, '');
-    ElNumber = data.replace(/\D/g, '');
-    switch (ElType) {
-        case 'text-box':
-            delete textboxDef[ElNumber];
-            break;
-        case 'checkbox':
-            delete checkboxDef[ElNumber];
-            break;
-        case 'radiobutton':
-            delete radiobuttonDef[ElNumber];
-            break;
-        case 'selectbox-container':
-            delete selectboxDef[ElNumber];
-            break;
-        case 'textarea':
-            delete textareaDef[ElNumber];
-            break;
-        case 'datepickerCon':
-            delete datepickerDef[ElNumber];
-            break;
-        case 'timepickerCon':
-            delete timepickerDef[ElNumber];
-            break;
-        case 'attachmentCon':
-            delete attachmentDef[ElNumber];
-            break;
-    }
 }
 
 function insert(parEl, chiEl) {
@@ -221,10 +185,10 @@ function insert(parEl, chiEl) {
             setupTextBlock(chiEl);
             parEl.appendChild(chiEl);
             break;
-        case 'label':
-            labelCNT += 1;
-            chiEl.id = chiEl.id + labelCNT;
-            setupLabel(chiEl);
+        case 'heading':
+            headingCNT += 1;
+            chiEl.id = chiEl.id + headingCNT;
+            setupHeading(chiEl);
             parEl.appendChild(chiEl);
             break;
         case 'text-box':
@@ -341,41 +305,7 @@ function hideHelpers() {
 
 function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
-    var emptyRows = formAreaEl.getElementsByClassName('emptyrow');
-    for (var i = 0; i < emptyRows.length; i++) {
-        emptyRows[i].remove();
-    }
-    var emptyCols = formAreaEl.getElementsByClassName('emptycol');
-    for (var i = 0; i < emptyCols.length; i++) {
-        emptyCols[i].remove();
-    }
-    var rowEls = formAreaEl.getElementsByClassName('row');
-    for (var i = 0; i < rowEls.length; i++) {
-        rowEls[i].removeAttribute('ondrop');
-        rowEls[i].removeAttribute('ondragover');
-        rowEls[i].removeAttribute('ondragenter');
-        rowEls[i].removeAttribute('ondragleave');
-    }
-    var colEls = formAreaEl.getElementsByClassName('col');
-    for (var i = 0; i < colEls.length; i++) {
-        colEls[i].removeAttribute('ondrop');
-        colEls[i].removeAttribute('ondragover');
-        colEls[i].removeAttribute('ondragenter');
-        colEls[i].removeAttribute('ondragleave');
-    }
     var formHTML = formAreaEl.innerHTML;
-    while (formHTML.includes(' draggable="true"'))
-    {
-        formHTML = formHTML.replace(' draggable="true"', '');
-    }
-    while (formHTML.includes(' ondragstart="drag(event)"'))
-    {
-        formHTML = formHTML.replace(' ondragstart="drag(event)"', '');
-    }
-    while (formHTML.includes('<i style="color:lightgray;">This space intentionally left blank!</i>'))
-    {
-        formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
-    }
     var formName = document.getElementById('form-name').value;
     var popup = document.getElementById('Errors');
     if (formName == '') {
@@ -395,19 +325,45 @@ function ExportForm() {
             popup.click();
         }, 4000); 
     } else {
+        var emptyRows = formAreaEl.getElementsByClassName('emptyrow');
+        for (var i = 0; i < emptyRows.length;) {
+            emptyRows[i].remove();
+        }
+        var emptyCols = formAreaEl.getElementsByClassName('emptycol');
+        for (var i = 0; i < emptyCols.length;) {
+            emptyCols[i].remove();
+        }
+        var rowEls = formAreaEl.getElementsByClassName('row');
+        for (var i = 0; i < rowEls.length; i++) {
+            rowEls[i].removeAttribute('ondrop');
+            rowEls[i].removeAttribute('ondragover');
+            rowEls[i].removeAttribute('ondragenter');
+            rowEls[i].removeAttribute('ondragleave');
+        }
+        var colEls = formAreaEl.getElementsByClassName('col');
+        for (var i = 0; i < colEls.length; i++) {
+            colEls[i].removeAttribute('ondrop');
+            colEls[i].removeAttribute('ondragover');
+            colEls[i].removeAttribute('ondragenter');
+            colEls[i].removeAttribute('ondragleave');
+        }
+        var formHTML = formAreaEl.innerHTML;
+        while (formHTML.includes(' draggable="true"'))
+        {
+            formHTML = formHTML.replace(' draggable="true"', '');
+        }
+        while (formHTML.includes(' ondragstart="drag(event)"'))
+        {
+            formHTML = formHTML.replace(' ondragstart="drag(event)"', '');
+        }
+        while (formHTML.includes('<i style="color:lightgray;">This space intentionally left blank!</i>'))
+        {
+            formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
+        }
         var retVal = {
             'name':formName,
             'html':formHTML,
-            'definition':{
-                'textbox':textboxDef,
-                'checkbox':checkboxDef,
-                'radiobutton':radiobuttonDef,
-                'textarea':textareaDef,
-                'selectbox':selectboxDef,
-                'dates':datepickerDef,
-                'times':timepickerDef,
-                'attachments':attachmentDef,
-            }
+            // The definition needs to go here. 
         };
         return JSON.stringify(retVal);
     }

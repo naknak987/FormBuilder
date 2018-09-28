@@ -40,31 +40,31 @@ function setTextBlock(textID) {
     document.getElementById("set-element").classList.toggle("show");
 }
 
-function setupLabel(labelEl) {
+function setupHeading(headingEl) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
         + ' <div class="col-md-8">'
-        + '     <div class="close" onclick="ClosePopup(\'' + labelEl.id + '\')"></div>'
-        + '     <h4>Enter your label text below.</h4>'
+        + '     <div class="close" onclick="ClosePopup(\'' + headingEl.id + '\')"></div>'
+        + '     <h4>Enter your heading text below.</h4>'
         + '     <br>'
         + '     <br>'
-        + '     <input type="text" id="text-label" class="form-control">'
+        + '     <input type="text" id="text-heading" class="form-control">'
         + '     <br>'
-        + '     <button class="btn btn-primary form-control" onclick="setLabel(\'' + labelEl.id + '\')">Set Label</button>'
+        + '     <button class="btn btn-primary form-control" onclick="setHeading(\'' + headingEl.id + '\')">Set Heading</button>'
         + ' </div>'
         + '</div>';
     popup.classList.toggle("show");
 }
 
-function setLabel(labelID) {
-    document.getElementById(labelID).innerHTML = document.getElementById('text-label').value;
+function setHeading(headingID) {
+    document.getElementById(headingID).innerHTML = document.getElementById('text-heading').value;
     document.getElementById("set-element").classList.toggle("show");
 }
 
 function setupTextBox(textboxEl)
 {
-    textboxDef[textBoxCNT] = {'name':textboxEl.name,'type':'string','size':200};
+    // create popup asking user to set a label for the text box.
 }
 
 function setupCheckbox(checkboxEl) {
@@ -76,7 +76,6 @@ function setupCheckbox(checkboxEl) {
         + '     <h4>Setup Your Checkbox Item(s)</h4>'
         + '     <br>'
         + '     <p>If you enter a list of items sperated by semicolons, (;) we\'ll turn each list item into a checkbox.</p>'
-        + '     <br>'
         + '     <input type="text" id="text-checkbox" class="form-control">'
         + '     <br>'
         + '     <button class="btn btn-primary form-control" onclick="setCheckbox(\'' + checkboxEl.id + '\')">Set Checkbox Text</button>'
@@ -94,22 +93,25 @@ function setCheckbox(checkboxID) {
         if (checkBoxText[i] == '') {
             continue;
         }
+
         checkboxCNT+=1;
         var newDiv = document.createElement('div');
         newDiv.id = "checkbox" + checkboxCNT;
         newDiv.setAttribute('draggable', 'true');
         newDiv.setAttribute('ondragstart', 'drag(event)');
+    
         checkbox = document.createElement('input');
         checkbox.type = "checkbox";
-        checkbox.name = "checkbox" + checkboxCNT;
+        checkbox.name =  checkBoxText[i].trim();
         checkbox.value = checkBoxText[i].trim();
         var checkText = document.createTextNode(" " + checkBoxText[i].trim());
         newDiv.appendChild(checkbox);
-        newDiv.appendChild(document.createElement('label').appendChild(checkText));
+        newDiv.appendChild(document.createElement('label').innerText = checkText);
+        newDiv.appendChild(document.createElement('br'));
+
         elParent.appendChild(newDiv);
-        checkboxDef[checkboxCNT] = {'name':'checkbox' + checkboxCNT,'type':'unsignedTinyInteger','size':3};
+        document.getElementById("set-element").classList.toggle("show");
     }
-    document.getElementById("set-element").classList.toggle("show");
 }
 
 function setupRadioButton(radioEl) {
@@ -164,7 +166,6 @@ function setRadioButton(radioID) {
         newDiv.appendChild(radioEl);
         newDiv.appendChild(document.createElement('label').appendChild(radioText));
         radioElParent.appendChild(newDiv);
-        radiobuttonDef[radiobuttonCNT] = {'name':radioButtonName,'type':'string','size':200};
     }
     document.getElementById("set-element").classList.toggle("show");
 }
@@ -213,7 +214,6 @@ function setupSelectBox(selectContainer) {
     selectBTN.id = selectBTN.id + selectboxCNT;
     selectInput.id = selectInput.id + selectboxCNT;
     selectInput.setAttribute('name', selectInput.id);
-    selectboxDef[selectboxCNT] = {'name':selectInput.name,'type':'string','size':200};
     selector.id = selector.id + selectboxCNT;
     while (selector.firstChild) {
         selector.removeChild(selector.firstChild);
@@ -328,12 +328,8 @@ function addOption() {
 
 function setSelectBox(selectBtnId, selectorId) {
     btnEl = document.getElementById(selectBtnId);
+
     btnEl.innerHTML = document.getElementById('selectName').value + '<span class="chevron bottom"></span>';
-    /* if (document.getElementById('allowdefault').checked) {
-        selectboxDef[selectboxCNT]['allowdefault'] = true;
-    } else {
-        selectboxDef[selectboxCNT]['allowdefault'] = false;
-    } */
     var selector = document.getElementById(selectorId);
 
     var popup = document.getElementById('set-element');
@@ -367,8 +363,6 @@ function setupDatePicker(datepickerConEl) {
     script.type = 'text/javascript';
     script.text = '$(function () { $(\'#datepicker' + datepickerCNT + '\').datetimepicker({ format: \'L\' }); });';
     datepickerConEl.appendChild(script);
-
-    datepickerDef[datepickerCNT] = {'name':datepickerEl.name,'type':'date'};
 }
 
 function setupTimePicker(timepickerConEl) {
@@ -382,8 +376,6 @@ function setupTimePicker(timepickerConEl) {
     script.type = 'text/javascript';
     script.text = '$(function () { $(\'#timepicker' + timepickerCNT + '\').datetimepicker({ format: \'LT\' }); });';
     timepickerConEl.appendChild(script);
-
-    timepickerDef[timepickerCNT] = {'name':timepickerEl.name, 'type':'time'};
 }
 
 function setupAttachment(attachmentConEl) {
@@ -397,8 +389,6 @@ function setupAttachment(attachmentConEl) {
     attachmentEl.value = '';
     
     attachmentEl.setAttribute('onchange', 'document.getElementById(\'' + attachmentLabel.id + '\').innerHTML = this.value.split(\'\\\\\').pop();');
-
-    attachmentDef[attachmentCNT] = {'name':attachmentEl.name, 'type':'data'}
 }
 
 function bulkInput(elType, elId) {
@@ -428,9 +418,12 @@ function processBulkInput(elType, elId) {
     var bulkText = document.getElementById('bulkText');
     var bulkItems = bulkText.value.split(";")
     var el = document.getElementById(elId);
+
     switch (elType) {
         case "selectbox": {
-            document.getElementById('selectbox-button' + selectboxCNT).innerHTML = bulkItems[0] + '<span class="chevron bottom"></span>';
+            var selectEl =document.getElementById('selectbox-button' + selectboxCNT);
+            selectEl.innerHTML = bulkItems[0] + '<span class="chevron bottom"></span>';
+
             for(var i = 0; i < bulkItems.length; i++) {
                 if (bulkItems[i] == '') {
                     continue;
