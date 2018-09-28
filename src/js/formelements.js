@@ -93,21 +93,25 @@ function setCheckbox(checkboxID) {
         if (checkBoxText[i] == '') {
             continue;
         }
+
         checkboxCNT+=1;
         var newDiv = document.createElement('div');
         newDiv.id = "checkbox" + checkboxCNT;
         newDiv.setAttribute('draggable', 'true');
         newDiv.setAttribute('ondragstart', 'drag(event)');
+    
         checkbox = document.createElement('input');
         checkbox.type = "checkbox";
         checkbox.name =  checkBoxText[i].trim();
         checkbox.value = checkBoxText[i].trim();
         var checkText = document.createTextNode(" " + checkBoxText[i].trim());
         newDiv.appendChild(checkbox);
-        newDiv.appendChild(document.createElement('label').appendChild(checkText));
+        newDiv.appendChild(document.createElement('label').innerText = checkText);
+        newDiv.appendChild(document.createElement('br'));
+
         elParent.appendChild(newDiv);
+        document.getElementById("set-element").classList.toggle("show");
     }
-    document.getElementById("set-element").classList.toggle("show");
 }
 
 function setupRadioButton(radioEl) {
@@ -225,8 +229,6 @@ function setupSelectBox(selectContainer) {
     + '     <div class="row">'
     + '         <div class="col">'
     + '             <h4>Setup Select Box</h4>'
-    + '             <p>Please set a label for your select box. Try to keep it short, but descriptive.</p>'
-    + '             <input type="text" id="selectLabel" class="form-control">'
     + '             <label for="selectName">'
     + '                 The first text box will be the default value for your select box. All of the other boxes will be in the options dropdown, in the order they are added.'
     + '                 '
@@ -325,13 +327,7 @@ function addOption() {
 }
 
 function setSelectBox(selectBtnId, selectorId) {
-    labelEl = document.createElement("h6");
-    btnLabel = document.getElementById('selectLabel');
-    labelEl.innerHTML = btnLabel.value;
-    btnLabel.remove();
-
     btnEl = document.getElementById(selectBtnId);
-    btnEl.parentNode.insertBefore(labelEl, btnEl);
 
     btnEl.innerHTML = document.getElementById('selectName').value + '<span class="chevron bottom"></span>';
     var selector = document.getElementById(selectorId);
@@ -402,9 +398,7 @@ function bulkInput(elType, elId) {
     + ' <div class="col-md-12">'
     + '     <div class="close" onclick="ClosePopup(\'' + elId + '\')"></div>'
     + '     <h4>Bulk <span id="typeone"></span> Input</h4>'
-    + '     <p>Label your <span id="typetwo"></span> element. Try to be short but descriptive.</p>'
-    + '     <input type="text" id="labelEl" class="form-control">'
-    + '     <p>Enter a list of items, sperated by semicolons. (;) We\'ll turn each list item into <span id="typethree"></span>.</p>'
+    + '     <p>Enter a list of items, sperated by semicolons. (;) We\'ll turn each list item into <span id="typetwo"></span>.</p>'
     + '     <textarea id="bulkText" class="form-control"></textarea>'
     + '     <br><br>'
     + '     <button class="btn btn-primary form-control" onclick="processBulkInput(\'' + elType + '\', \'' + elId + '\')">Process Bulk Input</button>'
@@ -414,8 +408,7 @@ function bulkInput(elType, elId) {
     switch (elType) {
         case "selectbox": {
             document.getElementById('typeone').innerText = "Dropdown"
-            document.getElementById('typetwo').innerText = 'dropdown';
-            document.getElementById('typethree').innerText = "a selectable item in the dropdown list"
+            document.getElementById('typetwo').innerText = "a selectable item in the dropdown list"
             break;
         }
     }
@@ -425,18 +418,11 @@ function processBulkInput(elType, elId) {
     var bulkText = document.getElementById('bulkText');
     var bulkItems = bulkText.value.split(";")
     var el = document.getElementById(elId);
-    
-    var labelEl = document.getElementById('labelEl');
-    var elLabel = document.createElement('h6');
-    elLabel.innerText = labelEl.value;
-    labelEl.remove();
 
     switch (elType) {
         case "selectbox": {
             var selectEl =document.getElementById('selectbox-button' + selectboxCNT);
             selectEl.innerHTML = bulkItems[0] + '<span class="chevron bottom"></span>';
-
-            selectEl.parentNode.insertBefore(elLabel, selectEl);
 
             for(var i = 0; i < bulkItems.length; i++) {
                 if (bulkItems[i] == '') {
