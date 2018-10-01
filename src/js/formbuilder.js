@@ -2,8 +2,9 @@ var titleCNT = 0;
 var textCNT = 0;
 var headingCNT = 0;
 var labelCNT = 0;
-var textBoxCNT = 0;
 var blankSpaceCNT = 0;
+var questionBucketCNT = 0;
+var textBoxCNT = 0;
 var checkboxCNT = 0;
 var radiobuttonCNT = 0;
 var selectboxCNT = 0;
@@ -24,8 +25,9 @@ var elements = [
     'text-block',
     'heading',
     'label',
-    'text-box',
     'blank-space',
+    'questionBucket',
+    'text-box',
     'checkbox',
     'radiobutton',
     'selectbox-container',
@@ -199,17 +201,23 @@ function insert(parEl, chiEl) {
             setupLabel(chiEl);
             parEl.appendChild(chiEl);
             break;
+        case 'blank-space':
+            blankSpaceCNT += 1;
+            chiEl.id = chiEl.id + blankSpaceCNT;
+            setupBlankSpace(chiEl);
+            parEl.appendChild(chiEl);
+            break;
+        case 'questionBucket':
+            questionBucketCNT += 1;
+            chiEl.id = chiEl.id + questionBucketCNT;
+            setupQuestionBucket(chiEl);
+            parEl.appendChild(chiEl);
+            break;
         case 'text-box':
             textBoxCNT += 1;
             chiEl.name = chiEl.name + '-' + textBoxCNT;
             chiEl.id = chiEl.id + textBoxCNT;
             setupTextBox(chiEl);
-            parEl.appendChild(chiEl);
-            break;
-        case 'blank-space':
-            blankSpaceCNT += 1;
-            chiEl.id = chiEl.id + blankSpaceCNT;
-            setupBlankSpace(chiEl);
             parEl.appendChild(chiEl);
             break;
         case 'checkbox':
