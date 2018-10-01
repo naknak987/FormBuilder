@@ -320,11 +320,13 @@ function hideHelpers() {
 }
 
 function showInputs() {
+    document.getElementById('form-area').classList.add('darken');
     document.getElementById('descriptors').classList.remove('show');
     document.getElementById('inputs').classList.add('show');
 }
 
 function hideInputs() {
+    document.getElementById('form-area').classList.remove('darken');
     document.getElementById('inputs').classList.remove('show');
     document.getElementById('descriptors').classList.add('show');
 }
