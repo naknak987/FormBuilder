@@ -62,6 +62,28 @@ function setHeading(headingID) {
     document.getElementById("set-element").classList.toggle("show");
 }
 
+function setupLabel(labelEl) {
+    var popup = document.getElementById("set-element");
+    popup.innerHTML = ""
+        + '<div class="row justify-content-md-center">'
+        + ' <div class="col-md-8">'
+        + '     <div class="close" onclick="ClosePopup(\'' + labelEl.id + '\')"></div>'
+        + '     <h4>Enter your label text below.</h4>'
+        + '     <br>'
+        + '     <br>'
+        + '     <input type="text" id="text-label" class="form-control">'
+        + '     <br>'
+        + '     <button class="btn btn-primary form-control" onclick="setLabel(\'' + labelEl.id + '\')">Set Label</button>'
+        + ' </div>'
+        + '</div>';
+    popup.classList.toggle("show");
+}
+
+function setLabel(labelID) {
+    document.getElementById(labelID).innerHTML = document.getElementById('text-label').value;
+    document.getElementById("set-element").classList.toggle("show");
+}
+
 function setupTextBox(textboxEl)
 {
     // create popup asking user to set a label for the text box.
