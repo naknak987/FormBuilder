@@ -139,9 +139,10 @@ function setQuestionBucket(bucketID) {
     var questionEl = bucketEl.firstElementChild;
     questionEl.innerText = document.getElementById('textQuestion').value;
     questionEl.id = questionEl.id + questionBucketCNT;
-
     
-    document.getElementById("set-element").classList.toggle("show"); 
+    document.getElementById("set-element").classList.toggle("show");
+
+    showInputs();
 }
 
 function setupTextBox(textboxEl)
