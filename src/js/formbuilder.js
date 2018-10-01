@@ -311,6 +311,16 @@ function hideHelpers() {
     }
 }
 
+function showInputs() {
+    document.getElementById('descriptors').classList.remove('show');
+    document.getElementById('inputs').classList.add('show');
+}
+
+function hideInputs() {
+    document.getElementById('inputs').classList.remove('show');
+    document.getElementById('descriptors').classList.add('show');
+}
+
 function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
     var formHTML = formAreaEl.innerHTML;
