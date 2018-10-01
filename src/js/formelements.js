@@ -19,27 +19,6 @@ function setTitleText(titleID) {
     document.getElementById("set-element").classList.toggle("show");
 }
 
-function setupTextBlock(textBlockEL) {
-    var popup = document.getElementById("set-element");
-    popup.innerHTML = ""
-        + '<div class="row justify-content-md-center">'
-        + ' <div class="col-md-8">'
-        + '     <div class="close" onclick="ClosePopup(\'' + textBlockEL.id + '\')"></div>'
-        + '     <h4>Your Text</h4>'
-        + '     <br>'
-        + '     <textarea class="form-control" id="text-blockText"></textarea>'
-        + '     <br>'
-        + '     <button class="btn btn-primary form-control" onclick="setTextBlock(\'' + textBlockEL.id + '\')">Set Text Block</button>'
-        + ' </div>'
-        + '</div>';
-    popup.classList.toggle("show");
-}
-
-function setTextBlock(textID) {
-    document.getElementById(textID).innerText = document.getElementById('text-blockText').value;
-    document.getElementById("set-element").classList.toggle("show");
-}
-
 function setupHeading(headingEl) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
@@ -82,6 +61,87 @@ function setupLabel(labelEl) {
 function setLabel(labelID) {
     document.getElementById(labelID).innerHTML = document.getElementById('text-label').value;
     document.getElementById("set-element").classList.toggle("show");
+}
+
+function setupTextBlock(textBlockEL) {
+    var popup = document.getElementById("set-element");
+    popup.innerHTML = ""
+        + '<div class="row justify-content-md-center">'
+        + ' <div class="col-md-8">'
+        + '     <div class="close" onclick="ClosePopup(\'' + textBlockEL.id + '\')"></div>'
+        + '     <h4>Your Text</h4>'
+        + '     <br>'
+        + '     <textarea class="form-control" id="text-blockText"></textarea>'
+        + '     <br>'
+        + '     <button class="btn btn-primary form-control" onclick="setTextBlock(\'' + textBlockEL.id + '\')">Set Text Block</button>'
+        + ' </div>'
+        + '</div>';
+    popup.classList.toggle("show");
+}
+
+function setTextBlock(textID) {
+    document.getElementById(textID).innerText = document.getElementById('text-blockText').value;
+    document.getElementById("set-element").classList.toggle("show");
+}
+
+function setupBlankSpace(blankEl) {
+    var popup = document.getElementById('set-element');
+    popup.innerHTML = ""
+    + '<div class="row justify-content-md-center">'
+    + ' <div class="col-md-12">'
+    + '     <div class="close" onclick="ClosePopup(\'' + blankEl.id + '\')"></div>'
+    + '     <h4>Setup Blank Space</h4>'
+    + '     <br>'
+    + '     <p>This would be the height of the blank space in points. Kinda like how fonts are measured. (ex. 12 point font)<p>'
+    + '     <br>'
+    + '     <select id="size-BlankSpace" class="form-control">'
+    + '         <option value="8pt">8 pt</option>'
+    + '         <option value="18pt">18 pt</option>'
+    + '         <option value="26pt">26 pt</option>'
+    + '         <option value="30pt">30 pt</option>'
+    + '         <option value="40pt">40 pt</option>'
+    + '         <option value="50pt">50 pt</option>'
+    + '     </select>'
+    + '     </br><br>'
+    + '     <button class="btn btn-primary form-control" onclick="setBlankSpace(\'' + blankEl.id + '\')">Set Blank Space</button>'
+    + ' </div>'
+    + '</div>';
+    popup.classList.toggle("show");
+}
+
+function setBlankSpace(blankID) {
+    var blankSpace = document.getElementById(blankID);
+    blankSpace.innerHTML = '<i style="color:lightgray;">This space intentionally left blank!</i>';
+    blankSpace.style.height = document.getElementById("size-BlankSpace").value;
+    document.getElementById("set-element").classList.toggle("show"); 
+}
+
+function setupQuestionBucket(bucketEl) {
+    var popup = document.getElementById('set-element');
+    popup.innerHTML = ""
+    + '<div class="row justify-content-md-center">'
+    + ' <div class="col-md-12">'
+    + '     <div class="close" onclick="ClosePopup(\'' + bucketEl.id + '\')"></div>'
+    + '     <h4>Setup New Question</h4>'
+    + '     <br>'
+    + '     <p>Ask your question. What you enter here will become the question text.</p>'
+    + '     <br>'
+    + '     <input type="text" id="textQuestion" class="form-control">'
+    + '     <br>'
+    + '     <button class="btn btn-primary form-control" onclick="setQuestionBucket(\'' + bucketEl.id + '\')">Set Question</button>'
+    + ' </div>'
+    + '</div>';
+    popup.classList.toggle("show");
+}
+
+function setQuestionBucket(bucketID) {
+    var bucketEl = document.getElementById(bucketID);
+    var questionEl = bucketEl.firstElementChild;
+    questionEl.innerText = document.getElementById('textQuestion').value;
+    questionEl.id = questionEl.id + questionBucketCNT;
+
+    
+    document.getElementById("set-element").classList.toggle("show"); 
 }
 
 function setupTextBox(textboxEl)
@@ -190,38 +250,6 @@ function setRadioButton(radioID) {
         radioElParent.appendChild(newDiv);
     }
     document.getElementById("set-element").classList.toggle("show");
-}
-
-function setupBlankSpace(blankEl) {
-    var popup = document.getElementById('set-element');
-    popup.innerHTML = ""
-    + '<div class="row justify-content-md-center">'
-    + ' <div class="col-md-12">'
-    + '     <div class="close" onclick="ClosePopup(\'' + blankEl.id + '\')"></div>'
-    + '     <h4>Setup Blank Space</h4>'
-    + '     <br>'
-    + '     <p>This would be the height of the blank space in points. Kinda like how fonts are measured. (ex. 12 point font)<p>'
-    + '     <br>'
-    + '     <select id="size-BlankSpace" class="form-control">'
-    + '         <option value="8pt">8 pt</option>'
-    + '         <option value="18pt">18 pt</option>'
-    + '         <option value="26pt">26 pt</option>'
-    + '         <option value="30pt">30 pt</option>'
-    + '         <option value="40pt">40 pt</option>'
-    + '         <option value="50pt">50 pt</option>'
-    + '     </select>'
-    + '     </br><br>'
-    + '     <button class="btn btn-primary form-control" onclick="setBlankSpace(\'' + blankEl.id + '\')">Set Blank Space</button>'
-    + ' </div>'
-    + '</div>';
-    popup.classList.toggle("show");
-}
-
-function setBlankSpace(blankID) {
-    var blankSpace = document.getElementById(blankID);
-    blankSpace.innerHTML = '<i style="color:lightgray;">This space intentionally left blank!</i>';
-    blankSpace.style.height = document.getElementById("size-BlankSpace").value;
-    document.getElementById("set-element").classList.toggle("show"); 
 }
 
 var area1;
