@@ -126,3 +126,25 @@ body{
     font-weight: 300;
     font-family: Arial, sans-serif;
 }
+
+/**************************************************************/
+
+#descriptors {
+    visibility: hidden;
+}
+
+#descriptors.show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+#inputs {
+    visibility: hidden;
+}
+
+#inputs.show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
