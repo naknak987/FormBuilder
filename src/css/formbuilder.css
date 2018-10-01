@@ -156,4 +156,9 @@ body{
     border-radius: 4px;
     padding: 1px 12px 12px 1px;
     margin-bottom:6px;
+    background-color: white;
+}
+
+.darken {
+    background-color: rgb(66, 66, 66);
 }
