@@ -12,13 +12,13 @@ body{
     height: 100%;
 }
 .form-area .row {
-    border: 3px dashed lightgray;
+    border: 3px dashed rgb(252, 235, 210);
     border-radius: 4px;
     padding: 1px 12px 12px 1px;
     margin-bottom:6px;
 }
 .form-area .row .col {
-    border: 3px dashed lightgray;
+    border: 3px dashed rgb(254, 255, 190);
     border-radius: 4px;
     padding: 1px 12px 12px 1px;
     height:100%;
@@ -147,4 +147,13 @@ body{
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
+}
+
+/**************************************************************/
+
+.questionBucket {
+    border: 3px dashed rgb(228, 248, 220);
+    border-radius: 4px;
+    padding: 1px 12px 12px 1px;
+    margin-bottom:6px;
 }
