@@ -135,14 +135,17 @@ function setupQuestionBucket(bucketEl) {
 }
 
 function setQuestionBucket(bucketID) {
+
     var bucketEl = document.getElementById(bucketID);
     var questionEl = bucketEl.firstElementChild;
-    questionEl.innerText = document.getElementById('textQuestion').value;
     questionEl.id = questionEl.id + questionBucketCNT;
+    questionEl.innerText = document.getElementById('textQuestion').value;
+
+    addButtons(bucketEl);
     
     document.getElementById("set-element").classList.toggle("show");
 
-    showInputs();
+    //showInputs();
 }
 
 function setupTextBox(textboxEl)
