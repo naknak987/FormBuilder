@@ -335,6 +335,35 @@ function hideInputs(qID) {
     document.getElementById(qID).classList.remove('lighten');
 }
 
+function addButtons(El) {
+    
+    var editS = document.createElement('span');
+    editS.classList.add('pencil');
+    editS.id = 'q-' + questionBucketCNT;
+
+    var editA = document.createElement('a');
+    editA.classList.add('edit');
+    editA.href = "#";
+    editA.setAttribute('onclick', 'changeEdit(\'' + editS.id + '\',  \'' + El.id + '\')');
+
+    editA.appendChild(editS);
+    El.appendChild(editA);
+}
+
+function changeEdit(iconID, questionID) {
+    let iconEl = document.getElementById(iconID);
+
+    if (iconEl.classList.contains('pencil')) {
+        showInputs(questionID);
+        iconEl.classList.remove('pencil');
+        iconEl.classList.add('check');
+    } else if (iconEl.classList.contains('check')) {
+        hideInputs(questionID);
+        iconEl.classList.remove('check');
+        iconEl.classList.add('pencil');
+    }
+}
+
 function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
     var formHTML = formAreaEl.innerHTML;
