@@ -319,16 +319,20 @@ function hideHelpers() {
     }
 }
 
-function showInputs() {
+function showInputs(qID) {
     document.getElementById('form-area').classList.add('darken');
     document.getElementById('descriptors').classList.remove('show');
     document.getElementById('inputs').classList.add('show');
+
+    document.getElementById(qID).classList.add('lighten');
 }
 
-function hideInputs() {
+function hideInputs(qID) {
     document.getElementById('form-area').classList.remove('darken');
     document.getElementById('inputs').classList.remove('show');
     document.getElementById('descriptors').classList.add('show');
+
+    document.getElementById(qID).classList.remove('lighten');
 }
 
 function ExportForm() {
