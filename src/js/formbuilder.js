@@ -335,16 +335,16 @@ function hideInputs(qID) {
     document.getElementById(qID).classList.remove('lighten');
 }
 
-function addButtons(El) {
+function addButtons(El, Id) {
     
     var editS = document.createElement('span');
     editS.classList.add('pencil');
-    editS.id = 'q-' + questionBucketCNT;
+    editS.id = Id;
 
     var editA = document.createElement('a');
     editA.classList.add('edit');
     editA.href = "#";
-    editA.setAttribute('onclick', 'changeEdit(\'' + editS.id + '\',  \'' + El.id + '\')');
+    editA.setAttribute('onclick', 'changeEdit(\'' + editS.id + '\',  \'' + Id + '\')');
 
     editA.appendChild(editS);
     El.appendChild(editA);
