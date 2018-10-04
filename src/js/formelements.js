@@ -141,7 +141,7 @@ function setQuestionBucket(bucketID) {
     questionEl.id = questionEl.id + questionBucketCNT;
     questionEl.innerText = document.getElementById('textQuestion').value;
 
-    addButtons(bucketEl);
+    addButtons(bucketEl, 'q-' + questionBucketCNT);
     
     document.getElementById("set-element").classList.toggle("show");
 
