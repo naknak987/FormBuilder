@@ -158,7 +158,9 @@ body{
     padding: 1px 12px 12px 1px;
     margin-bottom:6px;
 }
-
+.questionBucket:hover .edit {
+    visibility: visible;
+}
 .lighten {
     background-color: white;
 }
@@ -168,6 +170,7 @@ body{
 }
 
 .edit {
+    visibility: hidden;
     color: inherit;
     text-decoration: none;
     position: absolute;
