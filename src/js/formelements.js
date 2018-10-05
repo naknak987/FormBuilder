@@ -223,9 +223,11 @@ function setupQuestionBucket(bucketEl) {
 }
 
 function setQuestionBucket(bucketID) {
+    let bucketEl = document.getElementById(bucketID);
+    bucketEl.setAttribute('ondrop', 'questionDrop(event, this)');
+    bucketEl.setAttribute('ondragover', 'allowDrop(event)');
 
-    var bucketEl = document.getElementById(bucketID);
-    var questionEl = bucketEl.firstElementChild;
+    let questionEl = bucketEl.firstElementChild;
     questionEl.id = questionEl.id + questionBucketCNT;
     questionEl.innerText = document.getElementById('textQuestion').value;
 
@@ -233,7 +235,7 @@ function setQuestionBucket(bucketID) {
     
     document.getElementById("set-element").classList.toggle("show");
 
-    //showInputs();
+    editQuestion('q-' + questionBucketCNT, bucketEl.id);
 }
 
 function setupTextBox(textboxEl)
