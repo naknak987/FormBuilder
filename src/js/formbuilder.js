@@ -319,7 +319,7 @@ function hideHelpers() {
     }
 }
 
-function showInputs(qID) {
+/* function showInputs(qID) {
     document.getElementById('form-area').classList.add('darken');
     document.getElementById('descriptors').classList.remove('show');
     document.getElementById('inputs').classList.add('show');
@@ -333,6 +333,29 @@ function hideInputs(qID) {
     document.getElementById('descriptors').classList.add('show');
 
     document.getElementById(qID).classList.remove('lighten');
+} */
+
+function changeInputs(qID) {
+    document.getElementById('form-area').classList.toggle('darken');
+    document.getElementById('inputs').classList.toggle('show');
+    document.getElementById('descriptors').classList.toggle('show');
+
+    document.getElementById(qID).classList.toggle('lighten');
+}
+
+function addQButtons(El, Id) {
+    
+    var editS = document.createElement('span');
+    editS.classList.add('pencil');
+    editS.id = Id;
+
+    var editA = document.createElement('a');
+    editA.classList.add('qEdit');
+    editA.href = "#";
+    editA.setAttribute('onclick', 'editQuestion(\'' + editS.id + '\',  \'' + Id + '\')');
+
+    editA.appendChild(editS);
+    El.appendChild(editA);
 }
 
 function addButtons(El, Id) {
@@ -344,25 +367,32 @@ function addButtons(El, Id) {
     var editA = document.createElement('a');
     editA.classList.add('edit');
     editA.href = "#";
-    editA.setAttribute('onclick', 'changeEdit(\'' + editS.id + '\',  \'' + Id + '\')');
+    editA.setAttribute('onclick', 'edit(\'' + El.id + '\',  \'' + edits.id + '\')');
 
     editA.appendChild(editS);
     El.appendChild(editA);
 }
 
-function changeEdit(iconID, questionID) {
+function edit(elID) {
+    let El = document.getElementById(elID);
+
+    iconEl.classList.toggle('pencil');
+    iconEl.classList.toggle('check');
+}
+
+/* function edit(iconID, questionID) {
     let iconEl = document.getElementById(iconID);
 
     if (iconEl.classList.contains('pencil')) {
-        showInputs(questionID);
-        iconEl.classList.remove('pencil');
-        iconEl.classList.add('check');
+        changeInputs(questionID);
+        iconEl.classList.toggle('pencil');
+        iconEl.classList.toggle('check');
     } else if (iconEl.classList.contains('check')) {
         hideInputs(questionID);
         iconEl.classList.remove('check');
         iconEl.classList.add('pencil');
-    }
-}
+    } 
+} */
 
 function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
