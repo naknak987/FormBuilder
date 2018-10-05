@@ -159,35 +159,16 @@ function colDrop(ev, el) {
 }
 
 function questionDrop(ev, el) {
-    if (el.classList.contains('emptycol')) {
-        var elBefore = el.previousSibling;
-        if ((elBefore === null) || (elBefore.classList.contains('col'))) {
-            el.insertAdjacentHTML('beforebegin', emptycol);
-            incrementColNum();
-        }
-        var nextEl = el.nextSibling;
-        if (nextEl !== null) {
-            el.insertAdjacentHTML('afterend', emptycol);
-            incrementColNum();
-        }
-        el.classList.toggle('emptycol');
-        el.classList.toggle('col');
-    }
-    el.style.padding = '1px 12px 12px 1px';
     ev.stopPropagation();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    var dataEl = ev.target;
-    while (dataEl.id.substring(0,3) != 'col'){
-        dataEl = dataEl.parentNode;
-    }
 
     if (elements.indexOf(data) != -1) {
         var ClonedEl = document.getElementById(data).cloneNode(true);
     } else {
         var ClonedEl = document.getElementById(data);
     }
-    insertSecondary(dataEl, ClonedEl);
+    insertSecondary(/* dataEl */ el, ClonedEl);
 }
 
 function deleteElementOnDrop(ev) {
