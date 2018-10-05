@@ -1,21 +1,27 @@
 function setupTitle(titleEL) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
-        + '<div class="row justify-content-md-center">'
-        + ' <div class="col-md-8">'
-        + '     <div class="close" onclick="ClosePopup(\'' + titleEL.id + '\')"></div>'
-        + '     <h4>Your Title Text</h4>'
-        + '     <br>'
-        + '     <input type="text" class="form-control" id="titleText">'
-        + '     <br>'
-        + '     <button class="btn btn-primary form-control" onclick="setTitleText(\'' + titleEL.id + '\')">Set Title</button>'
-        + ' </div>'
-        + '</div>';
+    + '<div class="row justify-content-md-center">'
+    + ' <div class="col-md-8">'
+    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + titleEL.id + '\')"></div>'
+    + '     <h4>Your Title Text</h4>'
+    + '     <br>'
+    + '     <input type="text" class="form-control" id="titleText">'
+    + '     <br>'
+    + '     <button class="btn btn-primary form-control" onclick="setTitleText(\'' + titleEL.id + '\')">Set Title</button>'
+    + ' </div>'
+    + '</div>';
+
+    let titleInput = document.getElementById('titleText');
 
     for (let i = 0; i < titleEL.children.length; i++) {
         if (titleEL.children[i].tagName == 'H3') {
-            document.getElementById('titleText').value = titleEL.children[i].innerText;
+            titleInput.value = titleEL.children[i].innerText;
         }
+    }
+
+    if (titleInput.value != 'Title') {
+        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
     }
     
     popup.classList.toggle("show");
@@ -38,22 +44,28 @@ function setTitleText(titleID) {
 function setupHeading(headingEl) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
-        + '<div class="row justify-content-md-center">'
-        + ' <div class="col-md-8">'
-        + '     <div class="close" onclick="ClosePopup(\'' + headingEl.id + '\')"></div>'
-        + '     <h4>Enter your heading text below.</h4>'
-        + '     <br>'
-        + '     <br>'
-        + '     <input type="text" id="text-heading" class="form-control">'
-        + '     <br>'
-        + '     <button class="btn btn-primary form-control" onclick="setHeading(\'' + headingEl.id + '\')">Set Heading</button>'
-        + ' </div>'
-        + '</div>';
+    + '<div class="row justify-content-md-center">'
+    + ' <div class="col-md-8">'
+    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + headingEl.id + '\')"></div>'
+    + '     <h4>Enter your heading text below.</h4>'
+    + '     <br>'
+    + '     <br>'
+    + '     <input type="text" id="text-heading" class="form-control">'
+    + '     <br>'
+    + '     <button class="btn btn-primary form-control" onclick="setHeading(\'' + headingEl.id + '\')">Set Heading</button>'
+    + ' </div>'
+    + '</div>';
+
+    let headingInput = document.getElementById('text-heading');
 
     for (let i = 0; i < headingEl.children.length; i++) {
         if (headingEl.children[i].tagName == 'H5') {
-            document.getElementById('text-heading').value = headingEl.children[i].innerText;
+            headingInput.value = headingEl.children[i].innerText;
         }
+    }
+    
+    if (headingInput.value != 'Heading') {
+        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
     }
 
     popup.classList.toggle("show");
@@ -76,24 +88,30 @@ function setHeading(headingID) {
 function setupLabel(labelEl) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
-        + '<div class="row justify-content-md-center">'
-        + ' <div class="col-md-8">'
-        + '     <div class="close" onclick="ClosePopup(\'' + labelEl.id + '\')"></div>'
-        + '     <h4>Enter your label text below.</h4>'
-        + '     <br>'
-        + '     <br>'
-        + '     <input type="text" id="text-label" class="form-control">'
-        + '     <br>'
-        + '     <button class="btn btn-primary form-control" onclick="setLabel(\'' + labelEl.id + '\')">Set Label</button>'
-        + ' </div>'
-        + '</div>';
+    + '<div class="row justify-content-md-center">'
+    + ' <div class="col-md-8">'
+    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + labelEl.id + '\')"></div>'
+    + '     <h4>Enter your label text below.</h4>'
+    + '     <br>'
+    + '     <br>'
+    + '     <input type="text" id="text-label" class="form-control">'
+    + '     <br>'
+    + '     <button class="btn btn-primary form-control" onclick="setLabel(\'' + labelEl.id + '\')">Set Label</button>'
+    + ' </div>'
+    + '</div>';
     
+    let labelInput = document.getElementById('text-label');
+
     for (let i = 0; i < labelEl.children.length; i++) {
-        if (labelEl.children[i].tagName == 'H3') {
-            document.getElementById('text-label').value = labelEl.children[i].innerText;
+        if (labelEl.children[i].tagName == 'H6') {
+            labelInput.value = labelEl.children[i].innerText;
         }
     }
 
+    if (labelInput.value != 'Label') {
+        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
+    }
+    
     popup.classList.toggle("show");
 }
 
@@ -116,7 +134,7 @@ function setupTextBlock(textBlockEL) {
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
     + ' <div class="col-md-8">'
-    + '     <div class="close" onclick="ClosePopup(\'' + textBlockEL.id + '\')"></div>'
+    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + textBlockEL.id + '\')"></div>'
     + '     <h4>Your Text</h4>'
     + '     <br>'
     + '     <textarea class="form-control" id="text-blockText"></textarea>'
@@ -125,10 +143,16 @@ function setupTextBlock(textBlockEL) {
     + ' </div>'
     + '</div>';
 
+    let textInput = document.getElementById('text-blockText');
+
     for (let i = 0; i < textBlockEL.children.length; i++) {
-        if (textBlockEL.children[i].tagName == 'H3') {
-            document.getElementById('text-blockText').value = textBlockEL.children[i].innerText;
+        if (textBlockEL.children[i].tagName == 'P') {
+            textInput.value = textBlockEL.children[i].innerText;
         }
+    }
+
+    if (textInput.value != 'Text Block') {
+        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
     }
     
     popup.classList.toggle("show");
@@ -153,7 +177,7 @@ function setupBlankSpace(blankEl) {
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
     + ' <div class="col-md-12">'
-    + '     <div class="close" onclick="ClosePopup(\'' + blankEl.id + '\')"></div>'
+    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + blankEl.id + '\')"></div>'
     + '     <h4>Setup Blank Space</h4>'
     + '     <br>'
     + '     <p>This would be the height of the blank space in points. Kinda like how fonts are measured. (ex. 12 point font)<p>'
@@ -185,7 +209,7 @@ function setupQuestionBucket(bucketEl) {
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
     + ' <div class="col-md-12">'
-    + '     <div class="close" onclick="ClosePopup(\'' + bucketEl.id + '\')"></div>'
+    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + bucketEl.id + '\')"></div>'
     + '     <h4>Setup New Question</h4>'
     + '     <br>'
     + '     <p>Ask your question. What you enter here will become the question text.</p>'
@@ -222,7 +246,7 @@ function setupCheckbox(checkboxEl) {
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
         + ' <div class="col-md-12">'
-        + '     <div class="close" onclick="ClosePopup(\'' + checkboxEl.id + '\')"></div>'
+        + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + checkboxEl.id + '\')"></div>'
         + '     <h4>Setup Your Checkbox Item(s)</h4>'
         + '     <br>'
         + '     <p>If you enter a list of items sperated by semicolons, (;) we\'ll turn each list item into a checkbox.</p>'
@@ -269,7 +293,7 @@ function setupRadioButton(radioEl) {
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
         + ' <div class="col-md-12">'
-        + '     <div class="close" onclick="ClosePopup(\'' + radioEl.id + '\')"></div>'
+        + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + radioEl.id + '\')"></div>'
         + '     <h4>Setup Radio Button</h4>'
         + '     <br>'
         + '     <p>If you enter a list of items sperated by semicolons, (;) we\'ll turn each list item into a radio button.<br>(Button Text/Value only)</p>'
@@ -343,7 +367,7 @@ function setupSelectBox(selectContainer) {
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
     + ' <div class="col-md-12">'
-    + '     <div class="close" onclick="ClosePopup(\'' + selectContainer.id + '\')"></div>'
+    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + selectContainer.id + '\')"></div>'
     + '     <div class="row">'
     + '         <div class="col">'
     + '             <h4>Setup Select Box</h4>'
@@ -514,7 +538,7 @@ function bulkInput(elType, elId) {
     popup.innerHTML = ''
     + '<div class="row">'
     + ' <div class="col-md-12">'
-    + '     <div class="close" onclick="ClosePopup(\'' + elId + '\')"></div>'
+    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + elId + '\')"></div>'
     + '     <h4>Bulk <span id="typeone"></span> Input</h4>'
     + '     <p>Enter a list of items, sperated by semicolons. (;) We\'ll turn each list item into <span id="typetwo"></span>.</p>'
     + '     <textarea id="bulkText" class="form-control"></textarea>'
