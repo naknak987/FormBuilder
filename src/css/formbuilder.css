@@ -158,9 +158,19 @@ body{
     padding: 1px 12px 12px 1px;
     margin-bottom:6px;
 }
-.questionBucket:hover .edit {
+.questionBucket:hover .qEdit {
     visibility: visible;
 }
+
+#form-area .el-cont:hover {
+    border-radius: 4px;
+    background-color: rgb(208, 218, 168);
+}
+
+.el-cont:hover .edit {
+    visibility: visible;
+}
+
 .lighten {
     background-color: white;
 }
@@ -169,7 +179,7 @@ body{
     background-color: rgb(66, 66, 66);
 }
 
-.edit {
+.qEdit {
     visibility: hidden;
     color: inherit;
     text-decoration: none;
@@ -177,7 +187,22 @@ body{
     right: 10px;
     top: -10px;
 }
+
+.edit {
+    visibility: hidden;
+    color: inherit;
+    text-decoration: none;
+    position: absolute;
+    left: -10px;
+    top: -10px;
+}
+
 .edit:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.qEdit:hover {
     color: inherit;
     text-decoration: none;
 }
