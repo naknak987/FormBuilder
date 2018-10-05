@@ -15,7 +15,16 @@ function setupTitle(titleEL) {
 }
 
 function setTitleText(titleID) {
-    document.getElementById(titleID).innerHTML = document.getElementById('titleText').value;
+    let el = document.getElementById(titleID);
+    el.innerHTML = '';
+
+    let title = document.createElement("h3");
+    title.innerText = document.getElementById('titleText').value;
+
+    el.appendChild(title);
+
+    addButtons(el, 'edit-' + el.id);
+
     document.getElementById("set-element").classList.toggle("show");
 }
 
@@ -37,7 +46,16 @@ function setupHeading(headingEl) {
 }
 
 function setHeading(headingID) {
-    document.getElementById(headingID).innerHTML = document.getElementById('text-heading').value;
+    let el = document.getElementById(headingID)
+    el.innerHTML = '';
+    
+    let heading = document.createElement('h5');
+    heading.innerText = document.getElementById('text-heading').value;
+
+    el.appendChild(heading);
+
+    addButtons(el, 'edit-' + el.id);
+
     document.getElementById("set-element").classList.toggle("show");
 }
 
@@ -59,7 +77,16 @@ function setupLabel(labelEl) {
 }
 
 function setLabel(labelID) {
-    document.getElementById(labelID).innerHTML = document.getElementById('text-label').value;
+    let el = document.getElementById(labelID);
+    el.innerHTML = '';
+    
+    let label = document.createElement('h6');
+    label.innerText = document.getElementById('text-label').value;
+
+    el.appendChild(label);
+
+    addButtons(el, 'edit-' + el.id);
+
     document.getElementById("set-element").classList.toggle("show");
 }
 
@@ -80,7 +107,16 @@ function setupTextBlock(textBlockEL) {
 }
 
 function setTextBlock(textID) {
-    document.getElementById(textID).innerText = document.getElementById('text-blockText').value;
+    let el = document.getElementById(textID)
+    el.innerText = '';
+    
+    let paragraph = document.createElement('p');
+    paragraph.innerText = document.getElementById('text-blockText').value;
+
+    el.appendChild(paragraph);
+
+    addButtons(el, 'edit-' + el.id);
+
     document.getElementById("set-element").classList.toggle("show");
 }
 
@@ -141,7 +177,7 @@ function setQuestionBucket(bucketID) {
     questionEl.id = questionEl.id + questionBucketCNT;
     questionEl.innerText = document.getElementById('textQuestion').value;
 
-    addButtons(bucketEl, 'q-' + questionBucketCNT);
+    addQButtons(bucketEl, 'q-' + questionBucketCNT);
     
     document.getElementById("set-element").classList.toggle("show");
 
