@@ -27,6 +27,9 @@ var elements = [
     'label',
     'blank-space',
     'questionBucket',
+];
+
+var qElements = [
     'text-box',
     'checkbox',
     'radiobutton',
@@ -78,84 +81,95 @@ function drop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    ev.target.insertAdjacentHTML('beforeend', emptyrow);
-    incrementRowNum();
-
-    ev.target.insertAdjacentHTML('beforeend', row);
-    var newRow = incrementRowNum();
-
-    newRow.insertAdjacentHTML('beforeend', emptycol);
-    incrementColNum();
-
-    newRow.insertAdjacentHTML('beforeend', col);
-    var newCol = incrementColNum();
-
-    if (elements.indexOf(data) != -1) {
-        var ClonedEl = document.getElementById(data).cloneNode(true);
-    } else {
-        var ClonedEl = document.getElementById(data);
+    if (qElements.indexOf(data) == -1) {
+        ev.target.insertAdjacentHTML('beforeend', emptyrow);
+        incrementRowNum();
+    
+        ev.target.insertAdjacentHTML('beforeend', row);
+        var newRow = incrementRowNum();
+    
+        newRow.insertAdjacentHTML('beforeend', emptycol);
+        incrementColNum();
+    
+        newRow.insertAdjacentHTML('beforeend', col);
+        var newCol = incrementColNum();
+    
+        if (elements.indexOf(data) != -1) {
+            var ClonedEl = document.getElementById(data).cloneNode(true);
+        } else {
+            var ClonedEl = document.getElementById(data);
+        }
+        insertPrimary(newCol, ClonedEl);
     }
-    insertPrimary(newCol, ClonedEl);
 }
 
 function rowDrop(ev, el) {
-    if (el.classList.contains('emptyrow')) {
-        el.insertAdjacentHTML('beforebegin', emptyrow);
-        incrementRowNum();
-        el.insertAdjacentHTML('afterend', emptyrow);
-        incrementRowNum();
-        el.classList.toggle('emptyrow');
-        el.classList.toggle('row');
-    }
-    el.style.padding = '1px 12px 12px 1px';
     ev.stopPropagation();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
+    
+    if (qElements.indexOf(data) == -1) {
+        if (el.classList.contains('emptyrow')) {
+            el.insertAdjacentHTML('beforebegin', emptyrow);
+            incrementRowNum();
+            el.insertAdjacentHTML('afterend', emptyrow);
+            incrementRowNum();
+            el.classList.toggle('emptyrow');
+            el.classList.toggle('row');
+        }
+        el.style.padding = '1px 12px 12px 1px';
 
-    ev.target.insertAdjacentHTML('beforeend', emptycol);
-    incrementColNum();
-
-    ev.target.insertAdjacentHTML('beforeend', col);
-    var newCol = incrementColNum();
-
-    if (elements.indexOf(data) != -1) {
-        var ClonedEl = document.getElementById(data).cloneNode(true);
-    } else {
-        var ClonedEl = document.getElementById(data);
+        ev.target.insertAdjacentHTML('beforeend', emptycol);
+        incrementColNum();
+    
+        ev.target.insertAdjacentHTML('beforeend', col);
+        var newCol = incrementColNum();
+    
+        if (elements.indexOf(data) != -1) {
+            var ClonedEl = document.getElementById(data).cloneNode(true);
+        } else {
+            var ClonedEl = document.getElementById(data);
+        }
+        insertPrimary(newCol, ClonedEl);
     }
-    insertPrimary(newCol, ClonedEl);
 }
 
 function colDrop(ev, el) {
-    if (el.classList.contains('emptycol')) {
-        var elBefore = el.previousSibling;
-        if ((elBefore === null) || (elBefore.classList.contains('col'))) {
-            el.insertAdjacentHTML('beforebegin', emptycol);
-            incrementColNum();
-        }
-        var nextEl = el.nextSibling;
-        if (nextEl !== null) {
-            el.insertAdjacentHTML('afterend', emptycol);
-            incrementColNum();
-        }
-        el.classList.toggle('emptycol');
-        el.classList.toggle('col');
-    }
-    el.style.padding = '1px 12px 12px 1px';
+    
     ev.stopPropagation();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    var dataEl = ev.target;
-    while (dataEl.id.substring(0,3) != 'col'){
-        dataEl = dataEl.parentNode;
-    }
 
-    if (elements.indexOf(data) != -1) {
-        var ClonedEl = document.getElementById(data).cloneNode(true);
-    } else {
-        var ClonedEl = document.getElementById(data);
+    if (qElements.indexOf(data) == -1) {
+        if (el.classList.contains('emptycol')) {
+            var elBefore = el.previousSibling;
+            if ((elBefore === null) || (elBefore.classList.contains('col'))) {
+                el.insertAdjacentHTML('beforebegin', emptycol);
+                incrementColNum();
+            }
+            var nextEl = el.nextSibling;
+            if (nextEl !== null) {
+                el.insertAdjacentHTML('afterend', emptycol);
+                incrementColNum();
+            }
+            el.classList.toggle('emptycol');
+            el.classList.toggle('col');
+        }
+        el.style.padding = '1px 12px 12px 1px';
+        
+        var dataEl = ev.target;
+        while (dataEl.id.substring(0,3) != 'col'){
+            dataEl = dataEl.parentNode;
+        }
+
+        if (elements.indexOf(data) != -1) {
+            var ClonedEl = document.getElementById(data).cloneNode(true);
+        } else {
+            var ClonedEl = document.getElementById(data);
+        }
+        insertPrimary(dataEl, ClonedEl);
     }
-    insertPrimary(dataEl, ClonedEl);
+    
 }
 
 function questionDrop(ev, el) {
@@ -227,7 +241,18 @@ function insertPrimary(parEl, chiEl) {
             parEl.appendChild(chiEl);
             break;
         default:
-            deleteElement(parEl.id);
+            //deleteElement(parEl.id);
+
+            parentEl = chiEl.parentNode;
+            parEl.appendChild(chiEl);
+            while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
+                var CurrentEl = parentEl;
+                parentEl = parentEl.parentNode;
+                if (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
+                    CurrentEl.previousSibling.remove();
+                }
+                CurrentEl.remove();
+            }
             break;
     }
 }
