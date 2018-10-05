@@ -367,7 +367,7 @@ function addButtons(El, Id) {
     var editA = document.createElement('a');
     editA.classList.add('edit');
     editA.href = "#";
-    editA.setAttribute('onclick', 'edit(\'' + El.id + '\',  \'' + edits.id + '\')');
+    editA.setAttribute('onclick', 'edit(\'' + El.id + '\')');
 
     editA.appendChild(editS);
     El.appendChild(editA);
@@ -375,9 +375,20 @@ function addButtons(El, Id) {
 
 function edit(elID) {
     let El = document.getElementById(elID);
+    
+    if (El.id.indexOf('title') != -1) {
+        setupTitle(El);
+    }
+    if (El.id.indexOf('heading') != -1) {
+        setupHeading(El);
+    }
+    if (El.id.indexOf('label') != -1) {
+        setupLabel(El);
+    }
+    if (El.id.indexOf('text-block') != -1) {
+        setupTextBlock(El);
+    }
 
-    iconEl.classList.toggle('pencil');
-    iconEl.classList.toggle('check');
 }
 
 /* function edit(iconID, questionID) {
