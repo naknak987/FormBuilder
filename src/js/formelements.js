@@ -11,6 +11,13 @@ function setupTitle(titleEL) {
         + '     <button class="btn btn-primary form-control" onclick="setTitleText(\'' + titleEL.id + '\')">Set Title</button>'
         + ' </div>'
         + '</div>';
+
+    for (let i = 0; i < titleEL.children.length; i++) {
+        if (titleEL.children[i].tagName == 'H3') {
+            document.getElementById('titleText').value = titleEL.children[i].innerText;
+        }
+    }
+    
     popup.classList.toggle("show");
 }
 
@@ -42,6 +49,13 @@ function setupHeading(headingEl) {
         + '     <button class="btn btn-primary form-control" onclick="setHeading(\'' + headingEl.id + '\')">Set Heading</button>'
         + ' </div>'
         + '</div>';
+
+    for (let i = 0; i < headingEl.children.length; i++) {
+        if (headingEl.children[i].tagName == 'H5') {
+            document.getElementById('text-heading').value = headingEl.children[i].innerText;
+        }
+    }
+
     popup.classList.toggle("show");
 }
 
@@ -73,6 +87,13 @@ function setupLabel(labelEl) {
         + '     <button class="btn btn-primary form-control" onclick="setLabel(\'' + labelEl.id + '\')">Set Label</button>'
         + ' </div>'
         + '</div>';
+    
+    for (let i = 0; i < labelEl.children.length; i++) {
+        if (labelEl.children[i].tagName == 'H3') {
+            document.getElementById('text-label').value = labelEl.children[i].innerText;
+        }
+    }
+
     popup.classList.toggle("show");
 }
 
@@ -93,16 +114,23 @@ function setLabel(labelID) {
 function setupTextBlock(textBlockEL) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
-        + '<div class="row justify-content-md-center">'
-        + ' <div class="col-md-8">'
-        + '     <div class="close" onclick="ClosePopup(\'' + textBlockEL.id + '\')"></div>'
-        + '     <h4>Your Text</h4>'
-        + '     <br>'
-        + '     <textarea class="form-control" id="text-blockText"></textarea>'
-        + '     <br>'
-        + '     <button class="btn btn-primary form-control" onclick="setTextBlock(\'' + textBlockEL.id + '\')">Set Text Block</button>'
-        + ' </div>'
-        + '</div>';
+    + '<div class="row justify-content-md-center">'
+    + ' <div class="col-md-8">'
+    + '     <div class="close" onclick="ClosePopup(\'' + textBlockEL.id + '\')"></div>'
+    + '     <h4>Your Text</h4>'
+    + '     <br>'
+    + '     <textarea class="form-control" id="text-blockText"></textarea>'
+    + '     <br>'
+    + '     <button class="btn btn-primary form-control" onclick="setTextBlock(\'' + textBlockEL.id + '\')">Set Text Block</button>'
+    + ' </div>'
+    + '</div>';
+
+    for (let i = 0; i < textBlockEL.children.length; i++) {
+        if (textBlockEL.children[i].tagName == 'H3') {
+            document.getElementById('text-blockText').value = textBlockEL.children[i].innerText;
+        }
+    }
+    
     popup.classList.toggle("show");
 }
 
