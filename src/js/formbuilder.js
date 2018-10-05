@@ -95,7 +95,7 @@ function drop(ev, el) {
     } else {
         var ClonedEl = document.getElementById(data);
     }
-    insert(newCol, ClonedEl);
+    insertPrimary(newCol, ClonedEl);
 }
 
 function rowDrop(ev, el) {
@@ -123,7 +123,7 @@ function rowDrop(ev, el) {
     } else {
         var ClonedEl = document.getElementById(data);
     }
-    insert(newCol, ClonedEl);
+    insertPrimary(newCol, ClonedEl);
 }
 
 function colDrop(ev, el) {
@@ -155,10 +155,10 @@ function colDrop(ev, el) {
     } else {
         var ClonedEl = document.getElementById(data);
     }
-    insert(dataEl, ClonedEl);
+    insertPrimary(dataEl, ClonedEl);
 }
 
-function deleteElement(ev) {
+function deleteElementOnDrop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     parentEl = document.getElementById(data).parentNode;
@@ -175,7 +175,7 @@ function deleteElement(ev) {
     }
 }
 
-function insert(parEl, chiEl) {
+function insertPrimary(parEl, chiEl) {
     switch (chiEl.id) {
         case 'title':
             titleCNT += 1;
@@ -213,6 +213,14 @@ function insert(parEl, chiEl) {
             setupQuestionBucket(chiEl);
             parEl.appendChild(chiEl);
             break;
+        default:
+            deleteElement(parEl.id);
+            break;
+    }
+}
+
+function insertSecondary(parEl, chiEl) {
+    switch (chiEl.id) {
         case 'text-box':
             textBoxCNT += 1;
             chiEl.name = chiEl.name + '-' + textBoxCNT;
@@ -258,17 +266,20 @@ function insert(parEl, chiEl) {
             setupAttachment(chiEl);
             parEl.appendChild(chiEl);
         default:
-            parentEl = chiEl.parentNode;
-            parEl.appendChild(chiEl);
-            while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
-                var CurrentEl = parentEl;
-                parentEl = parentEl.parentNode;
-                if (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
-                    CurrentEl.previousSibling.remove();
-                }
-                CurrentEl.remove();
-            }
+            deleteElement(parEl.id);
             break;
+    }
+}
+
+function deleteElement(elID) {
+    var CurrentEl =  document.getElementById(elID);
+    while (CurrentEl.childElementCount == 0) {
+        let parentEl = CurrentEl.parentElement;
+        while (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
+            CurrentEl.previousSibling.remove();
+        }
+        CurrentEl.remove();
+        CurrentEl = parentEl;
     }
 }
 
@@ -318,22 +329,6 @@ function hideHelpers() {
         dispHelpers = false;
     }
 }
-
-/* function showInputs(qID) {
-    document.getElementById('form-area').classList.add('darken');
-    document.getElementById('descriptors').classList.remove('show');
-    document.getElementById('inputs').classList.add('show');
-
-    document.getElementById(qID).classList.add('lighten');
-}
-
-function hideInputs(qID) {
-    document.getElementById('form-area').classList.remove('darken');
-    document.getElementById('inputs').classList.remove('show');
-    document.getElementById('descriptors').classList.add('show');
-
-    document.getElementById(qID).classList.remove('lighten');
-} */
 
 function changeInputs(qID) {
     document.getElementById('form-area').classList.toggle('darken');
@@ -391,19 +386,13 @@ function edit(elID) {
 
 }
 
-/* function edit(iconID, questionID) {
+function editQuestion(iconID, questionID) {
     let iconEl = document.getElementById(iconID);
 
-    if (iconEl.classList.contains('pencil')) {
-        changeInputs(questionID);
-        iconEl.classList.toggle('pencil');
-        iconEl.classList.toggle('check');
-    } else if (iconEl.classList.contains('check')) {
-        hideInputs(questionID);
-        iconEl.classList.remove('check');
-        iconEl.classList.add('pencil');
-    } 
-} */
+    changeInputs(questionID);
+    iconEl.classList.toggle('pencil');
+    iconEl.classList.toggle('check');
+}
 
 function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
