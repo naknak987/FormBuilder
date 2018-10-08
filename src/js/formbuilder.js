@@ -377,7 +377,6 @@ function changeInputs(qID) {
 }
 
 function addQButtons(El, Id) {
-    
     var editS = document.createElement('span');
     editS.classList.add('pencil');
     editS.id = Id;
@@ -385,7 +384,7 @@ function addQButtons(El, Id) {
     var editA = document.createElement('a');
     editA.classList.add('qEdit');
     editA.href = "#";
-    editA.setAttribute('onclick', 'editQuestion(\'' + editS.id + '\',  \'' + Id + '\')');
+    editA.setAttribute('onclick', 'editQuestion(\'' + editS.id + '\',  \'' + El.id + '\')');
 
     editA.appendChild(editS);
     El.appendChild(editA);
