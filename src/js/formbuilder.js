@@ -177,7 +177,7 @@ function questionDrop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    if (elements.indexOf(data) != -1) {
+    if (qElements.indexOf(data) != -1) {
         var ClonedEl = document.getElementById(data).cloneNode(true);
     } else {
         var ClonedEl = document.getElementById(data);
