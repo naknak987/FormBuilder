@@ -189,7 +189,7 @@ function deleteElementOnDrop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     parentEl = document.getElementById(data).parentNode;
-    if (elements.indexOf(data) == -1) { 
+    if ((elements.indexOf(data) == -1) && (qElements.indexOf(data) == -1)) { 
         parentEl.removeChild(document.getElementById(data));
         while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
             var CurrentEl = parentEl;
