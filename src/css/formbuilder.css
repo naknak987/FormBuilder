@@ -150,6 +150,9 @@ body{
 }
 
 /**************************************************************/
+/*
+ * General Question Bucket Styles
+ */
 
 .questionBucket {
     position: relative;
@@ -161,6 +164,10 @@ body{
 .questionBucket:hover .qEdit {
     visibility: visible;
 }
+
+/*
+ * Element Content Bucket Styles
+ */
 
 #form-area .el-cont:hover {
     border-radius: 4px;
@@ -183,14 +190,13 @@ body{
     background-color: rgb(66, 66, 66);
 }
 
-.qEdit {
-    visibility: hidden;
-    color: inherit;
-    text-decoration: none;
-    position: absolute;
-    right: 10px;
-    top: -10px;
+.darken .el-cont:hover {
+    background-color: inherit !important;
 }
+
+/*
+ * Edit Button Styles
+ */
 
 .edit {
     visibility: hidden;
@@ -198,6 +204,15 @@ body{
     text-decoration: none;
     position: absolute;
     left: -10px;
+    top: -10px;
+}
+
+.qEdit {
+    visibility: hidden;
+    color: inherit;
+    text-decoration: none;
+    position: absolute;
+    right: 10px;
     top: -10px;
 }
 
@@ -209,6 +224,10 @@ body{
 .qEdit:hover {
     color: inherit;
     text-decoration: none;
+}
+
+.darken .el-cont:hover .edit {
+    visibility: hidden !important;
 }
 
 .pencil:after {

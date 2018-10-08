@@ -27,6 +27,9 @@ var elements = [
     'label',
     'blank-space',
     'questionBucket',
+];
+
+var qElements = [
     'text-box',
     'checkbox',
     'radiobutton',
@@ -78,87 +81,111 @@ function drop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    ev.target.insertAdjacentHTML('beforeend', emptyrow);
-    incrementRowNum();
-
-    ev.target.insertAdjacentHTML('beforeend', row);
-    var newRow = incrementRowNum();
-
-    newRow.insertAdjacentHTML('beforeend', emptycol);
-    incrementColNum();
-
-    newRow.insertAdjacentHTML('beforeend', col);
-    var newCol = incrementColNum();
-
-    if (elements.indexOf(data) != -1) {
-        var ClonedEl = document.getElementById(data).cloneNode(true);
-    } else {
-        var ClonedEl = document.getElementById(data);
+    if (qElements.indexOf(data) == -1) {
+        ev.target.insertAdjacentHTML('beforeend', emptyrow);
+        incrementRowNum();
+    
+        ev.target.insertAdjacentHTML('beforeend', row);
+        var newRow = incrementRowNum();
+    
+        newRow.insertAdjacentHTML('beforeend', emptycol);
+        incrementColNum();
+    
+        newRow.insertAdjacentHTML('beforeend', col);
+        var newCol = incrementColNum();
+    
+        if (elements.indexOf(data) != -1) {
+            var ClonedEl = document.getElementById(data).cloneNode(true);
+        } else {
+            var ClonedEl = document.getElementById(data);
+        }
+        insertPrimary(newCol, ClonedEl);
     }
-    insert(newCol, ClonedEl);
 }
 
 function rowDrop(ev, el) {
-    if (el.classList.contains('emptyrow')) {
-        el.insertAdjacentHTML('beforebegin', emptyrow);
-        incrementRowNum();
-        el.insertAdjacentHTML('afterend', emptyrow);
-        incrementRowNum();
-        el.classList.toggle('emptyrow');
-        el.classList.toggle('row');
-    }
-    el.style.padding = '1px 12px 12px 1px';
     ev.stopPropagation();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
+    
+    if (qElements.indexOf(data) == -1) {
+        if (el.classList.contains('emptyrow')) {
+            el.insertAdjacentHTML('beforebegin', emptyrow);
+            incrementRowNum();
+            el.insertAdjacentHTML('afterend', emptyrow);
+            incrementRowNum();
+            el.classList.toggle('emptyrow');
+            el.classList.toggle('row');
+        }
+        el.style.padding = '1px 12px 12px 1px';
 
-    ev.target.insertAdjacentHTML('beforeend', emptycol);
-    incrementColNum();
-
-    ev.target.insertAdjacentHTML('beforeend', col);
-    var newCol = incrementColNum();
-
-    if (elements.indexOf(data) != -1) {
-        var ClonedEl = document.getElementById(data).cloneNode(true);
-    } else {
-        var ClonedEl = document.getElementById(data);
+        ev.target.insertAdjacentHTML('beforeend', emptycol);
+        incrementColNum();
+    
+        ev.target.insertAdjacentHTML('beforeend', col);
+        var newCol = incrementColNum();
+    
+        if (elements.indexOf(data) != -1) {
+            var ClonedEl = document.getElementById(data).cloneNode(true);
+        } else {
+            var ClonedEl = document.getElementById(data);
+        }
+        insertPrimary(newCol, ClonedEl);
     }
-    insert(newCol, ClonedEl);
 }
 
 function colDrop(ev, el) {
-    if (el.classList.contains('emptycol')) {
-        var elBefore = el.previousSibling;
-        if ((elBefore === null) || (elBefore.classList.contains('col'))) {
-            el.insertAdjacentHTML('beforebegin', emptycol);
-            incrementColNum();
-        }
-        var nextEl = el.nextSibling;
-        if (nextEl !== null) {
-            el.insertAdjacentHTML('afterend', emptycol);
-            incrementColNum();
-        }
-        el.classList.toggle('emptycol');
-        el.classList.toggle('col');
-    }
-    el.style.padding = '1px 12px 12px 1px';
+    
     ev.stopPropagation();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    var dataEl = ev.target;
-    while (dataEl.id.substring(0,3) != 'col'){
-        dataEl = dataEl.parentNode;
+
+    if (qElements.indexOf(data) == -1) {
+        if (el.classList.contains('emptycol')) {
+            var elBefore = el.previousSibling;
+            if ((elBefore === null) || (elBefore.classList.contains('col'))) {
+                el.insertAdjacentHTML('beforebegin', emptycol);
+                incrementColNum();
+            }
+            var nextEl = el.nextSibling;
+            if (nextEl !== null) {
+                el.insertAdjacentHTML('afterend', emptycol);
+                incrementColNum();
+            }
+            el.classList.toggle('emptycol');
+            el.classList.toggle('col');
+        }
+        el.style.padding = '1px 12px 12px 1px';
+        
+        var dataEl = ev.target;
+        while (dataEl.id.substring(0,3) != 'col'){
+            dataEl = dataEl.parentNode;
+        }
+
+        if (elements.indexOf(data) != -1) {
+            var ClonedEl = document.getElementById(data).cloneNode(true);
+        } else {
+            var ClonedEl = document.getElementById(data);
+        }
+        insertPrimary(dataEl, ClonedEl);
     }
+    
+}
+
+function questionDrop(ev, el) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
 
     if (elements.indexOf(data) != -1) {
         var ClonedEl = document.getElementById(data).cloneNode(true);
     } else {
         var ClonedEl = document.getElementById(data);
     }
-    insert(dataEl, ClonedEl);
+    insertSecondary(/* dataEl */ el, ClonedEl);
 }
 
-function deleteElement(ev) {
+function deleteElementOnDrop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     parentEl = document.getElementById(data).parentNode;
@@ -175,7 +202,7 @@ function deleteElement(ev) {
     }
 }
 
-function insert(parEl, chiEl) {
+function insertPrimary(parEl, chiEl) {
     switch (chiEl.id) {
         case 'title':
             titleCNT += 1;
@@ -213,6 +240,25 @@ function insert(parEl, chiEl) {
             setupQuestionBucket(chiEl);
             parEl.appendChild(chiEl);
             break;
+        default:
+            //deleteElement(parEl.id);
+
+            parentEl = chiEl.parentNode;
+            parEl.appendChild(chiEl);
+            while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
+                var CurrentEl = parentEl;
+                parentEl = parentEl.parentNode;
+                if (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
+                    CurrentEl.previousSibling.remove();
+                }
+                CurrentEl.remove();
+            }
+            break;
+    }
+}
+
+function insertSecondary(parEl, chiEl) {
+    switch (chiEl.id) {
         case 'text-box':
             textBoxCNT += 1;
             chiEl.name = chiEl.name + '-' + textBoxCNT;
@@ -258,17 +304,20 @@ function insert(parEl, chiEl) {
             setupAttachment(chiEl);
             parEl.appendChild(chiEl);
         default:
-            parentEl = chiEl.parentNode;
-            parEl.appendChild(chiEl);
-            while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
-                var CurrentEl = parentEl;
-                parentEl = parentEl.parentNode;
-                if (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
-                    CurrentEl.previousSibling.remove();
-                }
-                CurrentEl.remove();
-            }
+            deleteElement(parEl.id);
             break;
+    }
+}
+
+function deleteElement(elID) {
+    var CurrentEl =  document.getElementById(elID);
+    while (CurrentEl.childElementCount == 0) {
+        let parentEl = CurrentEl.parentElement;
+        while (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
+            CurrentEl.previousSibling.remove();
+        }
+        CurrentEl.remove();
+        CurrentEl = parentEl;
     }
 }
 
@@ -318,22 +367,6 @@ function hideHelpers() {
         dispHelpers = false;
     }
 }
-
-/* function showInputs(qID) {
-    document.getElementById('form-area').classList.add('darken');
-    document.getElementById('descriptors').classList.remove('show');
-    document.getElementById('inputs').classList.add('show');
-
-    document.getElementById(qID).classList.add('lighten');
-}
-
-function hideInputs(qID) {
-    document.getElementById('form-area').classList.remove('darken');
-    document.getElementById('inputs').classList.remove('show');
-    document.getElementById('descriptors').classList.add('show');
-
-    document.getElementById(qID).classList.remove('lighten');
-} */
 
 function changeInputs(qID) {
     document.getElementById('form-area').classList.toggle('darken');
@@ -391,19 +424,13 @@ function edit(elID) {
 
 }
 
-/* function edit(iconID, questionID) {
+function editQuestion(iconID, questionID) {
     let iconEl = document.getElementById(iconID);
 
-    if (iconEl.classList.contains('pencil')) {
-        changeInputs(questionID);
-        iconEl.classList.toggle('pencil');
-        iconEl.classList.toggle('check');
-    } else if (iconEl.classList.contains('check')) {
-        hideInputs(questionID);
-        iconEl.classList.remove('check');
-        iconEl.classList.add('pencil');
-    } 
-} */
+    changeInputs(questionID);
+    iconEl.classList.toggle('pencil');
+    iconEl.classList.toggle('check');
+}
 
 function ExportForm() {
     var formAreaEl = document.getElementById('form-area');
