@@ -182,12 +182,41 @@ body{
     visibility: visible;
 }
 
+/*
+ * Visibility Control
+ */
+
+
 .lighten {
     background-color: white;
 }
 
 .darken {
     background-color: rgb(66, 66, 66);
+}
+
+.darken input {
+    background-color: inherit !important;
+}
+
+.darken textarea {
+    background-color: inherit !important;
+}
+
+.darken .selector {
+    background-color: inherit !important;
+}
+
+.darken .selector-button {
+    background-color: inherit !important;
+}
+
+.darken .custom-file {
+    background-color: inherit !important;
+}
+
+.darken .custom-file-label {
+    background-color: inherit !important;
 }
 
 .darken .el-cont:hover {
