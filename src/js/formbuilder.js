@@ -177,12 +177,11 @@ function questionDrop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    if (qElements.indexOf(data) != -1) {
+    if ((qElements.indexOf(data) != -1) && (el.getAttribute('data-edit') == 'true')) {
         var ClonedEl = document.getElementById(data).cloneNode(true);
-    } else {
-        var ClonedEl = document.getElementById(data);
+        
+        insertSecondary(/* dataEl */ el, ClonedEl);
     }
-    insertSecondary(/* dataEl */ el, ClonedEl);
 }
 
 function deleteElementOnDrop(ev) {
@@ -373,7 +372,14 @@ function changeInputs(qID) {
     document.getElementById('inputs').classList.toggle('show');
     document.getElementById('descriptors').classList.toggle('show');
 
-    document.getElementById(qID).classList.toggle('lighten');
+    let qEl = document.getElementById(qID);
+    qEl.classList.toggle('lighten');
+
+    if (qEl.hasAttribute('data-edit') && qEl.getAttribute('data-edit') == 'false') {
+        qEl.setAttribute('data-edit', 'true');
+    } else if (qEl.hasAttribute('data-edit') && qEl.getAttribute('data-edit') == 'true') {
+        qEl.setAttribute('data-edit', 'false');
+    }
 }
 
 function addQButtons(El, Id) {
