@@ -426,7 +426,9 @@ function edit(elID) {
     if (El.id.indexOf('text-block') != -1) {
         setupTextBlock(El);
     }
-
+    if (El.id.indexOf('questionText') != -1) {
+        setupQuestionBucket(El);
+    }
 }
 
 function editQuestion(iconID, questionID) {
