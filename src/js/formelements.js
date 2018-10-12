@@ -127,7 +127,7 @@ function setLabel(labelID) {
     document.getElementById("set-element").classList.toggle("show");
 }
 
-function setupHeading(headingEl) {
+function setupTextBlock(textBlockEL) {
     var popup = document.getElementById("set-element");
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
@@ -184,6 +184,19 @@ function setupQuestionBucket(bucketEl) {
     + '     <button class="btn btn-primary form-control" onclick="setQuestionBucket(\'' + bucketEl.id + '\')">Set Question</button>'
     + ' </div>'
     + '</div>';
+    
+    let textInput = document.getElementById('textQuestion');
+
+    for (let i = 0; i < bucketEl.children.length; i++) {
+        if (bucketEl.children[i].tagName == 'P') {
+            textInput.value = bucketEl.children[i].innerText;
+        }
+    }
+
+    if (textInput.value != 'New Question') {
+        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
+    }
+    
     popup.classList.toggle("show");
 }
 
@@ -192,16 +205,25 @@ function setQuestionBucket(bucketID) {
     bucketEl.setAttribute('ondrop', 'questionDrop(event, this)');
     bucketEl.setAttribute('ondragover', 'allowDrop(event)');
 
+    let qText = document.createElement('p');
+    qText.innerText = document.getElementById('textQuestion').value;
+
     let questionEl = bucketEl.firstElementChild;
     questionEl.id = questionEl.id + questionBucketCNT;
-    questionEl.innerText = document.getElementById('textQuestion').value;
+    questionEl.innerHTML = "";
+    questionEl.appendChild(qText);
 
     addQButtons(bucketEl, 'q-' + questionBucketCNT);
-    
+    addButtons(questionEl, 'edit-' + questionBucketCNT);
 
     document.getElementById("set-element").classList.toggle("show");
 
-    editQuestion('q-' + questionBucketCNT, bucketEl.id);
+    if (bucketEl.hasAttribute('data-edit') == false) {
+        bucketEl.setAttribute('data-edit', 'true')
+        editQuestion('q-' + questionBucketCNT, bucketEl.id);
+    } else if (bucketEl.getAttribute('data-edit') == 'false') {
+        editQuestion('q-' + questionBucketCNT, bucketEl.id);
+    }
 }
 
 function setupBlankSpace(blankEl) {
