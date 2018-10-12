@@ -170,6 +170,12 @@ body{
 .darken .questionBucket:hover.lighten .qEdit {
     visibility: visible;
 }
+.darken .questionBucket .questionText:hover .edit {
+    visibility: hidden;
+} 
+.darken .questionBucket.lighten .questionText:hover .edit {
+    visibility: visible;
+} 
 /*
  * Element Content Bucket Styles
  */
@@ -196,6 +202,9 @@ body{
     background-color: white;
 }
 
+.lighten .selector {
+    background-color: white !important;
+}
 .darken {
     background-color: rgb(66, 66, 66);
 }
@@ -209,7 +218,7 @@ body{
 }
 
 .darken .selector {
-    background-color: inherit !important;
+    background-color: inherit;
 }
 
 .darken .selector-button {
