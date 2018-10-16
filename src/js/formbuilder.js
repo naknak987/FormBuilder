@@ -427,7 +427,7 @@ function edit(elID) {
         setupTextBlock(El);
     }
     if (El.id.indexOf('questionText') != -1) {
-        setupQuestionBucket(El);
+        changeQuestionText(El);
     }
 }
 
