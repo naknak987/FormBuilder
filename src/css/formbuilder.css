@@ -153,7 +153,12 @@ body{
 /*
  * General Question Bucket Styles
  */
-
+.qBucket-el-cont {
+    position: relative;
+}
+.darken .lighten>.qBucket-el-cont:hover .edit {
+    visibility: visible;
+}
 .questionBucket {
     position: relative;
     border: 3px dashed rgb(228, 248, 220);
@@ -179,12 +184,6 @@ body{
 /*
  * Element Content Bucket Styles
  */
-
-#form-area .el-cont:hover {
-    border-radius: 4px;
-    background-color: rgb(208, 218, 168);
-}
-
 .el-cont {
     position: relative;
 }
