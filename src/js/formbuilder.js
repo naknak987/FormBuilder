@@ -429,6 +429,9 @@ function edit(elID) {
     if (El.id.indexOf('questionText') != -1) {
         changeQuestionText(El);
     }
+    if (El.id.indexOf('checkbox') != -1) {
+        changeCheckBox(El);
+    }
 }
 
 function editQuestion(iconID, questionID) {
