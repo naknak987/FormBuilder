@@ -287,17 +287,17 @@ function setupCheckbox(checkboxEl) {
 }
 
 function setCheckbox(checkboxID) {
-    var checkBoxText = document.getElementById('text-checkbox').value.split(';');
-    var checkbox = document.getElementById(checkboxID); //.innerHTML = ' <input type="checkbox" name="' + checkboxID + '" value="' + checkBoxText + '">' + checkBoxText;
-    var elParent = checkbox.parentNode;
+    let checkBoxText = document.getElementById('text-checkbox').value.split(';');
+    let checkbox = document.getElementById(checkboxID); //.innerHTML = ' <input type="checkbox" name="' + checkboxID + '" value="' + checkBoxText + '">' + checkBoxText;
+    let elParent = checkbox.parentNode;
     checkbox.remove();
-    for (var i = 0; i < checkBoxText.length; i++) {
+    for (let i = 0; i < checkBoxText.length; i++) {
         if (checkBoxText[i] == '') {
             continue;
         }
 
         checkboxCNT+=1;
-        var newDiv = document.createElement('div');
+        let newDiv = document.createElement('div');
         newDiv.id = "checkbox" + checkboxCNT;
         newDiv.setAttribute('draggable', 'true');
         newDiv.setAttribute('ondragstart', 'drag(event)');
@@ -306,14 +306,47 @@ function setCheckbox(checkboxID) {
         checkbox.type = "checkbox";
         checkbox.name =  checkBoxText[i].trim();
         checkbox.value = checkBoxText[i].trim();
-        var checkText = document.createTextNode(" " + checkBoxText[i].trim());
+
+        let label = document.createElement('span');
+        label.innerText = " " + checkBoxText[i].trim();
+
         newDiv.appendChild(checkbox);
-        newDiv.appendChild(document.createElement('label').innerText = checkText);
+        newDiv.appendChild(label);
         newDiv.appendChild(document.createElement('br'));
+        newDiv.classList.add('qBucket-el-cont');
+        addButtons(newDiv, "edit-checkbox" + checkboxCNT)
 
         elParent.appendChild(newDiv);
-        document.getElementById("set-element").classList.toggle("show");
     }
+    document.getElementById("set-element").classList.toggle("show");
+}
+
+function changeCheckBox(El) {
+    let checkText = El.getElementsByTagName('span')[0].innerText.trim();
+
+    var popup = document.getElementById("set-element");
+    popup.innerHTML = ""
+        + '<div class="row justify-content-md-center">'
+        + ' <div class="col-md-12">'
+        + '     <div class="close" id="exitpopup" onclick="document.getElementById(\'set-element\').classList.toggle(\'show\');"></div>'
+        + '     <h4>Edit your checkbox text.</h4>'
+        + '     <br>'
+        + '     <input type="text" id="text-checkbox" class="form-control" value="' + checkText + '">'
+        + '     <br>'
+        + '     <button class="btn btn-primary form-control" onclick="setCheckboxText(\'' + El.id + '\')">Set Checkbox Text</button>'
+        + ' </div>'
+        + '</div>';
+
+    popup.classList.toggle("show");
+}
+
+function setCheckboxText(ElId) {
+    let newText = document.getElementById('text-checkbox').value;
+    document.getElementById(ElId).getElementsByTagName('span')[0].innerText = ' ' + newText;
+    let input = document.getElementById(ElId).getElementsByTagName('input')[0];
+    input.name = newText;
+    input.value = newText;
+    document.getElementById('set-element').classList.toggle('show');
 }
 
 function setupRadioButton(radioEl) {
