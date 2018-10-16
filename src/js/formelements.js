@@ -185,18 +185,6 @@ function setupQuestionBucket(bucketEl) {
     + ' </div>'
     + '</div>';
     
-    let textInput = document.getElementById('textQuestion');
-
-    for (let i = 0; i < bucketEl.children.length; i++) {
-        if (bucketEl.children[i].tagName == 'P') {
-            textInput.value = bucketEl.children[i].innerText;
-        }
-    }
-
-    if (textInput.value != 'New Question') {
-        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
-    }
-    
     popup.classList.toggle("show");
 }
 
@@ -218,12 +206,35 @@ function setQuestionBucket(bucketID) {
 
     document.getElementById("set-element").classList.toggle("show");
 
-    if (bucketEl.hasAttribute('data-edit') == false) {
-        bucketEl.setAttribute('data-edit', 'true')
-        editQuestion('q-' + questionBucketCNT, bucketEl.id);
-    } else if (bucketEl.getAttribute('data-edit') == 'false') {
-        editQuestion('q-' + questionBucketCNT, bucketEl.id);
-    }
+    editQuestion('q-' + questionBucketCNT, bucketEl.id);
+}
+
+function changeQuestionText(El) {
+    let qTextEl = El.getElementsByTagName('p')[0];
+
+    var popup = document.getElementById('set-element');
+    popup.innerHTML = ""
+    + '<div class="row justify-content-md-center">'
+    + ' <div class="col-md-12">'
+    + '     <div class="close" id="exitpopup" onclick="document.getElementById(\'set-element\').classList.toggle(\'show\');"></div>'
+    + '     <h4>Setup New Question</h4>'
+    + '     <br>'
+    + '     <p>Ask your question. What you enter here will become the question text.</p>'
+    + '     <br>'
+    + '     <input type="text" id="textQuestion" class="form-control">'
+    + '     <br>'
+    + '     <button class="btn btn-primary form-control" onclick="setQuestionText(\'' + El.id + '\')">Set Question</button>'
+    + ' </div>'
+    + '</div>';
+    document.getElementById('textQuestion').value = qTextEl.innerText;
+
+    popup.classList.toggle("show");
+}
+
+function setQuestionText(ElId) {
+    document.getElementById(ElId).getElementsByTagName('p')[0].innerText = document.getElementById('textQuestion').value;
+
+    document.getElementById('set-element').classList.toggle("show");
 }
 
 function setupBlankSpace(blankEl) {
@@ -256,11 +267,6 @@ function setBlankSpace(blankID) {
     blankSpace.innerHTML = '<i style="color:lightgray;">This space intentionally left blank!</i>';
     blankSpace.style.height = document.getElementById("size-BlankSpace").value;
     document.getElementById("set-element").classList.toggle("show"); 
-}
-
-function setupTextBox(textboxEl)
-{
-    // create popup asking user to set a label for the text box.
 }
 
 function setupCheckbox(checkboxEl) {
