@@ -3,7 +3,7 @@
  */
 // Select Box
 function trigger(list) {
-    document.getElementById(list).classList.toggle('show');
+    document.getElementById(list).classList.toggle('show-me');
 }
 
 function selected(selected, button, inputElId, items) {
