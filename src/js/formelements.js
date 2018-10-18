@@ -439,9 +439,9 @@ var optionCnt = 1;
 var tabindexCnt = 2;
 
 function setupSelectBox(selectContainer) {
-    var selectBTN = selectContainer.children[0];
-    var selectInput = selectContainer.children[1];
-    var selector = selectContainer.children[2];
+    let selectBTN = selectContainer.children[0];
+    let selectInput = selectContainer.children[1];
+    let selector = selectContainer.children[2];
     selectBTN.id = selectBTN.id + selectboxCNT;
     selectInput.id = selectInput.id + selectboxCNT;
     selectInput.setAttribute('name', selectInput.id);
@@ -452,7 +452,7 @@ function setupSelectBox(selectContainer) {
     selectBTN.removeAttribute('onclick');
     selectBTN.setAttribute('onclick', 'trigger(\'' + selector.id + '\')');
 
-    var popup = document.getElementById('set-element');
+    let popup = document.getElementById('set-element');
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
     + ' <div class="col-md-12">'
@@ -532,7 +532,7 @@ function deleteOption(delEl) {
 }
 
 function addOption() {
-    var option = document.getElementById('option').cloneNode(true);
+    let option = document.getElementById('option').cloneNode(true);
 
     if (addBtn.parentElement.id == 'area-1') {
         option.id = option.id + (optionCnt += 1);
@@ -560,22 +560,25 @@ function addOption() {
 }
 
 function setSelectBox(selectBtnId, selectorId) {
-    btnEl = document.getElementById(selectBtnId);
+    let btnEl = document.getElementById(selectBtnId);
+    let btnContainer = btnEl.parentElement;
+    btnContainer.classList.add('qBucket-el-cont');
 
     btnEl.innerHTML = document.getElementById('selectName').value + '<span class="chevron bottom"></span>';
-    var selector = document.getElementById(selectorId);
+    let selector = document.getElementById(selectorId);
 
-    var popup = document.getElementById('set-element');
-    var selectInputs = popup.getElementsByTagName("input");
-    for (var i = 0; i < selectInputs.length; i++) {
+    let popup = document.getElementById('set-element');
+    let selectInputs = popup.getElementsByTagName("input");
+    for (let i = 0; i < selectInputs.length; i++) {
         if (selectInputs[i].type.toLowerCase() == "text") {
-            var newOption = document.createElement('div');
+            let newOption = document.createElement('div');
             newOption.classList.add('option');
             newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
             newOption.innerHTML = selectInputs[i].value;
             selector.appendChild(newOption);
         }
     }
+    addButtons(btnContainer, 'edit-selectbox' + selectboxCNT);
     popup.classList.toggle('show-me');
 }
 
