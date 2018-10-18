@@ -408,7 +408,7 @@ function changeRadioButton(El) {
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
         + ' <div class="col-md-12">'
-        + '     <div class="close" id="exitpopup" onclick="ClosePopup(document.getElementById(\'set-element\').classList.toggle(\'show-me\');)"></div>'
+        + '     <div class="close" id="exitpopup" onclick="document.getElementById(\'set-element\').classList.toggle(\'show-me\');)"></div>'
         + '     <h4>Change Radio Button Text and/or Name</h4>'
         + '     <br>'
         + '     <label for="text-radioButton">Button Text/Value</label>'
@@ -580,6 +580,87 @@ function setSelectBox(selectBtnId, selectorId) {
     }
     addButtons(btnContainer, 'edit-selectbox' + selectboxCNT);
     popup.classList.toggle('show-me');
+}
+
+function changeSelectBox(El) {
+   /*  let selectBTN = selectContainer.children[0];
+    let selectInput = selectContainer.children[1];
+    let selector = selectContainer.children[2];
+    selectBTN.id = selectBTN.id + selectboxCNT;
+    selectInput.id = selectInput.id + selectboxCNT;
+    selectInput.setAttribute('name', selectInput.id);
+    selector.id = selector.id + selectboxCNT;
+    while (selector.firstChild) {
+        selector.removeChild(selector.firstChild);
+    }
+    selectBTN.removeAttribute('onclick');
+    selectBTN.setAttribute('onclick', 'trigger(\'' + selector.id + '\')'); */
+
+    let popup = document.getElementById('set-element');
+    popup.innerHTML = ""
+    + '<div class="row justify-content-md-center">'
+    + ' <div class="col-md-12">'
+    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + selectContainer.id + '\')"></div>'
+    + '     <div class="row">'
+    + '         <div class="col">'
+    + '             <h4>Setup Select Box</h4>'
+    + '             <label for="selectName">'
+    + '                 The first text box will be the default value for your select box. All of the other boxes will be in the options dropdown, in the order they are added.'
+    + '                 '
+    + '             </label>'
+    + '         </div>'
+    + '     </div>'
+    + '     <div class="row">'
+    + '         <div class="col-md-6 pr-4">'
+    + '             <div class="row mb-1">'
+    + '                 <div class="col p-0">'
+    + '                     <input type="text" id="selectName" class="form-control" tabindex="1">'
+    + '                 </div>'
+    + '             </div>'
+    + '             <div id="area-1">'
+    + '                 <div class="row mb-1" id="addBtn">'
+    + '                     <div class="col-md-1 col-1-cust p-0">'
+    + '                         <button class="btn btn-primary" style="width:38px;height:38px" onclick="addOption()">+</button>'
+    + '                     </div>'
+    + '                 </div>'
+    + '             </div>'
+    + '         </div>'
+    + '         <div class="col-md-6 pl-4">'
+    + '             <div id="area-2">'
+    + '                 <div class="row mb-1" id="option1">'
+    + '                     <div class="col-md-11 col-11-cust p-0">'
+    + '                         <input type="text" id="optionIn1" class="form-control" tabindex="2">'
+    + '                     </div>'
+    + '                     <div class="col-md-1 col-1-cust p-0">'
+    + '                         <button class="btn btn-primary form-control" style="width:38px;height:38px" onclick="deleteOption(\'option1\')">-</button>'
+    + '                     </div>'
+    + '                 </div>'
+    + '             </div>'
+    + '         </div>'
+    + '     </div>'
+    + '     <div class="row">'
+    + '         <div class="col-sm-8 offset-sm-2 col-md-4 offset-md-4">'
+    + '             <button class="btn btn-primary form-control" onclick="setSelectBox(\'' + selectBTN.id + '\', \'' + selector.id + '\')">Set Select Box</button>'
+    + '             <br>'
+    + '         </div>'
+    + '     </div>'
+    + ' </div>'
+    + '</div>'
+    + '<div style="display: none;">'
+    + '    <div class="row mb-1" id="option">'
+    + '        <div class="col-md-11 col-11-cust p-0">'
+    + '            <input type="text" id="optionIn" class="form-control">'
+    + '        </div>'
+    + '        <div class="col-md-11 col-1-cust p-0">'
+    + '            <button class="btn btn-primary form-control" style="width:38px;height:38px" onclick="deleteOption()">-</button>'
+    + '        </div>'
+    + '    </div>'
+    + '</div>';
+    area1 = document.getElementById('area-1');
+    area2 = document.getElementById('area-2');
+    addBtn = document.getElementById('addBtn');
+    optionCnt = 1;
+    popup.classList.toggle("show-me");
 }
 
 function setupTextArea(textAreaEl)
