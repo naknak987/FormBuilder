@@ -433,6 +433,9 @@ function edit(event, elID) {
     if (El.id.indexOf('checkbox') != -1) {
         changeCheckBox(El);
     }
+    if (El.id.indexOf('radiobutton') != -1) {
+        changeRadioButton(El);
+    }
 }
 
 function editQuestion(event, iconID, questionID) {
