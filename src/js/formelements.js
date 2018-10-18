@@ -21,9 +21,9 @@ function setupTitle(titleEL) {
     }
 
     if (titleInput.value != 'Title') {
-        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
+        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show-me\');');
     }    
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setTitleText(titleID) {
@@ -36,7 +36,7 @@ function setTitleText(titleID) {
     el.appendChild(title);
 
     addButtons(el, 'edit-' + el.id);
-    document.getElementById("set-element").classList.toggle("show");
+    document.getElementById("set-element").classList.toggle("show-me");
 }
 
 function setupHeading(headingEl) {
@@ -63,10 +63,10 @@ function setupHeading(headingEl) {
     }
     
     if (headingInput.value != 'Heading') {
-        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
+        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show-me\');');
     }
 
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setHeading(headingID) {
@@ -80,7 +80,7 @@ function setHeading(headingID) {
 
     addButtons(el, 'edit-' + el.id);
 
-    document.getElementById("set-element").classList.toggle("show");
+    document.getElementById("set-element").classList.toggle("show-me");
 }
 
 function setupLabel(labelEl) {
@@ -107,10 +107,10 @@ function setupLabel(labelEl) {
     }
 
     if (labelInput.value != 'Label') {
-        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
+        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show-me\');');
     }
     
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setLabel(labelID) {
@@ -124,7 +124,7 @@ function setLabel(labelID) {
 
     addButtons(el, 'edit-' + el.id);
 
-    document.getElementById("set-element").classList.toggle("show");
+    document.getElementById("set-element").classList.toggle("show-me");
 }
 
 function setupTextBlock(textBlockEL) {
@@ -150,10 +150,10 @@ function setupTextBlock(textBlockEL) {
     }
 
     if (textInput.value != 'Text Block') {
-        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show\');');
+        document.getElementById('exitpopup').setAttribute('onclick', 'document.getElementById(\'set-element\').classList.toggle(\'show-me\');');
     }
     
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setTextBlock(textID) {
@@ -166,7 +166,7 @@ function setTextBlock(textID) {
     el.appendChild(paragraph);
     addButtons(el, 'edit-' + el.id);
 
-    document.getElementById("set-element").classList.toggle("show");
+    document.getElementById("set-element").classList.toggle("show-me");
 }
 
 function setupQuestionBucket(bucketEl) {
@@ -185,7 +185,7 @@ function setupQuestionBucket(bucketEl) {
     + ' </div>'
     + '</div>';
     
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setQuestionBucket(bucketID) {
@@ -201,12 +201,13 @@ function setQuestionBucket(bucketID) {
     questionEl.innerHTML = "";
     questionEl.appendChild(qText);
 
-    addQButtons(bucketEl, 'q-' + questionBucketCNT);
+    let editbtn = addQButtons(bucketEl, 'q-' + questionBucketCNT);
     addButtons(questionEl, 'edit-' + questionBucketCNT);
 
-    document.getElementById("set-element").classList.toggle("show");
+    document.getElementById("set-element").classList.toggle("show-me");
 
-    editQuestion('q-' + questionBucketCNT, bucketEl.id);
+    editbtn.click();
+    //editQuestion('q-' + questionBucketCNT, bucketEl.id);
 }
 
 function changeQuestionText(El) {
@@ -216,7 +217,7 @@ function changeQuestionText(El) {
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
     + ' <div class="col-md-12">'
-    + '     <div class="close" id="exitpopup" onclick="document.getElementById(\'set-element\').classList.toggle(\'show\');"></div>'
+    + '     <div class="close" id="exitpopup" onclick="document.getElementById(\'set-element\').classList.toggle(\'show-me\');"></div>'
     + '     <h4>Setup New Question</h4>'
     + '     <br>'
     + '     <p>Ask your question. What you enter here will become the question text.</p>'
@@ -228,13 +229,13 @@ function changeQuestionText(El) {
     + '</div>';
     document.getElementById('textQuestion').value = qTextEl.innerText;
 
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setQuestionText(ElId) {
     document.getElementById(ElId).getElementsByTagName('p')[0].innerText = document.getElementById('textQuestion').value;
 
-    document.getElementById('set-element').classList.toggle("show");
+    document.getElementById('set-element').classList.toggle("show-me");
 }
 
 function setupBlankSpace(blankEl) {
@@ -259,14 +260,14 @@ function setupBlankSpace(blankEl) {
     + '     <button class="btn btn-primary form-control" onclick="setBlankSpace(\'' + blankEl.id + '\')">Set Blank Space</button>'
     + ' </div>'
     + '</div>';
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setBlankSpace(blankID) {
     var blankSpace = document.getElementById(blankID);
     blankSpace.innerHTML = '<i style="color:lightgray;">This space intentionally left blank!</i>';
     blankSpace.style.height = document.getElementById("size-BlankSpace").value;
-    document.getElementById("set-element").classList.toggle("show"); 
+    document.getElementById("set-element").classList.toggle("show-me"); 
 }
 
 function setupCheckbox(checkboxEl) {
@@ -283,7 +284,7 @@ function setupCheckbox(checkboxEl) {
         + '     <button class="btn btn-primary form-control" onclick="setCheckbox(\'' + checkboxEl.id + '\')">Set Checkbox Text</button>'
         + ' </div>'
         + '</div>';
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setCheckbox(checkboxID) {
@@ -318,7 +319,7 @@ function setCheckbox(checkboxID) {
 
         elParent.appendChild(newDiv);
     }
-    document.getElementById("set-element").classList.toggle("show");
+    document.getElementById("set-element").classList.toggle("show-me");
 }
 
 function changeCheckBox(El) {
@@ -328,7 +329,7 @@ function changeCheckBox(El) {
     popup.innerHTML = ""
         + '<div class="row justify-content-md-center">'
         + ' <div class="col-md-12">'
-        + '     <div class="close" id="exitpopup" onclick="document.getElementById(\'set-element\').classList.toggle(\'show\');"></div>'
+        + '     <div class="close" id="exitpopup" onclick="document.getElementById(\'set-element\').classList.toggle(\'show-me\');"></div>'
         + '     <h4>Edit your checkbox text.</h4>'
         + '     <br>'
         + '     <input type="text" id="text-checkbox" class="form-control" value="' + checkText + '">'
@@ -337,7 +338,7 @@ function changeCheckBox(El) {
         + ' </div>'
         + '</div>';
 
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setCheckboxText(ElId) {
@@ -346,7 +347,7 @@ function setCheckboxText(ElId) {
     let input = document.getElementById(ElId).getElementsByTagName('input')[0];
     input.name = newText;
     input.value = newText;
-    document.getElementById('set-element').classList.toggle('show');
+    document.getElementById('set-element').classList.toggle('show-me');
 }
 
 function setupRadioButton(radioEl) {
@@ -375,21 +376,22 @@ function setupRadioButton(radioEl) {
         + '     <button class="btn btn-primary form-control" onclick="setRadioButton(\'' + radioEl.id + '\')">Set Radio Text</button>'
         + ' </div>'
         + '</div>';
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function setRadioButton(radioID) {
-    var radioButtonText = document.getElementById('text-radioButton').value.split(';');
-    var radioButtonName = document.getElementById('name-radioButton').value;
-    var radioEl = document.getElementById(radioID); //.innerHTML = ' <input type="radio" name="' + radioButtonName +'" value="' + radioButtonText + '">' + radioButtonText;
-    var radioElParent = radioEl.parentNode;
+    let radioButtonText = document.getElementById('text-radioButton').value.split(';');
+    let radioButtonName = document.getElementById('name-radioButton').value;
+    let radioEl = document.getElementById(radioID); //.innerHTML = ' <input type="radio" name="' + radioButtonName +'" value="' + radioButtonText + '">' + radioButtonText;
+    let radioElParent = radioEl.parentNode;
     radioEl.remove();
-    for (var i = 0; i < radioButtonText.length; i++) {
+    for (let i = 0; i < radioButtonText.length; i++) {
         if (radioButtonText[i] == '') {
             continue;
         }
         radiobuttonCNT+=1;
-        var newDiv = document.createElement('div');
+
+        let newDiv = document.createElement('div');
         newDiv.id = "radiobutton" + radiobuttonCNT;
         newDiv.setAttribute('draggable', 'true');
         newDiv.setAttribute('ondragstart', 'drag(event)');
@@ -397,12 +399,18 @@ function setRadioButton(radioID) {
         radioEl.type = 'radio';
         radioEl.name = radioButtonName;
         radioEl.value = radioButtonText[i].trim();
-        var radioText = document.createTextNode(' ' + radioButtonText[i].trim());
+
+        let radioSpan = document.createElement('span');
+        radioSpan.innerText = ' ' + radioButtonText[i].trim();
+        
         newDiv.appendChild(radioEl);
-        newDiv.appendChild(document.createElement('label').appendChild(radioText));
+        newDiv.appendChild(radioSpan);
+        newDiv.classList.add('qBucket-el-cont');
+        addButtons(newDiv, "edit-radiobutton" + radiobuttonCNT)
+
         radioElParent.appendChild(newDiv);
     }
-    document.getElementById("set-element").classList.toggle("show");
+    document.getElementById("set-element").classList.toggle("show-me");
 }
 
 var area1;
@@ -489,7 +497,7 @@ function setupSelectBox(selectContainer) {
     area2 = document.getElementById('area-2');
     addBtn = document.getElementById('addBtn');
     optionCnt = 1;
-    popup.classList.toggle("show");
+    popup.classList.toggle("show-me");
 }
 
 function deleteOption(delEl) {
@@ -546,7 +554,7 @@ function setSelectBox(selectBtnId, selectorId) {
             selector.appendChild(newOption);
         }
     }
-    popup.classList.toggle('show');
+    popup.classList.toggle('show-me');
 }
 
 function setupTextArea(textAreaEl)
@@ -640,5 +648,5 @@ function processBulkInput(elType, elId) {
             break;
         }
     }
-    document.getElementById('set-element').classList.toggle("show");
+    document.getElementById('set-element').classList.toggle("show-me");
 }
