@@ -336,7 +336,7 @@ function ClosePopup(CurrentEl) {
             parParEl.remove();
         }
     }
-    document.getElementById('set-element').classList.toggle("show");
+    document.getElementById('set-element').classList.toggle("show-me");
 }
 
 function hideHelpers() {
@@ -359,7 +359,7 @@ function hideHelpers() {
     }
     var helperBTN = document.getElementById('helpers');
     if (helperBTN.innerText == "Hide Helpers") {
-        helperBTN.innerText = "Show Helpers";
+        helperBTN.innerText = "show-me Helpers";
         dispHelpers = true;
     } else {
         helperBTN.innerText = "Hide Helpers";
@@ -369,8 +369,8 @@ function hideHelpers() {
 
 function changeInputs(qID) {
     document.getElementById('form-area').classList.toggle('darken');
-    document.getElementById('inputs').classList.toggle('show');
-    document.getElementById('descriptors').classList.toggle('show');
+    document.getElementById('inputs').classList.toggle('show-me');
+    document.getElementById('descriptors').classList.toggle('show-me');
 
     let qEl = document.getElementById(qID);
     qEl.classList.toggle('lighten');
@@ -389,11 +389,11 @@ function addQButtons(El, Id) {
 
     var editA = document.createElement('a');
     editA.classList.add('qEdit');
-    editA.href = "#";
-    editA.setAttribute('onclick', 'editQuestion(\'' + editS.id + '\',  \'' + El.id + '\')');
+    editA.setAttribute('onclick', 'editQuestion(event, \'' + editS.id + '\',  \'' + El.id + '\')');
 
     editA.appendChild(editS);
     El.appendChild(editA);
+    return editA;
 }
 
 function addButtons(El, Id) {
@@ -404,14 +404,15 @@ function addButtons(El, Id) {
 
     var editA = document.createElement('a');
     editA.classList.add('edit');
-    editA.href = "#";
-    editA.setAttribute('onclick', 'edit(\'' + El.id + '\')');
+    editA.setAttribute('onclick', 'edit(event, \'' + El.id + '\')');
 
     editA.appendChild(editS);
     El.appendChild(editA);
 }
 
-function edit(elID) {
+function edit(event, elID) {
+    event.stopPropagation();
+    event.preventDefault();
     let El = document.getElementById(elID);
     
     if (El.id.indexOf('title') != -1) {
@@ -434,7 +435,9 @@ function edit(elID) {
     }
 }
 
-function editQuestion(iconID, questionID) {
+function editQuestion(event, iconID, questionID) {
+    event.stopPropagation();
+    event.preventDefault();
     let iconEl = document.getElementById(iconID);
 
     changeInputs(questionID);
@@ -449,18 +452,18 @@ function ExportForm() {
     var popup = document.getElementById('Errors');
     if (formName == '') {
         popup.innerHTML = "Please name your form first!";
-        popup.classList.toggle("show");
+        popup.classList.toggle("show-me");
         popup.scrollIntoView(true);
         setTimeout(function(){ 
-            popup.classList.toggle("show"); 
+            popup.classList.toggle("show-me"); 
             popup.click();
         }, 4000);
     } else if (formHTML == '') {
         popup.innerHTML = "Did you build a form?";
-        popup.classList.toggle("show");
+        popup.classList.toggle("show-me");
         popup.scrollIntoView(true);
         setTimeout(function(){ 
-            popup.classList.toggle("show"); 
+            popup.classList.toggle("show-me"); 
             popup.click();
         }, 4000); 
     } else {
