@@ -207,7 +207,6 @@ function setQuestionBucket(bucketID) {
     document.getElementById("set-element").classList.toggle("show-me");
 
     editbtn.click();
-    //editQuestion('q-' + questionBucketCNT, bucketEl.id);
 }
 
 function changeQuestionText(El) {
