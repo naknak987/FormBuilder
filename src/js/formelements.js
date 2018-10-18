@@ -412,6 +412,49 @@ function setRadioButton(radioID) {
     document.getElementById("set-element").classList.toggle("show-me");
 }
 
+function changeRadioButton(El) {
+    let textEl = El.getElementsByTagName('input')[0];
+
+    let popup = document.getElementById("set-element");
+    popup.innerHTML = ""
+        + '<div class="row justify-content-md-center">'
+        + ' <div class="col-md-12">'
+        + '     <div class="close" id="exitpopup" onclick="ClosePopup(document.getElementById(\'set-element\').classList.toggle(\'show-me\');)"></div>'
+        + '     <h4>Change Radio Button Text and/or Name</h4>'
+        + '     <br>'
+        + '     <label for="text-radioButton">Button Text/Value</label>'
+        + '     <input type="text" id="text-radioButton" class="form-control" value="' + textEl.value + '">'
+        + '     <br>'
+        + '     <label for="name-radioButton">Name</label>'
+        + '     <input type="text" id="name-radioButton" class="form-control" value="' + textEl.name + '">'
+        + '     <br>'
+        + '     <p class="justify-content-md-start">The button text/value will be beside the radio button. The name of the button will not be seen.'
+        + '     As an example, if two radio buttons have the same name, you may only select one of them.<br>The button names are case sensitive.'
+        + '     "Question1" is not the same as "question1"</p>'
+        + '     <br>'
+        + '     <h6>Example Buttons: Both Named "Bob"</h6>'
+        + '     <input type="radio" name="Bob" value="I\'m Bob">I\'m Bob<br>'
+        + '     <input type="radio" name="Bob" value="I\'m also Bob">I\'m also Bob'
+        + '     <br><br>'
+        + '     <button class="btn btn-primary form-control" onclick="setRadioButtonText(\'' + El.id + '\')">Set Radio Text</button>'
+        + ' </div>'
+        + '</div>';
+    popup.classList.toggle("show-me");
+}
+
+function setRadioButtonText(ElId) {
+    let radioEl = document.getElementById(ElId);
+    let actualButton = radioEl.getElementsByTagName('input')[0];
+    let buttonLabel = radioEl.getElementsByTagName('span')[0];
+
+    actualButton.name = document.getElementById('name-radioButton').value;
+    actualButton.value = document.getElementById('text-radioButton').value;
+    
+    buttonLabel.innerText = actualButton.value;
+
+    document.getElementById('set-element').classList.toggle('show-me');
+}
+
 var area1;
 var area2;
 var addBtn;
