@@ -468,12 +468,12 @@ function setupSelectBox(selectContainer) {
     + '     </div>'
     + '     <div class="row">'
     + '         <div class="col-md-6 pr-4">'
-    + '             <div class="row mb-1">'
-    + '                 <div class="col p-0">'
-    + '                     <input type="text" id="selectName" class="form-control" tabindex="1">'
-    + '                 </div>'
-    + '             </div>'
     + '             <div id="area-1">'
+    + '                 <div class="row mb-1">'
+    + '                     <div class="col p-0">'
+    + '                         <input type="text" id="selectName" class="form-control" tabindex="1">'
+    + '                     </div>'
+    + '                 </div>'
     + '                 <div class="row mb-1" id="addBtn">'
     + '                     <div class="col-md-1 col-1-cust p-0">'
     + '                         <button class="btn btn-primary" style="width:38px;height:38px" onclick="addOption()">+</button>'
@@ -568,9 +568,14 @@ function setSelectBox(selectBtnId, selectorId) {
     let selector = document.getElementById(selectorId);
 
     let popup = document.getElementById('set-element');
+    let area1Inputs = document.getElementById('area-1').getElementsByTagName('input');
+    let area2Inputs = document.getElementById('area-2').getElementsByTagName('input');
     let selectInputs = popup.getElementsByTagName("input");
     for (let i = 0; i < selectInputs.length; i++) {
         if (selectInputs[i].type.toLowerCase() == "text") {
+            if (selectInputs[i].value == '') {
+                continue;
+            }
             let newOption = document.createElement('div');
             newOption.classList.add('option');
             newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
@@ -600,10 +605,10 @@ function changeSelectBox(El) {
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
     + ' <div class="col-md-12">'
-    + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + selectContainer.id + '\')"></div>'
+    + '     <div class="close" id="exitpopup" onclick="document.getElementById(\'set-element\').classList.toggle(\'show-me\');"></div>'
     + '     <div class="row">'
     + '         <div class="col">'
-    + '             <h4>Setup Select Box</h4>'
+    + '             <h4>Change Select Box</h4>'
     + '             <label for="selectName">'
     + '                 The first text box will be the default value for your select box. All of the other boxes will be in the options dropdown, in the order they are added.'
     + '                 '
@@ -612,12 +617,12 @@ function changeSelectBox(El) {
     + '     </div>'
     + '     <div class="row">'
     + '         <div class="col-md-6 pr-4">'
-    + '             <div class="row mb-1">'
-    + '                 <div class="col p-0">'
-    + '                     <input type="text" id="selectName" class="form-control" tabindex="1">'
-    + '                 </div>'
-    + '             </div>'
     + '             <div id="area-1">'
+    + '                 <div class="row mb-1">'
+    + '                     <div class="col p-0">'
+    + '                          <input type="text" id="selectName" class="form-control" tabindex="1">'
+    + '                     </div>'
+    + '                 </div>'
     + '                 <div class="row mb-1" id="addBtn">'
     + '                     <div class="col-md-1 col-1-cust p-0">'
     + '                         <button class="btn btn-primary" style="width:38px;height:38px" onclick="addOption()">+</button>'
@@ -640,7 +645,7 @@ function changeSelectBox(El) {
     + '     </div>'
     + '     <div class="row">'
     + '         <div class="col-sm-8 offset-sm-2 col-md-4 offset-md-4">'
-    + '             <button class="btn btn-primary form-control" onclick="setSelectBox(\'' + selectBTN.id + '\', \'' + selector.id + '\')">Set Select Box</button>'
+    + '             <button class="btn btn-primary form-control" onclick="setSelectBoxChange(\'' + El.id + '\')">Change Select Box</button>'
     + '             <br>'
     + '         </div>'
     + '     </div>'
@@ -660,7 +665,44 @@ function changeSelectBox(El) {
     area2 = document.getElementById('area-2');
     addBtn = document.getElementById('addBtn');
     optionCnt = 1;
+    
+    let options = El.getElementsByClassName('option');
+    for (let i = 0; i < options.length; i++) {
+        if (i == 0) {
+            document.getElementById('selectName').value = options[i].innerText;
+        } else if (i == 1) {
+            document.getElementById('optionIn1').value = options[i].innerText;
+        } else {
+            addBtn.getElementsByTagName('button')[0].click();
+            document.getElementById('optionIn' + optionCnt).value = options[i].innerText;
+        }
+    }
     popup.classList.toggle("show-me");
+}
+
+function setSelectBoxChange(ElId) {
+    let popup = document.getElementById('set-element');
+
+    let selectContainer = document.getElementById(ElId);
+    let selectorBTN = selectContainer.getElementsByClassName('selector-button')[0];
+    let selectInput = selectContainer.getElementsByTagName('input')[0];
+    let selector = selectContainer.getElementsByClassName('selector')[0];
+    selector.innerHTML = "";
+
+    let inputs = popup.getElementsByTagName('input');
+
+    for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].value == '') {
+            continue;
+        }
+        let newDiv = document.createElement('div');
+        newDiv.classList.add('option');
+        newDiv.setAttribute('onclick', 'selected(this, \'' + selectorBTN.id + '\', \'' + selectInput.id + '\', \'' + selector.id + '\')');
+        newDiv.innerText = inputs[i].value;
+
+        selector.appendChild(newDiv);
+    }
+    popup.classList.toggle('show-me');
 }
 
 function setupTextArea(textAreaEl)
@@ -754,5 +796,7 @@ function processBulkInput(elType, elId) {
             break;
         }
     }
+    el.parentElement.classList.add('qBucket-el-cont');
+    addButtons(el.parentElement, 'edit-selectbox' + selectboxCNT);
     document.getElementById('set-element').classList.toggle("show-me");
 }
