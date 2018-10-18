@@ -361,17 +361,6 @@ function setupRadioButton(radioEl) {
         + '     <label for="text-radioButton">Button Text/Value</label>'
         + '     <input type="text" id="text-radioButton" class="form-control">'
         + '     <br>'
-        + '     <label for="name-radioButton">Name</label>'
-        + '     <input type="text" id="name-radioButton" class="form-control">'
-        + '     <br>'
-        + '     <p class="justify-content-md-start">The button text/value will be beside the radio button. The name of the button will not be seen.'
-        + '     As an example, if two radio buttons have the same name, you may only select one of them.<br>The button names are case sensitive.'
-        + '     "Question1" is not the same as "question1"</p>'
-        + '     <br>'
-        + '     <h6>Example Buttons: Both Named "Bob"</h6>'
-        + '     <input type="radio" name="Bob" value="I\'m Bob">I\'m Bob<br>'
-        + '     <input type="radio" name="Bob" value="I\'m also Bob">I\'m also Bob'
-        + '     <br><br>'
         + '     <button class="btn btn-primary form-control" onclick="setRadioButton(\'' + radioEl.id + '\')">Set Radio Text</button>'
         + ' </div>'
         + '</div>';
@@ -380,10 +369,10 @@ function setupRadioButton(radioEl) {
 
 function setRadioButton(radioID) {
     let radioButtonText = document.getElementById('text-radioButton').value.split(';');
-    let radioButtonName = document.getElementById('name-radioButton').value;
-    let radioEl = document.getElementById(radioID); //.innerHTML = ' <input type="radio" name="' + radioButtonName +'" value="' + radioButtonText + '">' + radioButtonText;
+    let radioEl = document.getElementById(radioID); 
     let radioElParent = radioEl.parentNode;
     radioEl.remove();
+    let radioButtonName = radioElParent.getElementsByClassName('questionText')[0].getElementsByTagName('p')[0].innerText;
     for (let i = 0; i < radioButtonText.length; i++) {
         if (radioButtonText[i] == '') {
             continue;
@@ -425,17 +414,6 @@ function changeRadioButton(El) {
         + '     <label for="text-radioButton">Button Text/Value</label>'
         + '     <input type="text" id="text-radioButton" class="form-control" value="' + textEl.value + '">'
         + '     <br>'
-        + '     <label for="name-radioButton">Name</label>'
-        + '     <input type="text" id="name-radioButton" class="form-control" value="' + textEl.name + '">'
-        + '     <br>'
-        + '     <p class="justify-content-md-start">The button text/value will be beside the radio button. The name of the button will not be seen.'
-        + '     As an example, if two radio buttons have the same name, you may only select one of them.<br>The button names are case sensitive.'
-        + '     "Question1" is not the same as "question1"</p>'
-        + '     <br>'
-        + '     <h6>Example Buttons: Both Named "Bob"</h6>'
-        + '     <input type="radio" name="Bob" value="I\'m Bob">I\'m Bob<br>'
-        + '     <input type="radio" name="Bob" value="I\'m also Bob">I\'m also Bob'
-        + '     <br><br>'
         + '     <button class="btn btn-primary form-control" onclick="setRadioButtonText(\'' + El.id + '\')">Set Radio Text</button>'
         + ' </div>'
         + '</div>';
@@ -447,10 +425,9 @@ function setRadioButtonText(ElId) {
     let actualButton = radioEl.getElementsByTagName('input')[0];
     let buttonLabel = radioEl.getElementsByTagName('span')[0];
 
-    actualButton.name = document.getElementById('name-radioButton').value;
     actualButton.value = document.getElementById('text-radioButton').value;
     
-    buttonLabel.innerText = actualButton.value;
+    buttonLabel.innerText = ' ' + actualButton.value;
 
     document.getElementById('set-element').classList.toggle('show-me');
 }
@@ -459,6 +436,7 @@ var area1;
 var area2;
 var addBtn;
 var optionCnt = 1;
+var tabindexCnt = 2;
 
 function setupSelectBox(selectContainer) {
     var selectBTN = selectContainer.children[0];
@@ -492,7 +470,7 @@ function setupSelectBox(selectContainer) {
     + '         <div class="col-md-6 pr-4">'
     + '             <div class="row mb-1">'
     + '                 <div class="col p-0">'
-    + '                     <input type="text" id="selectName" class="form-control">'
+    + '                     <input type="text" id="selectName" class="form-control" tabindex="1">'
     + '                 </div>'
     + '             </div>'
     + '             <div id="area-1">'
@@ -507,7 +485,7 @@ function setupSelectBox(selectContainer) {
     + '             <div id="area-2">'
     + '                 <div class="row mb-1" id="option1">'
     + '                     <div class="col-md-11 col-11-cust p-0">'
-    + '                         <input type="text" id="optionIn1" class="form-control">'
+    + '                         <input type="text" id="optionIn1" class="form-control" tabindex="2">'
     + '                     </div>'
     + '                     <div class="col-md-1 col-1-cust p-0">'
     + '                         <button class="btn btn-primary form-control" style="width:38px;height:38px" onclick="deleteOption(\'option1\')">-</button>'
@@ -560,6 +538,7 @@ function addOption() {
         option.id = option.id + (optionCnt += 1);
         option.children[0].children[0].id = option.children[0].children[0].id + optionCnt;
         option.children[1].children[0].setAttribute('onclick', 'deleteOption(\'option' + optionCnt + '\')');
+        option.getElementsByTagName('input')[0].setAttribute('tabindex', tabindexCnt+=1);
         area1.appendChild(option);
         if (area1.children.length > area2.children.length) {
             area2.appendChild(addBtn);
@@ -570,6 +549,7 @@ function addOption() {
         option.id = option.id + (optionCnt += 1);
         option.children[0].children[0].id = option.children[0].children[0].id + optionCnt;
         option.children[1].children[0].setAttribute('onclick', 'deleteOption(\'option' + optionCnt + '\')');
+        option.getElementsByTagName('input')[0].setAttribute('tabindex', tabindexCnt+=1);
         area2.appendChild(option);
         if (area1.children.length < area2.children.length) {
             area1.appendChild(addBtn);
