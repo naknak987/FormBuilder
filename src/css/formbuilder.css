@@ -104,7 +104,7 @@ body{
 }
 
 /* Toggle this class - hide and show the popup */
-.setup-element .show {
+.setup-element .show-me {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
@@ -133,7 +133,7 @@ body{
     visibility: hidden;
 }
 
-#descriptors.show {
+#descriptors.show-me {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
@@ -143,7 +143,7 @@ body{
     visibility: hidden;
 }
 
-#inputs.show {
+#inputs.show-me {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
