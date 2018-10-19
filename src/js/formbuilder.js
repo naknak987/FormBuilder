@@ -65,7 +65,7 @@ function incrementColNum() {
             newCol.classList.toggle('nohelpers');
         }
     }
-    return newCol
+    return newCol;
 }
 
 function allowDrop(ev) {
