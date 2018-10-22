@@ -104,7 +104,7 @@ body{
 }
 
 /* Toggle this class - hide and show the popup */
-.setup-element .show {
+.setup-element .show-me {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
@@ -133,7 +133,7 @@ body{
     visibility: hidden;
 }
 
-#descriptors.show {
+#descriptors.show-me {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
@@ -143,7 +143,7 @@ body{
     visibility: hidden;
 }
 
-#inputs.show {
+#inputs.show-me {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
@@ -153,7 +153,12 @@ body{
 /*
  * General Question Bucket Styles
  */
-
+.qBucket-el-cont {
+    position: relative;
+}
+.darken .lighten>.qBucket-el-cont:hover .edit {
+    visibility: visible;
+}
 .questionBucket {
     position: relative;
     border: 3px dashed rgb(228, 248, 220);
@@ -164,16 +169,21 @@ body{
 .questionBucket:hover .qEdit {
     visibility: visible;
 }
-
+.darken .questionBucket:hover .qEdit {
+    visibility: hidden;
+}
+.darken .questionBucket:hover.lighten .qEdit {
+    visibility: visible;
+}
+.darken .questionBucket .questionText:hover .edit {
+    visibility: hidden;
+} 
+.darken .questionBucket.lighten .questionText:hover .edit {
+    visibility: visible;
+} 
 /*
  * Element Content Bucket Styles
  */
-
-#form-area .el-cont:hover {
-    border-radius: 4px;
-    background-color: rgb(208, 218, 168);
-}
-
 .el-cont {
     position: relative;
 }
@@ -182,12 +192,44 @@ body{
     visibility: visible;
 }
 
+/*
+ * Visibility Control
+ */
+
+
 .lighten {
     background-color: white;
 }
 
+.lighten .selector {
+    background-color: white !important;
+}
 .darken {
     background-color: rgb(66, 66, 66);
+}
+
+.darken input {
+    background-color: inherit !important;
+}
+
+.darken textarea {
+    background-color: inherit !important;
+}
+
+.darken .selector {
+    background-color: inherit;
+}
+
+.darken .selector-button {
+    background-color: inherit !important;
+}
+
+.darken .custom-file {
+    background-color: inherit !important;
+}
+
+.darken .custom-file-label {
+    background-color: inherit !important;
 }
 
 .darken .el-cont:hover {
@@ -219,11 +261,13 @@ body{
 .edit:hover {
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .qEdit:hover {
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .darken .el-cont:hover .edit {

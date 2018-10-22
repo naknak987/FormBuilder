@@ -65,7 +65,7 @@ function incrementColNum() {
             newCol.classList.toggle('nohelpers');
         }
     }
-    return newCol
+    return newCol;
 }
 
 function allowDrop(ev) {
@@ -177,19 +177,27 @@ function questionDrop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    if (elements.indexOf(data) != -1) {
-        var ClonedEl = document.getElementById(data).cloneNode(true);
+    if (el.hasAttribute('data-type')){
+        if (el.getAttribute('data-type') != data) {
+            // not allowed, input types don't match
+            return;
+        }
     } else {
-        var ClonedEl = document.getElementById(data);
+        el.setAttribute('data-type', data);
     }
-    insertSecondary(/* dataEl */ el, ClonedEl);
+
+    if ((qElements.indexOf(data) != -1) && (el.getAttribute('data-edit') == 'true')) {
+        var ClonedEl = document.getElementById(data).cloneNode(true);
+        
+        insertSecondary(el, ClonedEl);
+    }
 }
 
 function deleteElementOnDrop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     parentEl = document.getElementById(data).parentNode;
-    if (elements.indexOf(data) == -1) { 
+    if ((elements.indexOf(data) == -1) && (qElements.indexOf(data) == -1)) { 
         parentEl.removeChild(document.getElementById(data));
         while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
             var CurrentEl = parentEl;
@@ -263,7 +271,7 @@ function insertSecondary(parEl, chiEl) {
             textBoxCNT += 1;
             chiEl.name = chiEl.name + '-' + textBoxCNT;
             chiEl.id = chiEl.id + textBoxCNT;
-            setupTextBox(chiEl);
+            //setupTextBox(chiEl);
             parEl.appendChild(chiEl);
             break;
         case 'checkbox':
@@ -337,28 +345,32 @@ function ClosePopup(CurrentEl) {
             parParEl.remove();
         }
     }
-    document.getElementById('set-element').classList.toggle("show");
+    document.getElementById('set-element').classList.toggle("show-me");
 }
 
 function hideHelpers() {
-    var formAreaEl = document.getElementById('form-area');
-    var emptyRows = formAreaEl.getElementsByClassName('emptyrow');
-    for (var i = 0; i < emptyRows.length; i++) {
+    let formAreaEl = document.getElementById('form-area');
+    let emptyRows = formAreaEl.getElementsByClassName('emptyrow');
+    for (let i = 0; i < emptyRows.length; i++) {
         emptyRows[i].classList.toggle('hideempty');
     }
-    var emptyCols = formAreaEl.getElementsByClassName('emptycol');
-    for (var i = 0; i < emptyCols.length; i++) {
+    let emptyCols = formAreaEl.getElementsByClassName('emptycol');
+    for (let i = 0; i < emptyCols.length; i++) {
         emptyCols[i].classList.toggle('hideempty');
     }
-    var rowEls = formAreaEl.getElementsByClassName('row');
-    for (var i = 0; i < rowEls.length; i++) {
+    let rowEls = formAreaEl.getElementsByClassName('row');
+    for (let i = 0; i < rowEls.length; i++) {
         rowEls[i].classList.toggle('nohelpers');
     }
-    var colEls = formAreaEl.getElementsByClassName('col');
-    for (var i = 0; i < colEls.length; i++) {
+    let colEls = formAreaEl.getElementsByClassName('col');
+    for (let i = 0; i < colEls.length; i++) {
         colEls[i].classList.toggle('nohelpers');
     }
-    var helperBTN = document.getElementById('helpers');
+    let qBucket = document.getElementsByClassName('questionBucket')
+    for (let i = 0; i < qBucket.length; i++) {
+        qBucket[i].classList.toggle('nohelpers');
+    }
+    let helperBTN = document.getElementById('helpers');
     if (helperBTN.innerText == "Hide Helpers") {
         helperBTN.innerText = "Show Helpers";
         dispHelpers = true;
@@ -370,25 +382,31 @@ function hideHelpers() {
 
 function changeInputs(qID) {
     document.getElementById('form-area').classList.toggle('darken');
-    document.getElementById('inputs').classList.toggle('show');
-    document.getElementById('descriptors').classList.toggle('show');
+    document.getElementById('inputs').classList.toggle('show-me');
+    document.getElementById('descriptors').classList.toggle('show-me');
 
-    document.getElementById(qID).classList.toggle('lighten');
+    let qEl = document.getElementById(qID);
+    qEl.classList.toggle('lighten');
+
+    if (qEl.hasAttribute('data-edit') && qEl.getAttribute('data-edit') == 'false') {
+        qEl.setAttribute('data-edit', 'true');
+    } else if (qEl.hasAttribute('data-edit') && qEl.getAttribute('data-edit') == 'true') {
+        qEl.setAttribute('data-edit', 'false');
+    }
 }
 
 function addQButtons(El, Id) {
-    
     var editS = document.createElement('span');
     editS.classList.add('pencil');
     editS.id = Id;
 
     var editA = document.createElement('a');
     editA.classList.add('qEdit');
-    editA.href = "#";
-    editA.setAttribute('onclick', 'editQuestion(\'' + editS.id + '\',  \'' + Id + '\')');
+    editA.setAttribute('onclick', 'editQuestion(event, \'' + editS.id + '\',  \'' + El.id + '\')');
 
     editA.appendChild(editS);
     El.appendChild(editA);
+    return editA;
 }
 
 function addButtons(El, Id) {
@@ -399,14 +417,15 @@ function addButtons(El, Id) {
 
     var editA = document.createElement('a');
     editA.classList.add('edit');
-    editA.href = "#";
-    editA.setAttribute('onclick', 'edit(\'' + El.id + '\')');
+    editA.setAttribute('onclick', 'edit(event, \'' + El.id + '\')');
 
     editA.appendChild(editS);
     El.appendChild(editA);
 }
 
-function edit(elID) {
+function edit(event, elID) {
+    event.stopPropagation();
+    event.preventDefault();
     let El = document.getElementById(elID);
     
     if (El.id.indexOf('title') != -1) {
@@ -421,10 +440,23 @@ function edit(elID) {
     if (El.id.indexOf('text-block') != -1) {
         setupTextBlock(El);
     }
-
+    if (El.id.indexOf('questionText') != -1) {
+        changeQuestionText(El);
+    }
+    if (El.id.indexOf('checkbox') != -1) {
+        changeCheckBox(El);
+    }
+    if (El.id.indexOf('radiobutton') != -1) {
+        changeRadioButton(El);
+    }
+    if (El.id.indexOf('selectbox') != -1) {
+        changeSelectBox(El);
+    }
 }
 
-function editQuestion(iconID, questionID) {
+function editQuestion(event, iconID, questionID) {
+    event.stopPropagation();
+    event.preventDefault();
     let iconEl = document.getElementById(iconID);
 
     changeInputs(questionID);
@@ -433,50 +465,57 @@ function editQuestion(iconID, questionID) {
 }
 
 function ExportForm() {
-    var formAreaEl = document.getElementById('form-area');
-    var formHTML = formAreaEl.innerHTML;
-    var formName = document.getElementById('form-name').value;
-    var popup = document.getElementById('Errors');
+    let formAreaEl = document.getElementById('form-area');
+    let formName = document.getElementById('form-name').value;
+    let popup = document.getElementById('Errors');
     if (formName == '') {
         popup.innerHTML = "Please name your form first!";
-        popup.classList.toggle("show");
+        popup.classList.toggle("show-me");
         popup.scrollIntoView(true);
         setTimeout(function(){ 
-            popup.classList.toggle("show"); 
+            popup.classList.toggle("show-me"); 
             popup.click();
         }, 4000);
-    } else if (formHTML == '') {
+    } else if (formAreaEl.innerHTML == '') {
         popup.innerHTML = "Did you build a form?";
-        popup.classList.toggle("show");
+        popup.classList.toggle("show-me");
         popup.scrollIntoView(true);
         setTimeout(function(){ 
-            popup.classList.toggle("show"); 
+            popup.classList.toggle("show-me"); 
             popup.click();
         }, 4000); 
     } else {
-        var emptyRows = formAreaEl.getElementsByClassName('emptyrow');
-        for (var i = 0; i < emptyRows.length;) {
+        let emptyRows = formAreaEl.getElementsByClassName('emptyrow');
+        for (let i = 0; i < emptyRows.length;) {
             emptyRows[i].remove();
         }
-        var emptyCols = formAreaEl.getElementsByClassName('emptycol');
-        for (var i = 0; i < emptyCols.length;) {
+        let emptyCols = formAreaEl.getElementsByClassName('emptycol');
+        for (let i = 0; i < emptyCols.length;) {
             emptyCols[i].remove();
         }
-        var rowEls = formAreaEl.getElementsByClassName('row');
-        for (var i = 0; i < rowEls.length; i++) {
+        let rowEls = formAreaEl.getElementsByClassName('row');
+        for (let i = 0; i < rowEls.length; i++) {
             rowEls[i].removeAttribute('ondrop');
             rowEls[i].removeAttribute('ondragover');
             rowEls[i].removeAttribute('ondragenter');
             rowEls[i].removeAttribute('ondragleave');
         }
-        var colEls = formAreaEl.getElementsByClassName('col');
-        for (var i = 0; i < colEls.length; i++) {
+        let colEls = formAreaEl.getElementsByClassName('col');
+        for (let i = 0; i < colEls.length; i++) {
             colEls[i].removeAttribute('ondrop');
             colEls[i].removeAttribute('ondragover');
             colEls[i].removeAttribute('ondragenter');
             colEls[i].removeAttribute('ondragleave');
         }
-        var formHTML = formAreaEl.innerHTML;
+        let qEls = formAreaEl.getElementsByClassName('questionBucket');
+        for (let i = 0; i < qEls.length; i++) {
+            qEls[i].removeAttribute('draggable');
+            qEls[i].removeAttribute('ondragstart');
+            qEls[i].removeAttribute('ondrop');
+            qEls[i].removeAttribute('ondragover');
+        }
+        let definition = buildDefinition(qEls);
+        let formHTML = formAreaEl.innerHTML;
         while (formHTML.includes(' draggable="true"'))
         {
             formHTML = formHTML.replace(' draggable="true"', '');
@@ -489,12 +528,75 @@ function ExportForm() {
         {
             formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
         }
-        var retVal = {
+        let retVal = {
             'name':formName,
             'html':formHTML,
-            // The definition needs to go here. 
+            'definition':definition
         };
         return JSON.stringify(retVal);
     }
     return false;
+}
+
+function buildDefinition(qEls) {
+    let textboxDef = [];
+    let textareaDef = [];
+    let radioDef = [];
+    let checkDef = [];
+    let selectDef = [];
+    let dateDef = [];
+    let timeDef = [];
+    let fileDef = [];
+
+
+    for (let q = 0; q < qEls.length; q++) {
+        let qText = qEls[q].getElementsByClassName('questionText')[0].innerText;
+        let textareas = qEls[q].getElementsByTagName('textarea');
+        let inputs = qEls[q].getElementsByTagName('input');
+        if (textareas.length != 0) {
+            textareaDef.push({'name':qText, 'type':'string', 'size':2000})
+        } else if (inputs.length != 0) {
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf('selected-value') != -1) {
+                    selectDef.push({'name':qText, 'type':'string', 'size':200});
+                    break;
+                } else if (inputs[i].getAttribute('type') == 'radio') {
+                    radioDef.push({'name':qText, 'type':'string', 'size':200});
+                    break;
+                } else if (inputs[i].getAttribute('type') == 'checkbox') {
+                    if (i == 0) {
+                        checkDef.push({'question':qText});
+                    }
+                    checkDef.push({'name':inputs[i].getAttribute['name'], 'type':'boolean', 'size':1});
+                } else if (inputs[i].getAttribute('type') == 'text') {
+                    if (inputs[i].id.indexOf('text-box') != -1) {
+                        textboxDef.push({'name':qText, 'type':'string', 'size':200});
+                        break;
+                    } else if (inputs[i].id.indexOf('datepicker') != -1) {
+                        dateDef.push({'name':qText, 'type':'date'});
+                        break;
+                    } else if (inputs[i].id.indexOf('timepicker') != -1) {
+                        timeDef.push({'name':qText, 'type':'time'});
+                        break;
+                    }
+                } else if (inputs[i].getAttribute('type') == 'file') {
+                    fileDef.push({'name':qText, 'type':'file'});
+                    break;
+                }
+            }
+        }
+    }
+
+    let retArr = {
+        'textbox':textboxDef,
+        'textarea':textareaDef,
+        'radiobutton':radioDef,
+        'checkbox':checkDef,
+        'selectbox':selectDef,
+        'date':dateDef,
+        'time':timeDef,
+        'file':fileDef
+    };
+
+    return retArr;
 }

@@ -5,10 +5,10 @@
     </span>
 </div>
 <script>
-    document.getElementById("successPopup").classList.toggle("show");
+    document.getElementById("successPopup").classList.toggle("show-me");
     document.getElementById("successPopup").scrollIntoView(true);
     setTimeout(function(){ 
-        document.getElementById("successPopup").classList.toggle("show"); 
+        document.getElementById("successPopup").classList.toggle("show-me); 
     }, 8000);
 </script>
 
@@ -60,7 +60,7 @@
 } */
 
 /* Toggle this class - hide and show the popup */
-.popup .show {
+.popup .show-me {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;

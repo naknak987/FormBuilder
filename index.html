@@ -77,7 +77,7 @@
                         </div>
                         <div class="card-body element-area">
                             <div class="stick">
-                                <div id="descriptors" class="show">
+                                <div id="descriptors" class="show-me">
                                     <div id="title" class="el-cont" draggable="true" ondragstart="drag(event)">
                                         <h3>Title</h3>
                                     </div>
@@ -93,8 +93,10 @@
                                     <div class="pb-2">
                                         <div id="blank-space" style="height:12pt;" draggable="true" ondragstart="drag(event)">Blank Space</div>
                                     </div>
-                                    <div id="questionBucket" class="questionBucket" draggable="true" ondragstart="drag(event)">
-                                        <p id="questionText" class="questionText">New Question</p>
+                                    <div id="questionBucket" class="questionBucket" draggable="true" ondragstart="drag(event)" data-edit="false">
+                                        <div id="questionText" class="questionText">
+                                            <p>New Question</p>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -109,7 +111,7 @@
                                         <input type="radio" name="radio" value="A Radio Button">A Radio Button
                                     </div>
                                     <div id="selectbox-container" draggable="true" ondragstart="drag(event)">
-                                        <div class="selector-button mb-2" id="selectbox-button" onclick="trigger('selectbox')">A Dropdown<span class="chevron bottom"></span></div>
+                                        <div class="selector-button mb-2" id="selectbox-button" onclick="trigger('selectbox', event)">A Dropdown<span class="chevron bottom"></span></div>
                                         <input type="hidden" name="selected-value" id="selected-value" />
                                         <div id="selectbox" class="selector p-0 m-0">
                                             <div class="option" onclick="selected(this, 'selectbox-button', 'selected-value', 'selectbox')">Option A</div>

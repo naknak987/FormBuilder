@@ -27,7 +27,7 @@ label {
     z-index: 1;
 }
 
-.selector.show {
+.selector.show-me {
     display: inline-block;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
