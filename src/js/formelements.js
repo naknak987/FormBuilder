@@ -579,8 +579,8 @@ function setSelectBox(selectBtnId, selectorId) {
     let selector = document.getElementById(selectorId);
 
     let popup = document.getElementById('set-element');
-    let area1Inputs = document.getElementById('area-1').getElementsByTagName('input');
-    let area2Inputs = document.getElementById('area-2').getElementsByTagName('input');
+    //let area1Inputs = document.getElementById('area-1').getElementsByTagName('input');
+    //let area2Inputs = document.getElementById('area-2').getElementsByTagName('input');
     let selectInputs = popup.getElementsByTagName("input");
     for (let i = 0; i < selectInputs.length; i++) {
         if (selectInputs[i].type.toLowerCase() == "text") {
