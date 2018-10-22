@@ -177,10 +177,19 @@ function questionDrop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
+    if (el.hasAttribute('data-type')){
+        if (el.getAttribute('data-type') != data) {
+            // not allowed, input types don't match
+            return;
+        }
+    } else {
+        el.setAttribute('data-type', data);
+    }
+
     if ((qElements.indexOf(data) != -1) && (el.getAttribute('data-edit') == 'true')) {
         var ClonedEl = document.getElementById(data).cloneNode(true);
         
-        insertSecondary(/* dataEl */ el, ClonedEl);
+        insertSecondary(el, ClonedEl);
     }
 }
 
