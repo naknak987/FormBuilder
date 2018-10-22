@@ -178,8 +178,11 @@ function questionDrop(ev, el) {
     var data = ev.dataTransfer.getData("text");
 
     if (el.hasAttribute('data-type')){
-        if (el.getAttribute('data-type') != data) {
+        let elType = el.getAttribute('data-type');
+        if (elType != data) {
             // not allowed, input types don't match
+            return;
+        } else if (elType != 'checkbox' && elType != 'radiobutton') {
             return;
         }
     } else {
