@@ -450,7 +450,7 @@ function setupSelectBox(selectContainer) {
         selector.removeChild(selector.firstChild);
     }
     selectBTN.removeAttribute('onclick');
-    selectBTN.setAttribute('onclick', 'trigger(\'' + selector.id + '\')');
+    selectBTN.setAttribute('onclick', 'trigger(\'' + selector.id + '\', event)');
 
     let popup = document.getElementById('set-element');
     popup.innerHTML = ""
@@ -588,19 +588,6 @@ function setSelectBox(selectBtnId, selectorId) {
 }
 
 function changeSelectBox(El) {
-   /*  let selectBTN = selectContainer.children[0];
-    let selectInput = selectContainer.children[1];
-    let selector = selectContainer.children[2];
-    selectBTN.id = selectBTN.id + selectboxCNT;
-    selectInput.id = selectInput.id + selectboxCNT;
-    selectInput.setAttribute('name', selectInput.id);
-    selector.id = selector.id + selectboxCNT;
-    while (selector.firstChild) {
-        selector.removeChild(selector.firstChild);
-    }
-    selectBTN.removeAttribute('onclick');
-    selectBTN.setAttribute('onclick', 'trigger(\'' + selector.id + '\')'); */
-
     let popup = document.getElementById('set-element');
     popup.innerHTML = ""
     + '<div class="row justify-content-md-center">'
