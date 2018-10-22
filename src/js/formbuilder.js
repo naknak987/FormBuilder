@@ -565,7 +565,7 @@ function buildDefinition(qEls) {
                     break;
                 } else if (inputs[i].getAttribute('type') == 'checkbox') {
                     if (i == 0) {
-                        checkboxDef.push({'question':qText});
+                        checkDef.push({'question':qText});
                     }
                     checkDef.push({'name':inputs[i].getAttribute['name'], 'type':'boolean', 'size':1});
                 } else if (inputs[i].getAttribute('type') == 'text') {
