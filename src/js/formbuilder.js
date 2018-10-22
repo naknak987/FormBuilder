@@ -359,7 +359,7 @@ function hideHelpers() {
     }
     var helperBTN = document.getElementById('helpers');
     if (helperBTN.innerText == "Hide Helpers") {
-        helperBTN.innerText = "show-me Helpers";
+        helperBTN.innerText = "Show Helpers";
         dispHelpers = true;
     } else {
         helperBTN.innerText = "Hide Helpers";
