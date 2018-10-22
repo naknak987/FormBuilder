@@ -522,7 +522,18 @@ function setupSelectBox(selectContainer) {
 
 function deleteOption(delEl) {
     if (delEl != 'option1') {
+        let areaOne = document.getElementById('area-1');
+        let areaTwo = document.getElementById('area-2');
+
         document.getElementById(delEl).remove();
+        let areaOneIn = areaOne.getElementsByTagName('input');
+        let areaTwoIn = areaTwo.getElementsByTagName('input');
+
+        if (areaOneIn.length < areaTwoIn.length) {
+            let move = document.getElementById(areaTwoIn[areaTwoIn.length - 1].id.replace('In', ''));
+            areaOne.appendChild(move);
+        }
+
         if (area1.children.length > area2.children.length && addBtn.parentElement.id != 'area-2') {
             area2.appendChild(addBtn);
         } else if (area1.children.length < area2.children.length && addBtn.parentElement.id != 'area-1') {
