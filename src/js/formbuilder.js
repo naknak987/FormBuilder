@@ -274,8 +274,8 @@ function insertSecondary(parEl, chiEl) {
             textBoxCNT += 1;
             chiEl.name = chiEl.name + '-' + textBoxCNT;
             chiEl.id = chiEl.id + textBoxCNT;
-            //setupTextBox(chiEl);
             parEl.appendChild(chiEl);
+            setupTextBox(chiEl);
             break;
         case 'checkbox':
             setupCheckbox(chiEl);
@@ -294,26 +294,26 @@ function insertSecondary(parEl, chiEl) {
         case 'textarea':
             textareaCNT += 1;
             chiEl.id = chiEl.id + textareaCNT;
-            setupTextArea(chiEl);
             parEl.appendChild(chiEl);
+            setupTextArea(chiEl);
             break;
         case 'datepickerCon':
             datepickerCNT += 1;
             chiEl.id = chiEl.id + datepickerCNT;
-            setupDatePicker(chiEl);
             parEl.appendChild(chiEl);
+            setupDatePicker(chiEl);
             break;
         case 'timepickerCon':
             timepickerCNT += 1;
             chiEl.id = chiEl.id + timepickerCNT;
-            setupTimePicker(chiEl);
             parEl.appendChild(chiEl);
+            setupTimePicker(chiEl);
             break;
         case 'attachmentCon':
             attachmentCNT += 1;
             chiEl.id = chiEl.id + attachmentCNT;
-            setupAttachment(chiEl);
             parEl.appendChild(chiEl);
+            setupAttachment(chiEl);
         default:
             deleteElement(parEl.id);
             break;
@@ -559,7 +559,7 @@ function buildDefinition(qEls) {
         let textareas = qEls[q].getElementsByTagName('textarea');
         let inputs = qEls[q].getElementsByTagName('input');
         if (textareas.length != 0) {
-            textareaDef.push({'name':qText, 'type':'string', 'size':2000})
+            textareaDef.push({'name':qText, 'type':'string', 'size':65535})
         } else if (inputs.length != 0) {
             for (let i = 0; i < inputs.length; i++) {
                 if (inputs[i].id.indexOf('selected-value') != -1) {
