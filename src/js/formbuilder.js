@@ -554,8 +554,10 @@ function buildDefinition(qEls) {
 
     for (let q = 0; q < qEls.length; q++) {
         let qText = qEls[q].getElementsByClassName('questionText')[0].innerText;
-        qText = qText.replace(/ /g, '_');
-        qText = qText.replace(/\r?\n|\r/g, '');
+        qText = qText.replace(/[^\w\s]|_/g, '')
+            .replace(/\r?\n|\r/g, '')
+            .replace(/\s+/g, ' ')
+            .replace(/ /g, '_');
         let textareas = qEls[q].getElementsByTagName('textarea');
         let inputs = qEls[q].getElementsByTagName('input');
         if (textareas.length != 0) {
