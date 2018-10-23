@@ -179,7 +179,7 @@ function setupQuestionBucket(bucketEl) {
     + '     <br>'
     + '     <p>Ask your question. What you enter here will become the question text.</p>'
     + '     <br>'
-    + '     <input type="text" id="textQuestion" class="form-control">'
+    + '     <input type="text" id="textQuestion" class="form-control" maxlength="64">'
     + '     <br>'
     + '     <button class="btn btn-primary form-control" onclick="setQuestionBucket(\'' + bucketEl.id + '\')">Set Question</button>'
     + ' </div>'
@@ -221,7 +221,7 @@ function changeQuestionText(El) {
     + '     <br>'
     + '     <p>Ask your question. What you enter here will become the question text.</p>'
     + '     <br>'
-    + '     <input type="text" id="textQuestion" class="form-control">'
+    + '     <input type="text" id="textQuestion" class="form-control" maxlength="64">'
     + '     <br>'
     + '     <button class="btn btn-primary form-control" onclick="setQuestionText(\'' + El.id + '\')">Set Question</button>'
     + ' </div>'
@@ -235,6 +235,17 @@ function setQuestionText(ElId) {
     document.getElementById(ElId).getElementsByTagName('p')[0].innerText = document.getElementById('textQuestion').value;
 
     document.getElementById('set-element').classList.toggle("show-me");
+}
+
+function setupTextBox(El) {
+    let qBucket = El.closest('.questionBucket');
+    let qText = qBucket.getElementsByClassName('questionText')[0].innerText;
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
+        
+    El.name = qText;
 }
 
 function setupBlankSpace(blankEl) {
@@ -291,6 +302,14 @@ function setCheckbox(checkboxID) {
     let checkbox = document.getElementById(checkboxID); //.innerHTML = ' <input type="checkbox" name="' + checkboxID + '" value="' + checkBoxText + '">' + checkBoxText;
     let elParent = checkbox.parentNode;
     checkbox.remove();
+    
+    let qbucket = elParent.closest('.questionBucket');
+    let qText = qbucket.getElementsByClassName('questionText')[0].innerText;
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
+
     for (let i = 0; i < checkBoxText.length; i++) {
         if (checkBoxText[i] == '') {
             continue;
@@ -305,7 +324,8 @@ function setCheckbox(checkboxID) {
         checkbox = document.createElement('input');
         checkbox.type = "checkbox";
         checkbox.name =  checkBoxText[i].trim();
-        checkbox.value = checkBoxText[i].trim();
+        checkbox.name = checkbox.name.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
+        checkbox.value = qText + '|' + checkBoxText[i].trim();
 
         let label = document.createElement('span');
         label.innerText = " " + checkBoxText[i].trim();
@@ -344,8 +364,16 @@ function setCheckboxText(ElId) {
     let newText = document.getElementById('text-checkbox').value;
     document.getElementById(ElId).getElementsByTagName('span')[0].innerText = ' ' + newText;
     let input = document.getElementById(ElId).getElementsByTagName('input')[0];
-    input.name = newText;
-    input.value = newText;
+    
+    let qbucket = input.closest('.questionBucket');
+    let qText = qbucket.getElementsByClassName('questionText')[0].innerText;
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
+
+    input.name = newText.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
+    input.value = qText + '|' + newText;
     document.getElementById('set-element').classList.toggle('show-me');
 }
 
@@ -372,7 +400,13 @@ function setRadioButton(radioID) {
     let radioEl = document.getElementById(radioID); 
     let radioElParent = radioEl.parentNode;
     radioEl.remove();
-    let radioButtonName = radioElParent.getElementsByClassName('questionText')[0].getElementsByTagName('p')[0].innerText;
+    
+    let qText = radioElParent.getElementsByClassName('questionText')[0].getElementsByTagName('p')[0].innerText;
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
+
     for (let i = 0; i < radioButtonText.length; i++) {
         if (radioButtonText[i] == '') {
             continue;
@@ -385,7 +419,7 @@ function setRadioButton(radioID) {
         newDiv.setAttribute('ondragstart', 'drag(event)');
         radioEl = document.createElement('input');
         radioEl.type = 'radio';
-        radioEl.name = radioButtonName;
+        radioEl.name = qText;
         radioEl.value = radioButtonText[i].trim();
 
         let radioSpan = document.createElement('span');
@@ -430,6 +464,19 @@ function setRadioButtonText(ElId) {
     buttonLabel.innerText = ' ' + actualButton.value;
 
     document.getElementById('set-element').classList.toggle('show-me');
+}
+
+function setupTextArea(textAreaEl)
+{
+    let qbucket = textAreaEl.closest('.questionBucket');
+    let qText = qbucket.getElementsByClassName('questionText')[0].innerText;
+
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
+
+    textAreaEl.name = qText;
 }
 
 var area1;
@@ -581,6 +628,16 @@ function setSelectBox(selectBtnId, selectorId) {
     let popup = document.getElementById('set-element');
     //let area1Inputs = document.getElementById('area-1').getElementsByTagName('input');
     //let area2Inputs = document.getElementById('area-2').getElementsByTagName('input');
+    
+    let qBucketEl = selector.closest('.questionBucket');
+    let qText = qBucketEl.getElementsByClassName('questionText')[0].innerText;
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
+    
+    qBucketEl.getElementsByTagName('input')[0].name = qText;
+
     let selectInputs = popup.getElementsByTagName("input");
     for (let i = 0; i < selectInputs.length; i++) {
         if (selectInputs[i].type.toLowerCase() == "text") {
@@ -703,18 +760,21 @@ function setSelectBoxChange(ElId) {
     popup.classList.toggle('show-me');
 }
 
-function setupTextArea(textAreaEl)
-{
-    textAreaEl.name = textAreaEl.name + textareaCNT;
-    textAreaEl[textareaCNT] = {'name':textAreaEl.name,'type':'text','size':65535};
-}
-
 function setupDatePicker(datepickerConEl) {
-    var datepickerEl = datepickerConEl.children[0];
+    let datepickerEl = datepickerConEl.children[0];
+
+    let qbucket = datepickerConEl.closest('.questionBucket');
+    let qText = qbucket.getElementsByClassName('questionText')[0].innerText;
+
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
+
     datepickerEl.value = '';
     datepickerEl.dataset.target = datepickerEl.dataset.target + datepickerCNT;
     datepickerEl.id = datepickerEl.id + datepickerCNT;
-    datepickerEl.setAttribute('name', datepickerEl.id);
+    datepickerEl.setAttribute('name', qText);
 
     var script = document.createElement('script');
     script.type = 'text/javascript';
@@ -723,11 +783,20 @@ function setupDatePicker(datepickerConEl) {
 }
 
 function setupTimePicker(timepickerConEl) {
-    var timepickerEl = timepickerConEl.children[0];
+    let timepickerEl = timepickerConEl.children[0];
+    
+    let qbucket = timepickerConEl.closest('.questionBucket');
+    let qText = qbucket.getElementsByClassName('questionText')[0].innerText;
+
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
+
     timepickerEl.value = '';
     timepickerEl.dataset.target = timepickerEl.dataset.target + timepickerCNT;
     timepickerEl.id = timepickerEl.id + timepickerCNT;
-    timepickerEl.setAttribute('name', timepickerEl.id);
+    timepickerEl.setAttribute('name', qText);
 
     var script = document.createElement('script');
     script.type = 'text/javascript';
@@ -736,11 +805,19 @@ function setupTimePicker(timepickerConEl) {
 }
 
 function setupAttachment(attachmentConEl) {
-    var attachmentEl = attachmentConEl.children[0];
-    var attachmentLabel = attachmentConEl.children[1];
+    let attachmentEl = attachmentConEl.children[0];
+    let attachmentLabel = attachmentConEl.children[1];
+
+    let qbucket = attachmentConEl.closest('.questionBucket');
+    let qText = qbucket.getElementsByClassName('questionText')[0].innerText;
+
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
 
     attachmentEl.id = attachmentEl.id + attachmentCNT;
-    attachmentEl.setAttribute('name', attachmentEl.id);
+    attachmentEl.setAttribute('name', qText);
     attachmentLabel.id = attachmentLabel.id + attachmentCNT;
     attachmentLabel.htmlFor = attachmentEl.id;
     attachmentEl.value = '';
@@ -772,29 +849,39 @@ function bulkInput(elType, elId) {
 }
 
 function processBulkInput(elType, elId) {
-    var bulkText = document.getElementById('bulkText');
-    var bulkItems = bulkText.value.split(";")
-    var el = document.getElementById(elId);
+    let bulkText = document.getElementById('bulkText');
+    let bulkItems = bulkText.value.split(";")
+    let el = document.getElementById(elId);
+
+    let qBucketEl = el.closest('.questionBucket');
+    let qText = qBucketEl.getElementsByClassName('questionText')[0].innerText;
+    qText = qText.replace(/[^\w\s]|_/g, '')
+        .replace(/\r?\n|\r/g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/ /g, '_');
 
     switch (elType) {
         case "selectbox": {
-            var selectEl =document.getElementById('selectbox-button' + selectboxCNT);
+            qBucketEl.getElementsByTagName('input')[0].name = qText;
+            let selectEl =document.getElementById('selectbox-button' + selectboxCNT);
             selectEl.innerHTML = bulkItems[0] + '<span class="chevron bottom"></span>';
 
-            for(var i = 0; i < bulkItems.length; i++) {
+            for(let i = 0; i < bulkItems.length; i++) {
                 if (bulkItems[i] == '') {
                     continue;
                 }
-                var newOption = document.createElement('div');
+                let newOption = document.createElement('div');
                 newOption.classList.add('option');
                 newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
                 newOption.innerHTML = bulkItems[i].trim();
                 el.appendChild(newOption);
             }
+
+            el.parentElement.classList.add('qBucket-el-cont');
+            addButtons(el.parentElement, 'edit-selectbox' + selectboxCNT);
+            document.getElementById('set-element').classList.toggle("show-me");
+
             break;
         }
     }
-    el.parentElement.classList.add('qBucket-el-cont');
-    addButtons(el.parentElement, 'edit-selectbox' + selectboxCNT);
-    document.getElementById('set-element').classList.toggle("show-me");
 }
