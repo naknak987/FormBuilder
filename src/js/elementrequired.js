@@ -7,7 +7,8 @@ function trigger(list, ev) {
     document.getElementById(list).classList.toggle('show-me');
 }
 
-function selected(selected, button, inputElId, items) {
+function selected(selected, button, inputElId, items, ev) {
+    ev.stopPropagation();
     document.getElementById(button).innerHTML = selected.innerHTML + '<span class="chevron bottom"></span>';
     document.getElementById(inputElId).value = selected.innerHTML;
     //trigger(items);
