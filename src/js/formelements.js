@@ -177,7 +177,7 @@ function setupQuestionBucket(bucketEl) {
     + '     <div class="close" id="exitpopup" onclick="ClosePopup(\'' + bucketEl.id + '\')"></div>'
     + '     <h4>Setup New Question</h4>'
     + '     <br>'
-    + '     <p>Ask your question. What you enter here will become the question text.</p>'
+    + '     <p>Ask your question. What you enter here will become the question text. The question text can only be 64 characters including white space.</p>'
     + '     <br>'
     + '     <input type="text" id="textQuestion" class="form-control" maxlength="64">'
     + '     <br>'
@@ -219,7 +219,7 @@ function changeQuestionText(El) {
     + '     <div class="close" id="exitpopup" onclick="document.getElementById(\'set-element\').classList.toggle(\'show-me\');"></div>'
     + '     <h4>Setup New Question</h4>'
     + '     <br>'
-    + '     <p>Ask your question. What you enter here will become the question text.</p>'
+    + '     <p>Ask your question. What you enter here will become the question text. The question text can only be 64 characters including white space.</p>'
     + '     <br>'
     + '     <input type="text" id="textQuestion" class="form-control" maxlength="64">'
     + '     <br>'
@@ -323,9 +323,8 @@ function setCheckbox(checkboxID) {
     
         checkbox = document.createElement('input');
         checkbox.type = "checkbox";
-        checkbox.name =  checkBoxText[i].trim();
-        checkbox.name = checkbox.name.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
-        checkbox.value = qText + '|' + checkBoxText[i].trim();
+        checkbox.name = qText;
+        checkbox.value = checkBoxText[i].trim();
 
         let label = document.createElement('span');
         label.innerText = " " + checkBoxText[i].trim();
@@ -365,15 +364,15 @@ function setCheckboxText(ElId) {
     document.getElementById(ElId).getElementsByTagName('span')[0].innerText = ' ' + newText;
     let input = document.getElementById(ElId).getElementsByTagName('input')[0];
     
-    let qbucket = input.closest('.questionBucket');
+    /* let qbucket = input.closest('.questionBucket');
     let qText = qbucket.getElementsByClassName('questionText')[0].innerText;
     qText = qText.replace(/[^\w\s]|_/g, '')
         .replace(/\r?\n|\r/g, '')
         .replace(/\s+/g, ' ')
-        .replace(/ /g, '_');
+        .replace(/ /g, '_'); */
 
-    input.name = newText.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
-    input.value = qText + '|' + newText;
+    //input.name = newText.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
+    input.value = newText;
     document.getElementById('set-element').classList.toggle('show-me');
 }
 
@@ -646,7 +645,7 @@ function setSelectBox(selectBtnId, selectorId) {
             }
             let newOption = document.createElement('div');
             newOption.classList.add('option');
-            newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
+            newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\', event)');
             newOption.innerHTML = selectInputs[i].value;
             selector.appendChild(newOption);
         }
@@ -752,7 +751,7 @@ function setSelectBoxChange(ElId) {
         }
         let newDiv = document.createElement('div');
         newDiv.classList.add('option');
-        newDiv.setAttribute('onclick', 'selected(this, \'' + selectorBTN.id + '\', \'' + selectInput.id + '\', \'' + selector.id + '\')');
+        newDiv.setAttribute('onclick', 'selected(this, \'' + selectorBTN.id + '\', \'' + selectInput.id + '\', \'' + selector.id + '\', event)');
         newDiv.innerText = inputs[i].value;
 
         selector.appendChild(newDiv);

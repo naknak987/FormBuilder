@@ -502,6 +502,7 @@ function ExportForm() {
             rowEls[i].removeAttribute('ondragover');
             rowEls[i].removeAttribute('ondragenter');
             rowEls[i].removeAttribute('ondragleave');
+            rowEls[i].removeAttribute('style');
         }
         let colEls = formAreaEl.getElementsByClassName('col');
         for (let i = 0; i < colEls.length; i++) {
@@ -509,6 +510,7 @@ function ExportForm() {
             colEls[i].removeAttribute('ondragover');
             colEls[i].removeAttribute('ondragenter');
             colEls[i].removeAttribute('ondragleave');
+            colEls[i].removeAttribute('style');
         }
         let qEls = formAreaEl.getElementsByClassName('questionBucket');
         for (let i = 0; i < qEls.length; i++) {
@@ -516,8 +518,17 @@ function ExportForm() {
             qEls[i].removeAttribute('ondragstart');
             qEls[i].removeAttribute('ondrop');
             qEls[i].removeAttribute('ondragover');
+            qEls[i].removeAttribute('data-edit');
+            qEls[i].removeAttribute('data-type');
         }
-        let definition = buildDefinition(qEls);
+        let edits = formAreaEl.getElementsByClassName('edit');
+        for (let i = 0; i < edits.length; i++) {
+            edits[i].remove();
+        }
+        let qEdits = formAreaEl.getElementsByClassName('qEdit');
+        for (let i = 0; i < qEdits.length; i++) {
+            qEdits[i].remove();
+        }
         let formHTML = formAreaEl.innerHTML;
         while (formHTML.includes(' draggable="true"'))
         {
@@ -531,6 +542,7 @@ function ExportForm() {
         {
             formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
         }
+        let definition = buildDefinition(qEls);
         let retVal = {
             'name':formName,
             'html':formHTML,
@@ -561,7 +573,7 @@ function buildDefinition(qEls) {
         let textareas = qEls[q].getElementsByTagName('textarea');
         let inputs = qEls[q].getElementsByTagName('input');
         if (textareas.length != 0) {
-            textareaDef.push({'name':qText, 'type':'string', 'size':65535})
+            textareaDef.push({'name':qText, 'type':'text', 'size':65535})
         } else if (inputs.length != 0) {
             for (let i = 0; i < inputs.length; i++) {
                 if (inputs[i].id.indexOf('selected-value') != -1) {
@@ -571,10 +583,7 @@ function buildDefinition(qEls) {
                     radioDef.push({'name':qText, 'type':'string', 'size':200});
                     break;
                 } else if (inputs[i].getAttribute('type') == 'checkbox') {
-                    if (i == 0) {
-                        checkDef.push({'question':qText});
-                    }
-                    checkDef.push({'name':inputs[i].getAttribute['name'], 'type':'boolean', 'size':1});
+                    checkDef.push({'name':qText, 'type':'checkbox', 'size':200});
                 } else if (inputs[i].getAttribute('type') == 'text') {
                     if (inputs[i].id.indexOf('text-box') != -1) {
                         textboxDef.push({'name':qText, 'type':'string', 'size':200});
@@ -587,7 +596,7 @@ function buildDefinition(qEls) {
                         break;
                     }
                 } else if (inputs[i].getAttribute('type') == 'file') {
-                    fileDef.push({'name':qText, 'type':'file'});
+                    fileDef.push({'name':qText, 'type':'data'});
                     break;
                 }
             }
@@ -602,7 +611,7 @@ function buildDefinition(qEls) {
         'selectbox':selectDef,
         'date':dateDef,
         'time':timeDef,
-        'file':fileDef
+        'data':fileDef
     };
 
     return retArr;
