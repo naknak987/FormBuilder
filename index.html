@@ -114,8 +114,8 @@
                                         <div class="selector-button mb-2" id="selectbox-button" onclick="trigger('selectbox', event)">A Dropdown<span class="chevron bottom"></span></div>
                                         <input type="hidden" name="selected-value" id="selected-value" />
                                         <div id="selectbox" class="selector p-0 m-0">
-                                            <div class="option" onclick="selected(this, 'selectbox-button', 'selected-value', 'selectbox')">Option A</div>
-                                            <div class="option" onclick="selected(this, 'selectbox-button', 'selected-value', 'selectbox')">Option B</div>
+                                            <div class="option" onclick="selected(this, 'selectbox-button', 'selected-value', 'selectbox', event)">Option A</div>
+                                            <div class="option" onclick="selected(this, 'selectbox-button', 'selected-value', 'selectbox', event)">Option B</div>
                                         </div>
                                     </div>
                                     <textarea name="textarea" id="textarea" cols="30" rows="2" class="form-control mt-2 mb-2" draggable="true" ondragstart="drag(event)">Text Area</textarea>
