@@ -323,8 +323,9 @@ function setCheckbox(checkboxID) {
     
         checkbox = document.createElement('input');
         checkbox.type = "checkbox";
-        checkbox.name = qText;
-        checkbox.value = checkBoxText[i].trim();
+        checkbox.name = checkBoxText[i].trim();
+        checkbox.name = checkbox.name.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
+        checkbox.value = qText + "|" + checkBoxText[i].trim();
 
         let label = document.createElement('span');
         label.innerText = " " + checkBoxText[i].trim();
@@ -364,15 +365,15 @@ function setCheckboxText(ElId) {
     document.getElementById(ElId).getElementsByTagName('span')[0].innerText = ' ' + newText;
     let input = document.getElementById(ElId).getElementsByTagName('input')[0];
     
-    /* let qbucket = input.closest('.questionBucket');
+    let qbucket = input.closest('.questionBucket');
     let qText = qbucket.getElementsByClassName('questionText')[0].innerText;
     qText = qText.replace(/[^\w\s]|_/g, '')
         .replace(/\r?\n|\r/g, '')
         .replace(/\s+/g, ' ')
-        .replace(/ /g, '_'); */
+        .replace(/ /g, '_');
 
-    //input.name = newText.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
-    input.value = newText;
+    input.name = newText.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
+    input.value = qText + "|" + newText;
     document.getElementById('set-element').classList.toggle('show-me');
 }
 
