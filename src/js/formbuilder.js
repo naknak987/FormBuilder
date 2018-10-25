@@ -522,11 +522,11 @@ function ExportForm() {
             qEls[i].removeAttribute('data-type');
         }
         let edits = formAreaEl.getElementsByClassName('edit');
-        for (let i = 0; i < edits.length; i++) {
+        for (let i = 0; i < edits.length;) {
             edits[i].remove();
         }
         let qEdits = formAreaEl.getElementsByClassName('qEdit');
-        for (let i = 0; i < qEdits.length; i++) {
+        for (let i = 0; i < qEdits.length;) {
             qEdits[i].remove();
         }
         let formHTML = formAreaEl.innerHTML;
