@@ -583,7 +583,7 @@ function buildDefinition(qEls) {
                     radioDef.push({'name':qText, 'type':'string', 'size':200});
                     break;
                 } else if (inputs[i].getAttribute('type') == 'checkbox') {
-                    checkDef.push({'name':qText, 'type':'checkbox', 'size':200});
+                    checkDef.push({'name':qText, 'value':inputs[i].getAttribute('name'), 'type':'checkbox', 'size':200});
                 } else if (inputs[i].getAttribute('type') == 'text') {
                     if (inputs[i].id.indexOf('text-box') != -1) {
                         textboxDef.push({'name':qText, 'type':'string', 'size':200});
