@@ -529,6 +529,22 @@ function ExportForm() {
         for (let i = 0; i < qEdits.length;) {
             qEdits[i].remove();
         }
+        rowEls = formAreaEl.getElementsByClassName('row');
+        for (let i = 0; i < rowEls.length; i++) {
+            let newColClass = "";
+            let colEls = rowEls[i].getElementsByClassName('col');
+            if (colEls.length == 2) {
+                newColClass = 'col-lg';
+            } else if (colEls.length >= 3) {
+                newColClass = 'col-xl';
+            } else {
+                continue;
+            }
+            for (let ii = 0; ii < colEls.length; ii++) {
+                colEls[ii].classList.add(newColClass);
+                colEls[ii].classList.remove('col');
+            }
+        }
         let formHTML = formAreaEl.innerHTML;
         while (formHTML.includes(' draggable="true"'))
         {
