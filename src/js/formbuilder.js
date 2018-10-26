@@ -521,32 +521,36 @@ function ExportForm() {
             qEls[i].removeAttribute('data-edit');
             qEls[i].removeAttribute('data-type');
         }
-        let edits = formAreaEl.getElementsByClassName('edit');
+        /* let edits = formAreaEl.getElementsByClassName('edit');
         for (let i = 0; i < edits.length;) {
             edits[i].remove();
         }
         let qEdits = formAreaEl.getElementsByClassName('qEdit');
         for (let i = 0; i < qEdits.length;) {
             qEdits[i].remove();
-        }
+        } */
         rowEls = formAreaEl.getElementsByClassName('row');
         for (let i = 0; i < rowEls.length; i++) {
-            let newColClass = "";
+            
             let colEls = rowEls[i].getElementsByClassName('col');
             if (colEls.length == 2) {
-                newColClass = 'col-lg';
+                for (let ii = 0; ii < colEls.length;) {
+                    colEls[ii].classList.add('col-lg');
+                    colEls[ii].classList.remove('col');
+                }
+
             } else if (colEls.length >= 3) {
-                newColClass = 'col-xl';
+                for (let ii = 0; ii < colEls.length;) {
+                    colEls[ii].classList.add('col-xl');
+                    colEls[ii].classList.remove('col');
+                }
+
             } else {
                 continue;
             }
-            for (let ii = 0; ii < colEls.length; ii++) {
-                colEls[ii].classList.add(newColClass);
-                colEls[ii].classList.remove('col');
-            }
         }
         let formHTML = formAreaEl.innerHTML;
-        while (formHTML.includes(' draggable="true"'))
+        /* while (formHTML.includes(' draggable="true"'))
         {
             formHTML = formHTML.replace(' draggable="true"', '');
         }
@@ -557,11 +561,11 @@ function ExportForm() {
         while (formHTML.includes('<i style="color:lightgray;">This space intentionally left blank!</i>'))
         {
             formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
-        }
+        } */
         let definition = buildDefinition(qEls);
         let retVal = {
-            'name':formName,
-            'html':formHTML,
+            'name':formName.trim(),
+            'html':formHTML.trim(),
             'definition':definition
         };
         return JSON.stringify(retVal);
@@ -619,6 +623,7 @@ function buildDefinition(qEls) {
         }
     }
 
+
     let retArr = {
         'textbox':textboxDef,
         'textarea':textareaDef,
@@ -627,8 +632,89 @@ function buildDefinition(qEls) {
         'selectbox':selectDef,
         'date':dateDef,
         'time':timeDef,
-        'data':fileDef
+        'data':fileDef,
+        'counts': {
+            'titleCNT':titleCNT,
+            'textCNT':textCNT,
+            'headingCNT':headingCNT,
+            'labelCNT':labelCNT,
+            'blankSpaceCNT':blankSpaceCNT,
+            'questionBucketCNT':questionBucketCNT,
+            'textBoxCNT':textBoxCNT,
+            'checkboxCNT':checkboxCNT,
+            'radiobuttonCNT':radiobuttonCNT,
+            'selectboxCNT':selectboxCNT,
+            'textareaCNT':textareaCNT,
+            'datepickerCNT':datepickerCNT,
+            'timepickerCNT':timepickerCNT,
+            'attachmentCNT':attachmentCNT,
+            'rowCNT':rowCNT,
+            'colCNT':colCNT
+        }
     };
 
     return retArr;
+}
+
+function loadForm(formAreaEl) {
+
+    let rowEls = formAreaEl.getElementsByClassName('row');
+
+    for (let i = 0; i < rowEls.length; i++) {
+
+        rowEls[i].insertAdjacentHTML('beforebegin', emptyrow);
+        incrementRowNum();
+
+        rowEls[i].setAttribute('ondrop', 'rowDrop(event, this)');
+        rowEls[i].setAttribute('ondragover', 'allowDrop(event)');
+        rowEls[i].setAttribute('ondragenter', 'this.style.padding=\1px 24px 24px 1px\'');
+        rowEls[i].setAttribute('ondragleave', 'this.style.padding=\1px 12px 12px 1px\'');
+        //rowEls[i].setAttribute('style', );
+        
+        let rowCols = rowEls[i].getElementsByClassName('col');
+        let rowColsLg = rowEls[i].getElementsByClassName('col-lg');
+        let rowColsXl = rowEls[i].getElementsByClassName('col-xl');
+
+        for (let ii = 0; ii < rowCols.length; ii++) {
+
+            rowCols[ii].insertAdjacentHTML('beforebegin', emptycol);
+            incrementColNum();
+
+            rowCols[ii].setAttribute('ondrop', 'rowDrop(event, this)');
+            rowCols[ii].setAttribute('ondragover', 'allowDrop(event)');
+            rowCols[ii].setAttribute('ondragenter', 'this.style.padding=\1px 24px 24px 1px\'');
+            rowCols[ii].setAttribute('ondragleave', 'this.style.padding=\1px 12px 12px 1px\'');
+            //rowCols[ii].setAttribute('style', );
+        }
+
+        for (let ii = 0; ii < rowColsLg.length;) {
+
+            rowColsLg[ii].insertAdjacentHTML('beforebegin', emptycol);
+            incrementColNum();
+
+            rowColsLg[ii].setAttribute('ondrop', 'rowDrop(event, this)');
+            rowColsLg[ii].setAttribute('ondragover', 'allowDrop(event)');
+            rowColsLg[ii].setAttribute('ondragenter', 'this.style.padding=\1px 24px 24px 1px\'');
+            rowColsLg[ii].setAttribute('ondragleave', 'this.style.padding=\1px 12px 12px 1px\'');
+            //rowColsLg[ii].setAttribute('style', );
+
+            rowColsLg[ii].classList.add('col');
+            rowColsLg[ii].classList.remove('col-lg');
+        }
+
+        for (let ii = 0; ii < rowColsXl.length;) {
+
+            rowColsXl[ii].insertAdjacentHTML('beforebegin', emptycol);
+            incrementColNum();
+
+            rowColsXl[ii].setAttribute('ondrop', 'rowDrop(event, this)');
+            rowColsXl[ii].setAttribute('ondragover', 'allowDrop(event)');
+            rowColsXl[ii].setAttribute('ondragenter', 'this.style.padding=\1px 24px 24px 1px\'');
+            rowColsXl[ii].setAttribute('ondragleave', 'this.style.padding=\1px 12px 12px 1px\'');
+            //rowColsXl[ii].setAttribute('style', );
+
+            rowColsXl[ii].classList.add('col');
+            rowColsXl[ii].classList.remove('col-xl');
+        }
+    }
 }
