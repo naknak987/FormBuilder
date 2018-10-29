@@ -872,7 +872,7 @@ function processBulkInput(elType, elId) {
                 }
                 let newOption = document.createElement('div');
                 newOption.classList.add('option');
-                newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\')');
+                newOption.setAttribute('onclick', 'selected(this, \'selectbox-button' + selectboxCNT + '\', \'selected-value' + selectboxCNT + '\', \'selectbox' + selectboxCNT + '\', event)');
                 newOption.innerHTML = bulkItems[i].trim();
                 el.appendChild(newOption);
             }
