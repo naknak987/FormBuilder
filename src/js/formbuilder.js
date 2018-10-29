@@ -557,11 +557,11 @@ function ExportForm() {
         while (formHTML.includes(' ondragstart="drag(event)"'))
         {
             formHTML = formHTML.replace(' ondragstart="drag(event)"', '');
-        }
+        } */
         while (formHTML.includes('<i style="color:lightgray;">This space intentionally left blank!</i>'))
         {
             formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
-        } */
+        }
         let definition = buildDefinition(qEls);
         let retVal = {
             'name':formName.trim(),
