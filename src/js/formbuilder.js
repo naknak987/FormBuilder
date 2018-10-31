@@ -486,6 +486,14 @@ function ExportForm() {
         setTimeout(function(){ 
             popup.classList.toggle("show-me"); 
             popup.click();
+        }, 4000);
+    } else if (document.getElementById('helpers').innerText == "Hide Helpers") {
+        popup.innerHTML = "Helpers must be hidden to save the form!<br>Please click the hide helpers button and then try saving again.";
+        popup.classList.toggle("show-me");
+        popup.scrollIntoView(true);
+        setTimeout(function(){ 
+            popup.classList.toggle("show-me"); 
+            popup.click();
         }, 4000); 
     } else {
         let emptyRows = formAreaEl.getElementsByClassName('emptyrow');
@@ -549,6 +557,10 @@ function ExportForm() {
                 continue;
             }
         }
+        let helpers = formAreaEl.getElementsByClassName('nohelpers');
+        for (let i = 0; i < helpers.length;) {
+            helpers[i].classList.remove('nohelpers');
+        }
         let formHTML = formAreaEl.innerHTML;
         /* while (formHTML.includes(' draggable="true"'))
         {
@@ -563,10 +575,16 @@ function ExportForm() {
             formHTML = formHTML.replace('<i style="color:lightgray;">This space intentionally left blank!</i>', '');
         }
         let definition = buildDefinition(qEls);
+
+        let prevVersion = document.getElementById('previous-form');
+        if (prevVersion != null) {
+            prevVersion = prevVersion.value;
+        }
         let retVal = {
             'name':formName.trim(),
             'html':formHTML.trim(),
-            'definition':definition
+            'definition':definition,
+            'previous':prevVersion
         };
         return JSON.stringify(retVal);
     }
@@ -667,8 +685,8 @@ function loadForm(formAreaEl) {
 
         rowEls[i].setAttribute('ondrop', 'rowDrop(event, this)');
         rowEls[i].setAttribute('ondragover', 'allowDrop(event)');
-        rowEls[i].setAttribute('ondragenter', 'this.style.padding=\1px 24px 24px 1px\'');
-        rowEls[i].setAttribute('ondragleave', 'this.style.padding=\1px 12px 12px 1px\'');
+        rowEls[i].setAttribute('ondragenter', 'this.style.padding=\'1px 24px 24px 1px\'');
+        rowEls[i].setAttribute('ondragleave', 'this.style.padding=\'1px 12px 12px 1px\'');
         //rowEls[i].setAttribute('style', );
         
         let rowCols = rowEls[i].getElementsByClassName('col');
@@ -682,8 +700,8 @@ function loadForm(formAreaEl) {
 
             rowCols[ii].setAttribute('ondrop', 'rowDrop(event, this)');
             rowCols[ii].setAttribute('ondragover', 'allowDrop(event)');
-            rowCols[ii].setAttribute('ondragenter', 'this.style.padding=\1px 24px 24px 1px\'');
-            rowCols[ii].setAttribute('ondragleave', 'this.style.padding=\1px 12px 12px 1px\'');
+            rowCols[ii].setAttribute('ondragenter', 'this.style.padding=\'1px 24px 24px 1px\'');
+            rowCols[ii].setAttribute('ondragleave', 'this.style.padding=\'1px 12px 12px 1px\'');
             //rowCols[ii].setAttribute('style', );
         }
 
@@ -694,8 +712,8 @@ function loadForm(formAreaEl) {
 
             rowColsLg[ii].setAttribute('ondrop', 'rowDrop(event, this)');
             rowColsLg[ii].setAttribute('ondragover', 'allowDrop(event)');
-            rowColsLg[ii].setAttribute('ondragenter', 'this.style.padding=\1px 24px 24px 1px\'');
-            rowColsLg[ii].setAttribute('ondragleave', 'this.style.padding=\1px 12px 12px 1px\'');
+            rowColsLg[ii].setAttribute('ondragenter', 'this.style.padding=\'1px 24px 24px 1px\'');
+            rowColsLg[ii].setAttribute('ondragleave', 'this.style.padding=\'1px 12px 12px 1px\'');
             //rowColsLg[ii].setAttribute('style', );
 
             rowColsLg[ii].classList.add('col');
@@ -709,8 +727,8 @@ function loadForm(formAreaEl) {
 
             rowColsXl[ii].setAttribute('ondrop', 'rowDrop(event, this)');
             rowColsXl[ii].setAttribute('ondragover', 'allowDrop(event)');
-            rowColsXl[ii].setAttribute('ondragenter', 'this.style.padding=\1px 24px 24px 1px\'');
-            rowColsXl[ii].setAttribute('ondragleave', 'this.style.padding=\1px 12px 12px 1px\'');
+            rowColsXl[ii].setAttribute('ondragenter', 'this.style.padding=\'1px 24px 24px 1px\'');
+            rowColsXl[ii].setAttribute('ondragleave', 'this.style.padding=\'1px 12px 12px 1px\'');
             //rowColsXl[ii].setAttribute('style', );
 
             rowColsXl[ii].classList.add('col');
