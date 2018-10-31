@@ -622,7 +622,7 @@ function setSelectBox(selectBtnId, selectorId) {
     let btnContainer = btnEl.parentElement;
     btnContainer.classList.add('qBucket-el-cont');
 
-    btnEl.innerHTML = document.getElementById('selectName').value + '<span class="chevron bottom"></span>';
+    btnEl.innerHTML = 'Click to Select' /* document.getElementById('selectName').value */ + '<span class="chevron bottom"></span>';
     let selector = document.getElementById(selectorId);
 
     let popup = document.getElementById('set-element');
@@ -864,7 +864,7 @@ function processBulkInput(elType, elId) {
         case "selectbox": {
             qBucketEl.getElementsByTagName('input')[0].name = qText;
             let selectEl =document.getElementById('selectbox-button' + selectboxCNT);
-            selectEl.innerHTML = bulkItems[0] + '<span class="chevron bottom"></span>';
+            selectEl.innerHTML = 'Click to Select' + '<span class="chevron bottom"></span>';
 
             for(let i = 0; i < bulkItems.length; i++) {
                 if (bulkItems[i] == '') {
