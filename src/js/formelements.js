@@ -324,7 +324,7 @@ function setCheckbox(checkboxID) {
         checkbox = document.createElement('input');
         checkbox.type = "checkbox";
         checkbox.name = checkBoxText[i].trim();
-        checkbox.name = checkbox.name.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_') + checkboxID;
+        checkbox.name = checkbox.name.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_') + newDiv.id;
         checkbox.value = qText + "|" + checkBoxText[i].trim();
 
         let label = document.createElement('span');
@@ -419,7 +419,7 @@ function setRadioButton(radioID) {
         newDiv.setAttribute('ondragstart', 'drag(event)');
         radioEl = document.createElement('input');
         radioEl.type = 'radio';
-        radioEl.name = qText + radioID;
+        radioEl.name = qText + newDiv.id;
         radioEl.value = radioButtonText[i].trim();
 
         let radioSpan = document.createElement('span');
