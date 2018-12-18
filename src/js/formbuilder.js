@@ -73,7 +73,16 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
+    if (ev.target.parentElement.classList.contains('lighten')
+        || document.getElementById('right-window').contains(ev.target)
+        || (
+            !document.getElementById('form-area').classList.contains('darken') 
+            && !ev.target.parentElement.classList.contains('questionBucket')
+        )
+    ) {
+        
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
 }
 
 function drop(ev, el) {
@@ -81,7 +90,7 @@ function drop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    if (qElements.indexOf(data) == -1) {
+    if (data != '' && qElements.indexOf(data) == -1) {
         ev.target.insertAdjacentHTML('beforeend', emptyrow);
         incrementRowNum();
     
@@ -108,7 +117,7 @@ function rowDrop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     
-    if (qElements.indexOf(data) == -1) {
+    if (data != '' && qElements.indexOf(data) == -1) {
         if (el.classList.contains('emptyrow')) {
             el.insertAdjacentHTML('beforebegin', emptyrow);
             incrementRowNum();
@@ -140,7 +149,7 @@ function colDrop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    if (qElements.indexOf(data) == -1) {
+    if (data != '' && qElements.indexOf(data) == -1) {
         if (el.classList.contains('emptycol')) {
             var elBefore = el.previousSibling;
             if ((elBefore === null) || (elBefore.classList.contains('col'))) {
@@ -177,38 +186,43 @@ function questionDrop(ev, el) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    if (el.hasAttribute('data-type')){
-        let elType = el.getAttribute('data-type');
-        if (elType != data) {
-            // not allowed, input types don't match
-            return;
-        } else if (elType != 'checkbox' && elType != 'radiobutton') {
-            return;
+    if (data != '') {
+        if (el.hasAttribute('data-type')){
+            let elType = el.getAttribute('data-type');
+            if (elType != data) {
+                // not allowed, input types don't match
+                return;
+            } else if (elType != 'checkbox' && elType != 'radiobutton') {
+                return;
+            }
+        } else {
+            el.setAttribute('data-type', data);
         }
-    } else {
-        el.setAttribute('data-type', data);
-    }
 
-    if ((qElements.indexOf(data) != -1) && (el.getAttribute('data-edit') == 'true')) {
-        var ClonedEl = document.getElementById(data).cloneNode(true);
-        
-        insertSecondary(el, ClonedEl);
+        if ((qElements.indexOf(data) != -1) && (el.getAttribute('data-edit') == 'true')) {
+            var ClonedEl = document.getElementById(data).cloneNode(true);
+            
+            insertSecondary(el, ClonedEl);
+        }
     }
 }
 
 function deleteElementOnDrop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    parentEl = document.getElementById(data).parentNode;
-    if ((elements.indexOf(data) == -1) && (qElements.indexOf(data) == -1)) { 
-        parentEl.removeChild(document.getElementById(data));
-        while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
-            var CurrentEl = parentEl;
-            parentEl = parentEl.parentNode;
-            if (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
-                CurrentEl.previousSibling.remove();
+
+    if (data != '') {
+        parentEl = document.getElementById(data).parentNode;
+        if ((elements.indexOf(data) == -1) && (qElements.indexOf(data) == -1)) { 
+            parentEl.removeChild(document.getElementById(data));
+            while ((parentEl.childElementCount == 0) && (parentEl.id != 'form-area')) {
+                var CurrentEl = parentEl;
+                parentEl = parentEl.parentNode;
+                if (CurrentEl.previousSibling !== null && (CurrentEl.previousSibling.classList.contains('emptycol') || CurrentEl.previousSibling.classList.contains('emptyrow'))) {
+                    CurrentEl.previousSibling.remove();
+                }
+                CurrentEl.remove();
             }
-            CurrentEl.remove();
         }
     }
 }
