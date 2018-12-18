@@ -245,7 +245,7 @@ function setupTextBox(El) {
         .replace(/\s+/g, ' ')
         .replace(/ /g, '_');
         
-    El.name = qText;
+    El.name = qText + qBucket.id; 
 }
 
 function setupBlankSpace(blankEl) {
@@ -324,7 +324,7 @@ function setCheckbox(checkboxID) {
         checkbox = document.createElement('input');
         checkbox.type = "checkbox";
         checkbox.name = checkBoxText[i].trim();
-        checkbox.name = checkbox.name.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
+        checkbox.name = checkbox.name.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_') + checkboxID;
         checkbox.value = qText + "|" + checkBoxText[i].trim();
 
         let label = document.createElement('span');
@@ -372,7 +372,7 @@ function setCheckboxText(ElId) {
         .replace(/\s+/g, ' ')
         .replace(/ /g, '_');
 
-    input.name = newText.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_');
+    input.name = newText.replace(/[^\w\s]|_/g, '').replace(/\r?\n|\r/g, '').replace(/\s+/g, ' ').replace(/ /g, '_') + ElId;
     input.value = qText + "|" + newText;
     document.getElementById('set-element').classList.toggle('show-me');
 }
@@ -419,7 +419,7 @@ function setRadioButton(radioID) {
         newDiv.setAttribute('ondragstart', 'drag(event)');
         radioEl = document.createElement('input');
         radioEl.type = 'radio';
-        radioEl.name = qText;
+        radioEl.name = qText + radioID;
         radioEl.value = radioButtonText[i].trim();
 
         let radioSpan = document.createElement('span');
@@ -476,7 +476,7 @@ function setupTextArea(textAreaEl)
         .replace(/\s+/g, ' ')
         .replace(/ /g, '_');
 
-    textAreaEl.name = qText;
+    textAreaEl.name = qText + textAreaEl.id;
 }
 
 var area1;
@@ -636,7 +636,7 @@ function setSelectBox(selectBtnId, selectorId) {
         .replace(/\s+/g, ' ')
         .replace(/ /g, '_');
     
-    qBucketEl.getElementsByTagName('input')[0].name = qText;
+    qBucketEl.getElementsByTagName('input')[0].name = qText + qBucketEl.id;
 
     let selectInputs = popup.getElementsByTagName("input");
     for (let i = 0; i < selectInputs.length; i++) {
@@ -862,7 +862,7 @@ function processBulkInput(elType, elId) {
 
     switch (elType) {
         case "selectbox": {
-            qBucketEl.getElementsByTagName('input')[0].name = qText;
+            qBucketEl.getElementsByTagName('input')[0].name = qText + qBucketEl.id;
             let selectEl =document.getElementById('selectbox-button' + selectboxCNT);
             selectEl.innerHTML = 'Click to Select' + '<span class="chevron bottom"></span>';
 
