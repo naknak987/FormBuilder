@@ -25,6 +25,10 @@ label {
     color: rgb(121, 121, 121);
     position: absolute;
     z-index: 2;
+    max-height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 .selector.show-me {
